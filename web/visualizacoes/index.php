@@ -1,0 +1,1 @@
+<?php header('location:'.URL_RAIZ_SITE.'/login'); exit();?>

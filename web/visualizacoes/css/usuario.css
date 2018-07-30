@@ -1,0 +1,23 @@
+
+body {
+    font-family: 'Roboto';
+}
+#form_cadastro_usuario .verificacao{
+  color: red;
+}
+#form_cadastro_usuario .bg-danger{
+  width: 25%;
+}
+#form_cadastro_usuario .bg-warning{
+ width: 65%;
+}
+#form_cadastro_usuario .bg-success{
+  width: 100%;
+}
+img{
+  width: 215px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+} 
