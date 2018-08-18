@@ -13,9 +13,9 @@
  * Configurações Gerais.
  */
 define('BD_USER','root');
-define('BD_PASS','patetas');
+define('BD_PASS','ORpfhGflwODqqUON');
 define('BD_HOST' ,'localhost');
-define('BD_NAME','chute_certo');
+define('BD_NAME','pelada');
 if (!defined('BD_DEBUG')) {
     define('BD_DEBUG', false);
 }
@@ -26,7 +26,7 @@ if (!defined('BD_PERSISTENT')) {
 
 define('PATH_RAIZ' , dirname( __FILE__ ));
 # URL Raiz do Site.
-define('URL_RAIZ_SITE', 'http://chute_certo-millacnicolau554120.codeanyapp.com/web');
+define('URL_RAIZ_SITE', 'http://localhost/maispelada.com.br/web');
 # Título principal do Sistema.
 define("TITULO", "Chute Certo");
 

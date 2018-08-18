@@ -16,10 +16,17 @@
      <input name="id" value="" id="id_usuario" type="hidden" />
      <input name="acao" value="logar" id="acao_logar" type="hidden" />
      <button type="submit" class="btn btn-lg btn-success btn-block" id ="botao-entrar">Entrar</button>
-     <button type="button" class="btn btn-lg btn-success btn-block" id="botao-cadastrar">Cadastrar-se</button> 
     </fieldset>
   </form>
-  <div class="box_link"><a href="esqueciMinhaSenha">Esqueci minha senha</a></div>
+    <div class="box_link"><a href="esqueciMinhaSenha">Esqueci minha senha</a></div>
+  
+    <p class="dados-cadastro">
+        
+        <small>Não é cadastrado? 
+            <a href="usuario" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Entre com seu login">Clique aqui</a>
+        </small>
+    </p>
+  
 </div>
 
 

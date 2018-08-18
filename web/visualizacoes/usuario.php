@@ -32,19 +32,6 @@
             <label for="inputPassword" class="control-label">Confirme a senha</label>
             <input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm" required="" placeholder="Confirme a senha">
           </div>
-        
-          <div class="form-group">
-            <label for="selectPosicao">Posição</label>
-            <select class="form-control" id="posicao" name="posicao">
-             <option value="" selected>Selecione</option> 
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="selectTime">Time</label>
-            <select class="form-control" id="time" name="time">
-              <option value="" selected>Selecione</option> 
-            </select>
-          </div>
           <div class="form-group">
             <label for="radioSexo">Sexo</label>
             <input type="radio" name="sexo" value="feminino">Feminino</label>

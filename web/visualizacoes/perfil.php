@@ -39,22 +39,11 @@
             <label for="inputEmail" class="control-label">Email</label>
             <input id="emailUsuario" name="emailUsuario" class="form-control" placeholder="Digite seu E-mail" required="" type="email">
           </div>
-          <div class="form-group">
-            <label for="selectPosicao">Posição</label>
-            <select class="form-control" id="posicao" name="posicao">
-             <option value="" selected>Selecione</option> 
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="selectTime">Time</label>
-            <select class="form-control" id="time" name="time">
-              <option value="" selected>Selecione</option> 
-            </select>
-          </div>
+
           <div class="form-group">
             <label for="radioSexo">Sexo</label>
-            <input type="radio" name="sexo" id="feminino" value="feminino">Feminino</label>
-            <input type="radio" name="sexo" id="masculino" value="masculino">Masculino</label>
+            <input type="radio" name="sexo" id="feminino" value="f">Feminino</label>
+            <input type="radio" name="sexo" id="masculino" value="m">Masculino</label>
           </div>
           <input name="acao" value="atualizar" id="acao_usuario" type="hidden" />
           <button type="submit" class="btn btn-lg btn-success btn-default" id ="botao-salvar">Salvar</button>

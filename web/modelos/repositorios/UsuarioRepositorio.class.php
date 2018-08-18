@@ -20,7 +20,7 @@ class UsuarioRepositorio extends Usuario {
           $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
           $QueryBuilder
             ->select('*')
-            ->from('usuarios')
+            ->from('usuario')
             ->where('email = :email')
             ->setParameter(':email',$email)
           ;
@@ -38,7 +38,7 @@ class UsuarioRepositorio extends Usuario {
         try {
           $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
             $QueryBuilder
-              ->insert('usuarios')
+              ->insert('usuario')
                ->setValue('email', ':email')
                ->setValue('senha', ':senha')
                ->setValue('nome', ':nome')
@@ -55,7 +55,7 @@ class UsuarioRepositorio extends Usuario {
                ->setParameter(':fk_posicao', $Usuario->posicao)
                ->setParameter(':fk_time',$Usuario->timeFutebol)
                ->setParameter(':sexo', $Usuario->sexo)
-               ->setParameter(':urlImagem', $Usuario->urlImagem)
+               ->setParameter(':urlmagem', $Usuario->urlImagem)
                ->setParameter(':dataCriacao',$Usuario->dataCriacao)
                ->execute()
             ;  
@@ -80,27 +80,27 @@ class UsuarioRepositorio extends Usuario {
         try {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
-                ->update('usuarios')
+                ->update('usuario')
                 ->set('email', ':email')
                 ->set('senha', ':senha')
                 ->set('nome', ':nome')
                 ->set('apelido', ':apelido')
-                ->set('fk_posicao', ':fk_posicao')
-                ->set('fk_time', ':fk_time')
+//                ->set('fk_posicao', ':fk_posicao')
+//                ->set('fk_time', ':fk_time')
                 ->set('sexo', ':sexo')
-                ->set('urlImagem',':urlImagem')
-                ->set('dataAlteracao',':dataAlteracao')
+                ->set('url_imagem',':url_imagem')
+//                ->set('dataAlteracao',':dataAlteracao')
                 ->setParameter(':email', $Usuario->email)
                 ->setParameter(':senha', $Usuario->senha)
                 ->setParameter(':nome', $Usuario->nome)
                 ->setParameter(':apelido', $Usuario->apelido)
-                ->setParameter(':fk_posicao', $Usuario->posicao)
-                ->setParameter(':fk_time',$Usuario->timeFutebol)
+//                ->setParameter(':fk_posicao', $Usuario->posicao)
+//                ->setParameter(':fk_time',$Usuario->timeFutebol)
                 ->setParameter(':sexo', $Usuario->sexo)
-                ->setParameter(':urlImagem', $Usuario->urlImagem)
-                ->setParameter(':dataAlteracao',date("Y-m-d H:i:s"))
-                ->where('idUsuario = :idUsuario')
-                ->setParameter(':idUsuario', $Usuario->idUsuario)
+                ->setParameter(':url_imagem', $Usuario->urlImagem)
+//                ->setParameter(':dataAlteracao',date("Y-m-d H:i:s"))
+                ->where('id_usuario = :id_usuario')
+                ->setParameter(':id_usuario', $Usuario->idUsuario)
                 ->execute()
             ;
         } catch (\Exception $j) {
@@ -120,7 +120,7 @@ class UsuarioRepositorio extends Usuario {
         {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
-                ->update('usuarios')
+                ->update('usuario')
                 ->set('ativo', ':ativo')
                 ->setParameter(':ativo', 0, \PDO::PARAM_INT)
                 ->where('idUsuario = :idUsuario')

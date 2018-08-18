@@ -2,8 +2,8 @@ $(document).ready(function() {
 montaPerfil();
   $("#botao-editar").bind('click',function(){
       $("#perfil").hide();
-      montarPosicao();
-      montarTime();
+//      montarPosicao();
+//      montarTime();
        editarUsuario();
   });
   $('#botao-cancelar').bind('click',resetarFormulario);
@@ -60,7 +60,7 @@ function editarUsuario(){
       
       $("#posicao").val(retorno.posicao);
       $("#time").val(retorno.time);
-      if(retorno.sexo == "feminino"){
+      if(retorno.sexo == "f"){
         $("#feminino").prop('checked',true);
         $("#feminino").val(retorno.sexo);
       }else {

@@ -27,8 +27,8 @@ class PerfilControle extends ControlaModelos
               $saida['emailUsuario'] = $Usuario->email;
               $saida['apelidoUsuario'] = $Usuario->apelido;
               $saida['sexo'] = $Usuario->sexo;
-              $saida['posicao'] = $Usuario->posicao;
-              $saida['time'] = $Usuario->timeFutebol;
+//              $saida['posicao'] = $Usuario->posicao;
+//              $saida['time'] = $Usuario->timeFutebol;
          
               exit(json_encode($saida));
             } catch(Erro $E){
@@ -53,8 +53,8 @@ class PerfilControle extends ControlaModelos
             } else {
                 $file = false;
             }
-            $time = (int)$_POST['time'];
-            $posicao =  $_POST['posicao'];
+//            $time = (int)$_POST['time'];
+//            $posicao =  $_POST['posicao'];
     
             $UsuarioRepositorio = new UsuarioRepositorio();
             $Usuario = new Usuario($_SESSION['id_usuario_logado']);
@@ -64,8 +64,8 @@ class PerfilControle extends ControlaModelos
             $Usuario->apelido = $_POST['apelidoUsuario'];
             $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $_FILES['imagemUsuario']['name'] :$Usuario->urlImagem;
             $Usuario->sexo = $_POST['sexo'];
-            $Usuario->setTime(new Time($time));
-            $Usuario->setPosicao(new Posicao($posicao));
+//            $Usuario->setTime(new Time($time));
+//            $Usuario->setPosicao(new Posicao($posicao));
             $UsuarioRepositorio->atualizarUsuario($Usuario,$file);
 
             exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));

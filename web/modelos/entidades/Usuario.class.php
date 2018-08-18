@@ -51,20 +51,7 @@ class Usuario {
      * @var string
      */
     protected $sexo;
-    
-    /**
-     * Qual posição o usuário joga.
-     *
-     * @var string
-     */
-    protected $posicao;
-    
-    /**
-     * Qual o time que o usuario.
-     *
-     * @var string
-     */
-    protected $timeFutebol;
+   
     /**
      * Data em que foi criado o usuário.
      *
@@ -85,7 +72,8 @@ class Usuario {
      * @var bool
      */
     protected $ativo;
-   /**
+   
+    /**
     * Armazena url da imagem do usuário
     * @var string 
     */
@@ -101,25 +89,25 @@ class Usuario {
               $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
               $QueryBuilder
                   ->select('*')
-                  ->from('usuarios')
-                  ->where('idUsuario = ?')
+                  ->from('usuario')
+                  ->where('id_usuario = ?')
                   ->setParameter(0, $idUsuario, \PDO::PARAM_INT)
               ;
               $ObjDados = $QueryBuilder->execute()->fetch();
               if (!$ObjDados)
                   throw new Excecao("Registro de id ". $idUsuario . " não encontrado no banco de dados.");
 
-              $this->idUsuario = $ObjDados->idUsuario;
+              $this->idUsuario = $ObjDados->id_usuario;
               $this->email = $ObjDados->email;
               $this->senha = $ObjDados->senha;
               $this->nome = $ObjDados->nome;
               $this->apelido = $ObjDados->apelido;
-              $this->posicao = (int)$ObjDados->fk_posicao;
-              $this->timeFutebol = (int)$ObjDados->fk_time;
+//              $this->posicao = (int)$ObjDados->fk_posicao;
+//              $this->timeFutebol = (int)$ObjDados->fk_time;
               $this->sexo = $ObjDados->sexo;
-              $this->dataCriacao = $ObjDados->dataCriacao;
+              $this->dataCriacao = $ObjDados->data_criacao;
               $this->ativo = $ObjDados->ativo;
-              $this->urlImagem = $ObjDados->urlImagem;
+              $this->urlImagem = $ObjDados->url_imagem;
           } catch(Exception $ex){
             echo ('Erro ao instanciar classe Usuario id $idUsuario. '. $ex->getMessage());
           }
@@ -180,45 +168,5 @@ class Usuario {
                 echo ("Atributo '" . $atributo . "' desconhecido, privado ou inválido da classe '" . __CLASS__ . "'.");
             break;
         }
-    }
-     /**
-     * Define o time
-     *
-     * @param Time $Time
-     * @return void
-     */
-    public function setTime(Time $Time)
-    {
-        $this->timeFutebol = $Time->idTime;
-    }
-
-    /**
-     * Requisita o time
-     *
-     * @return Time
-     */
-    public function getTime()
-    {
-        return new Time($this->timeFutebol);
-    }
-   /**
-     * Define a posicao
-     *
-     * @param Posicao $Posicao
-     * @return void
-     */
-    public function setPosicao(Posicao $Posicao)
-    {
-        $this->posicao = $Posicao->idPosicao;
-    }
-
-    /**
-     * Requisita a posicao
-     *
-     * @return Time
-     */
-    public function getPosicao()
-    {
-        return new Posicao($this->posicao);
     }
 }

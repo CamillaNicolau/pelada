@@ -1,17 +1,19 @@
 $(document).ready(function() {
 
     $("#botao-cadastrar").bind('click',function(){
-          $('#cadastroPeladeiro').slideDown();
-          $(".botoes").hide();
-          $("#listaPeladeiro").hide();
-      });
-      $('#botao-cancelar').bind('click',resetarFormulario);
-      $('#form_cadastra_peladeiro').ajaxForm({ 
+        $('#cadastroPeladeiro').slideDown();
+        $(".botoes").hide();
+        $("#listaPeladeiro").hide();
+    });
+    $('#botao-cancelar').bind('click',resetarFormulario);
+    $('#form_cadastra_peladeiro').ajaxForm({ 
         dataType:  'json',
         beforeSend: validaForm,
         success:   tratarResultado 
-      });
-  atualizarListaPeladeiro();
+    });
+    atualizarListaPeladeiro();
+    montarPosicao();
+    montarTime();
 
  });
 function validaForm(){
@@ -39,11 +41,11 @@ function atualizarListaPeladeiro() {
       dataType: 'json',
       success: function(retorno) {
         if (retorno.sucesso == true) {
-           // $.each(retorno.html,function(i,v){
+            $.each(retorno.html,function(i,v){
               $('#listaPeladeiro').append('<tr><td><img src=visualizacoes/imagens/usuario/mini_21616243_1692720580740111_4603407605843624647_n.jpg class="rounded-circle"/></td>'+
                '<td >Camilla</td><td class="col-md-3"><button onclick="editarPeladeiro()" class="btn btn-default glyphicon glyphicon-pencil">Editar</button></td>'+
                '<td "><button onclick="removerPeladeiro()" class="btn btn-danger"> Excluir </ button></td></tr>');
-           // });
+            });
         }
       }
   }); 
@@ -55,4 +57,53 @@ function resetarFormulario(){
    });
  
    $(".botoes").show();
+}
+function montarPosicao(){
+ $.ajax({
+  type: "POST",
+  url: "peladeiro",
+  data: 'acao=lista_posicao',
+  dataType: 'json',
+  beforeSend: function() {
+
+  },  
+  success: function(retorno) 
+  {
+    if(retorno.sucesso === true) 
+    {
+      $.each(retorno.html,function(i,v) {
+        var selectTime = document.getElementById("posicao");
+        var opt0 = document.createElement("option");
+        opt0.value = v.id;
+        opt0.text = v.nome;
+        selectTime.add(opt0);
+      });
+    } 
+   } 
+  });
+}
+
+function montarTime(){
+ $.ajax({
+  type: "POST",
+  url: "peladeiro",
+  data: 'acao=lista_time',
+  dataType: 'json',
+  beforeSend: function() {
+
+  },  
+  success: function(retorno) 
+  {
+      if(retorno.sucesso === true) 
+      {
+        $.each(retorno.html,function(i,v) {
+          var selectTime = document.getElementById("time");
+          var opt0 = document.createElement("option");
+          opt0.value = v.id;
+          opt0.text = v.nome;
+          selectTime.add(opt0);
+        });
+      } 
+    } 
+  });
 }

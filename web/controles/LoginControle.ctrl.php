@@ -13,46 +13,38 @@ class LoginControle extends ControlaModelos
     {
        if(isset($_REQUEST['acao']));
         switch($_REQUEST['acao']){
-          case 'logar':
-            try{
+            case 'logar':
+                try{
 
-              $buscaUsuario = UsuarioRepositorio::buscarUsuario($_POST['email']);
-
-              foreach($buscaUsuario as $usuario){
-                $nome = $usuario->nome;
-                $email = $usuario->email;
-                $senha = base64_decode($usuario->senha);
-                $id = $usuario->idUsuario;
-                $ativo = $usuario->ativo;
-              }
-              $_POST['id'] = $id;
-              if(isset($_POST['email']) != isset($email)){
-                 exit(json_encode(array('sucesso'=>false,'mensagem'=>'Email nao cadastrado')));
-              }
-
-             if($_POST['email'] != $email || $_POST['password'] != $senha) {
-             
-                 exit(json_encode(array('sucesso'=>false,'mensagem'=>'Usuario ou senha incorreta')));
-             }
-             if($ativo == 1) {
-               if($_POST['email'] == $email && $_POST['password'] == $senha) {
-
-                  $_SESSION['id_usuario_logado'] = $id;
-                  if(isset($_POST['_memorizar']))
-                  {
-                       setcookie($_POST['email'],  $_POST['password'] ,time()+60*60*24*30);
-                  }
-                  exit(json_encode(array('sucesso'=>true)));
-                } 
-             } else{
-               exit(json_encode(array('sucesso'=>false, 'mensagem'=>'Usuário desativado, favor entrar em contato com o administrador do sistema')));
-             }
- 
-            }catch(Error $E){
-              exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro')));
-            }
+                    $buscaUsuario = UsuarioRepositorio::buscarUsuario($_POST['email']);
+                    foreach($buscaUsuario as $usuario){
+                        $nome = $usuario->nome;
+                        $email = $usuario->email;
+                        $senha = $usuario->senha;
+                        $id = $usuario->id_usuario;
+                        $ativo = $usuario->ativo;
+                    }
+                    $_POST['id'] = $id;
+                    if($_POST['email'] != $email || $_POST['password'] != $senha) {
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Usuario ou senha incorreta')));
+                    }
+                    if($ativo == 1) {
+                        if($_POST['email'] == $email && md5($_POST['password']) == $senha) {
+                            $_SESSION['id_usuario_logado'] = $id;
+                            if(isset($_POST['_memorizar']))
+                            {
+                                setcookie($_POST['email'],  $_POST['password'] ,time()+60*60*24*30);
+                            }
+                            exit(json_encode(array('sucesso'=>true)));
+                        } 
+                    } else{
+                        exit(json_encode(array('sucesso'=>false, 'mensagem'=>'Usuário desativado, favor entrar em contato com o administrador do sistema')));
+                    }
+                }catch(Error $E){
+                    exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro')));
+                }
             break;
-          }
+        }
     }
     public function getHtml()
     {
