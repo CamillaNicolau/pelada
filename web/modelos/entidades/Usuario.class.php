@@ -130,8 +130,8 @@ class Usuario {
             case "senha":
             case "nome":
             case "apelido":
-            case "timeFutebol":
-            case "posicao":
+//            case "timeFutebol":
+//            case "posicao":
             case "sexo":
             case "dataCriacao":
             case "ativo":
@@ -152,8 +152,8 @@ class Usuario {
             case "senha":
             case "nome":
             case "apelido":
-            case "timeFutebol":
-            case "posicao":
+//            case "timeFutebol":
+//            case "posicao":
             case "sexo":
             case "urlImagem":
                 $this->$atributo = (($value || $value === 0 || $value === '0' )?$value:null);
