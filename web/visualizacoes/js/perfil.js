@@ -1,17 +1,16 @@
 $(document).ready(function() {
-montaPerfil();
+
   $("#botao-editar").bind('click',function(){
-      $("#perfil").hide();
-//      montarPosicao();
-//      montarTime();
-       editarUsuario();
-  });
-  $('#botao-cancelar').bind('click',resetarFormulario);
-  $('#botao-desativar').bind('click',desativarUsuario);
+       montaPerfil();
+  });  
+$('#botao-desativar').bind('click',desativarUsuario);
   $('#form_editar_usuario').ajaxForm({ 
     dataType:  'json',
     beforeSend: validaForm,
     success:   tratarResultado 
+  });
+  $('#password').keyup(function() {
+    $('#progresso').html(verificaForcaSenha($('#password').val()));
   });
 });
 function validaForm(){
@@ -31,13 +30,8 @@ function tratarResultado (retorno) {
     alertaFnc("Erro", retorno.mensagem,null, true, "error"); 
   }
 }
-function resetarFormulario(){
-  $("#form_editar_usuario")[0].reset();
-  $("#usuario").slideUp(function() {
-    $("#perfil").show();
-  });
-}
-function editarUsuario(){
+
+function montaPerfil(){
   $.ajax({
     type: 'POST',
     url: 'perfil',
@@ -67,31 +61,11 @@ function editarUsuario(){
         $("#masculino").prop('checked',true);
         $("#masculino").val(retorno.sexo);
       }
-      $("#perfil").hide();
       $("#usuario").fadeIn('normal');
     }
   });
 }
-function montaPerfil(){
-    $.ajax({
-    type: 'POST',
-    url: 'perfil',
-    data: 'acao=busca_dados_usuario',
-    dataType: 'json',
-    beforeSend: function() {
-          alertaFnc("Aguarde", "Carregando os dados..", 250, false, null);
-    },
-    success: function(retorno) {
 
-      $("#nomeUsuarioPerfil").text(retorno.nomeUsuario);
-      if (retorno.imagemUsuario !== '' && retorno.imagemUsuario !== null) {
-          $("#imagem-perfil").html('<img src="' + retorno.imagemUsuario + '" class="rounded-circle" alt="Imagem"/>');
-      } else {
-          $("#imagem-perfil").html('');
-      }
-    }
-  });
-}
 function desativarUsuario(){
     $.ajax({
     type: 'POST',
@@ -99,7 +73,7 @@ function desativarUsuario(){
     data: 'acao=desativar',
     dataType: 'json',
     beforeSend: function() {
-          alertaFnc("Aguarde", "Desativando usuário..", 250, false, null);
+        alertaFnc("Aguarde", "Você está prestes a desativar sua conta, você tem CERTEZA que deseja continuar?", null, true, null);
     },
     success: function(retorno) {
 
@@ -107,51 +81,40 @@ function desativarUsuario(){
     }
   });
 }
-function montarPosicao(){
-  $.ajax({
-    type: "POST",
-    url: "usuario",
-    data: 'acao=lista_posicao',
-    dataType: 'json',
-    beforeSend: function() {
-
-    },  
-    success: function(retorno) 
-    {
-      if(retorno.sucesso === true) 
-      {
-        $.each(retorno.html,function(i,v){
-          var selectTime = document.getElementById("posicao");
-          var opt0 = document.createElement("option");
-          opt0.value = v.id;
-          opt0.text = v.nome;
-          selectTime.add(opt0);
-        });
-      } 
-    } 
-  });
-}
-function montarTime(){
-  $.ajax({
-    type: "POST",
-    url: "usuario",
-    data: 'acao=lista_time',
-    dataType: 'json',
-    beforeSend: function() {
-
-    },  
-    success: function(retorno) 
-    {
-      if(retorno.sucesso === true) 
-      {
-        $.each(retorno.html,function(i,v){
-          var selectTime = document.getElementById("time");
-          var opt0 = document.createElement("option");
-          opt0.value = v.id;
-          opt0.text = v.nome;
-          selectTime.add(opt0);
-        });
-      } 
-    } 
-  });
+function verificaForcaSenha(senha) {
+  var forca = 0
+  if (senha.length < 8) {
+    $('#progresso').removeClass().addClass('verificacao');
+    return 'A senha deve conter mais de 8 caracteres';
+  }
+  if (senha.length > 8) {
+      forca += 1;
+  }
+  // Verifica se a senha possui caracter maiusculo e minusculo, para aumentar a força.
+  if (senha.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+      forca += 1;
+  } 
+  // Verifica se a senha possui letras e numeros, para aumentar a força.
+ if (senha.match(/([a-zA-Z])/) && senha.match(/([0-9])/)) {
+      forca += 1;
+  } 
+  // Verifica se a senha possui caracter especial, para aumentar a força.
+  if (senha.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+      forca += 1;
+  } 
+  // Verifica se a senha possui mais de um caracter especial, para aumentar a força.
+  if (senha.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) {
+      forca += 1;
+  } 
+  // Calcula a força
+  if (forca < 2) {
+    $('#progresso').removeClass().addClass('progress-bar bg-danger');
+    return 'Fraco';
+  } else if (forca == 2) {
+    $('#progresso').removeClass().addClass('progress-bar bg-warning');
+    return 'Médio';
+  } else {
+    $('#progresso').removeClass().addClass('progress-bar bg-success');
+    return 'Forte'
+  }
 }
