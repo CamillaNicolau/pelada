@@ -1,8 +1,6 @@
 $(document).ready(function() {
 
-  $("#botao-editar").bind('click',function(){
-       montaPerfil();
-  });  
+    montaPerfil();
 $('#botao-desativar').bind('click',desativarUsuario);
   $('#form_editar_usuario').ajaxForm({ 
     dataType:  'json',

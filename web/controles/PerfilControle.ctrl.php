@@ -63,7 +63,8 @@ class PerfilControle extends ControlaModelos
             $Usuario->email = $_POST['emailUsuario'];
             $Usuario->apelido = $_POST['apelidoUsuario'];
             $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $_FILES['imagemUsuario']['name'] :$Usuario->urlImagem;
-            $Usuario->sexo = $_POST['sexo'];
+            $Usuario->senha = md5($_POST['password']);           
+// $Usuario->sexo = $_POST['sexo'];
 //            $Usuario->setTime(new Time($time));
 //            $Usuario->setPosicao(new Posicao($posicao));
             $UsuarioRepositorio->atualizarUsuario($Usuario,$file);

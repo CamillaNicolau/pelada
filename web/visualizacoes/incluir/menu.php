@@ -13,7 +13,7 @@
       <link type="text/css" href="./visualizacoes/css/geral.css" rel="stylesheet" />
       <link type="text/css" href="./visualizacoes/css/menu.css" rel="stylesheet" />
       <link type="text/css" href="./visualizacoes/fontes/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
-      <link type="text/css" src="./visualizacoes/css/<?php echo Inicio::getNomePaginaAtual(); ?>.css" rel="stylesheet"/>
+      <link type="text/css" href="./visualizacoes/css/<?php echo Inicio::getNomePaginaAtual(); ?>.css" rel="stylesheet"/>
     </head>
     <body>
         <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
@@ -34,19 +34,22 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Configurações</a>
-                        <a class="dropdown-item" href="perfil">Perfil</a>
+                        <a class="dropdown-item" href="perfil"><i class="fas fa-user"></i> Perfil</a>
+                        <a class="dropdown-item" href="#"><i class="fab fa-telegram-plane"></i> Contato</a>
                     <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="logout" data-toggle="modal" data-target="#logoutModal">Sair</a>
+                        <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
                     </div>
                 </li>
             </ul>
         </nav>
         <div id="wrapper">
             <ul class="sidebar navbar-nav">
-                <li><a href="pelada"><i class="fa fa-users"></i> Pelada</a></li>
-                <li><a href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
-                <li><a href="placar"><i class="fa fa-calendar-o"></i> Placares</a></li>
-                <li><a href="financeiro"><i class="fa fa-dollar"></i> Financeiro</a></li>
+                <li class="nav-item"><a  class="nav-link" href="pelada"><i class="fas fa-futbol"></i> Pelada</a></li>
+                <li class="nav-item"><a class="nav-link"  href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
+                <li class="nav-item"><a class="nav-link"  href="#"><i class="far fa-calendar"></i> Placares</a></li>
+                <li class="nav-item"><a class="nav-link"  href="#"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
+                <li class="nav-item"><a class="nav-link"  href="#"><i class="far fa-file"></i> Relatório</a></li>
+
             </ul>
             <div id="content-wrapper">
                 <div class="container-fluid">   
