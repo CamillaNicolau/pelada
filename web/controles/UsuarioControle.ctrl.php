@@ -34,8 +34,8 @@ class UsuarioControle extends ControlaModelos
           
             \Doctrine::beginTransaction();
 
-            $time = $_POST['time'];
-            $posicao =  $_POST['posicao'];
+//            $time = $_POST['time'];
+//            $posicao =  $_POST['posicao'];
             $UsuarioRepositorio = new UsuarioRepositorio();
             $Usuario = new Usuario();
 
