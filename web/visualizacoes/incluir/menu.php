@@ -16,7 +16,7 @@
       <link type="text/css" href="./visualizacoes/css/<?php echo Inicio::getNomePaginaAtual(); ?>.css" rel="stylesheet"/>
     </head>
     <body>
-        <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+        <nav class="navbar navbar-expand navbar-dark bg-light static-top">
             <a class="navbar-brand mr-1" href="#">Mais Pelada</a>
             <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
                 <i class="fas fa-bars"></i>
@@ -35,7 +35,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Configurações</a>
                         <a class="dropdown-item" href="perfil"><i class="fas fa-user"></i> Perfil</a>
-                        <a class="dropdown-item" href="#"><i class="fab fa-telegram-plane"></i> Contato</a>
+                        <a class="dropdown-item" href="contato"><i class="fab fa-telegram-plane"></i> Contato</a>
                     <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
                     </div>
@@ -44,11 +44,11 @@
         </nav>
         <div id="wrapper">
             <ul class="sidebar navbar-nav">
-                <li class="nav-item"><a  class="nav-link" href="pelada"><i class="fas fa-futbol"></i> Pelada</a></li>
-                <li class="nav-item"><a class="nav-link"  href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
-                <li class="nav-item"><a class="nav-link"  href="#"><i class="far fa-calendar"></i> Placares</a></li>
-                <li class="nav-item"><a class="nav-link"  href="#"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
-                <li class="nav-item"><a class="nav-link"  href="#"><i class="far fa-file"></i> Relatório</a></li>
+                <li class="nav-item active"><a  href="pelada"><i class="fas fa-futbol"></i> Pelada</a></li>
+                <li class="nav-item"><a href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
+                <li class="nav-item"><a href="#"><i class="far fa-calendar"></i> Placares</a></li>
+                <li class="nav-item"><a  href="#"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
+                <li class="nav-item"><a href="#"><i class="far fa-file"></i> Relatório</a></li>
 
             </ul>
             <div id="content-wrapper">

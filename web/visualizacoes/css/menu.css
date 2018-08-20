@@ -1,6 +1,28 @@
-/* .navbar{
-  margin-left: 20%;
-} */
+
+.bg-light {
+    background-color:#0a3f0a !important;
+
+}
+.sidebar a {
+    height: 36px;
+    padding-left: 18px;
+    border-left: 2px solid #2b2b2d;
+    color: #fff;
+    font-size: 14px;
+    line-height: 35px;
+    overflow: hidden;
+}
+
+.sidebar {
+    background-color:  #0b2e13 ;
+    width: 180px !important;
+}
+
+
+.sidebar a:hover {
+    color: #1e7e34;
+    text-decoration: none;
+}
 .menu ul  {
   list-style: none;
 }

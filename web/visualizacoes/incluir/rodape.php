@@ -6,7 +6,7 @@
     </div> <!-- Fecha div .container -->
 
         <script type="text/javascript" src="./visualizacoes/js/jquery.min.js" ></script>
-        <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+        <script type="text/javascript" src="./visualizacoes/js/jquery.form.min.js" ></script> 
         <script type="text/javascript" src="./visualizacoes/bootstrap/js/bootstrap.min.js" ></script>      
         <script type="text/javascript" src="./visualizacoes/js/jquery.maskedinput.js" ></script>
         <script type="text/javascript" src="./visualizacoes/js/sweetalert.min.js" ></script>
