@@ -108,3 +108,4 @@ function removerPelada(idPelada) {
       }
   });   
 }
+
