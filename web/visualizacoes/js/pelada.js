@@ -12,6 +12,8 @@ $(document).ready(function() {
         success:   tratarResultado 
       });
   atualizarListaPelada();
+  montarEstado();
+  montarCidade();
 
  });
 function validaForm(){
@@ -40,9 +42,9 @@ function atualizarListaPelada() {
       success: function(retorno) {
         if (retorno.sucesso == true) {
             $.each(retorno.html,function(i,v){
-              $('#listaPelada').append('<tr><td class="col-md-5">'+v.nome+'</td>'+
-               '<td class="col-md-3"><button onclick="editarPelada('+v.id+')" class="btn btn-default glyphicon glyphicon-pencil">Editar</button></td>'+
-               '<td class="col-md-3"><button onclick="removerPelada('+v.id+')" class="btn btn-danger"> Excluir </ button></td></tr>');
+              $('#listaPelada').append('<tbody><tr><td class="col-md-5">'+v.nome+'</td>'+
+               '<td class="col-md-3"><button onclick="editarPelada('+v.id+')" class="btn btn-primary btn-xs">Editar</button></td>'+
+               '<td class="col-md-3"><button onclick="removerPelada('+v.id+')" class="btn btn-danger btn-xs"> Excluir </ button></td></tr></tbody>');
             });
         }
       }
@@ -107,5 +109,59 @@ function removerPelada(idPelada) {
         }
       }
   });   
+}
+function montarEstado(){
+ $.ajax({
+  type: "POST",
+  url: "pelada",
+  data: 'acao=lista_estado',
+  dataType: 'json',
+  beforeSend: function() {
+
+  },  
+  success: function(retorno) 
+  {
+    if(retorno.sucesso === true) 
+    {
+      $.each(retorno.html,function(i,v) {
+        var selectEstado = document.getElementById("estado");
+        var opt0 = document.createElement("option");
+        opt0.value = v.id;
+        opt0.text = v.sigla;
+        selectEstado.add(opt0);
+      });
+    } 
+   } 
+  });
+}
+
+function montarCidade(){
+    $('#estado').change(function(e){
+        var estado = $('#estado').val();
+        $('#cidade').html('<span class="mensagem">Aguarde, carregando ...</span>');  
+    $.ajax({
+     type: "POST",
+     url: "pelada",
+     data: 'acao=lista_cidade&id_estado='+estado,
+     dataType: 'json',
+     beforeSend: function() {
+
+     },  
+     success: function(retorno) 
+     {
+         if(retorno.sucesso === true) 
+         {
+           //console.log(retorno.html);
+           $.each(retorno.html,function(i,v) {
+             var selectCidade = document.getElementById("cidade");
+             var opt0 = document.createElement("option");
+             opt0.value = v.id;
+             opt0.text = v.nome;
+             selectCidade.add(opt0);
+           });
+         } 
+       } 
+     });
+ });
 }
 

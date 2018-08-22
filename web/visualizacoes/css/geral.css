@@ -24,7 +24,23 @@
   margin-bottom: 7px;
 }
 body{
-    background-color: #e7e7e9;
+   color: #111112;
+font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.471;
+}
+.pull-right {
+    float: right !important;
 }
 
+footer {
+    background: #fff;
+    padding: 15px 20px;
+    display: block;
+    height: 54px;
+}
 
+*, ::after, ::before {
+    box-sizing: border-box;
+}

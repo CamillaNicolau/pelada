@@ -169,4 +169,5 @@ class Usuario {
             break;
         }
     }
+
 }

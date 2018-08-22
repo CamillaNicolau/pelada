@@ -1,5 +1,5 @@
 <div id="conteudo">  
-   <div class="cabecalho_conteudo">
+   <div class="x_content">
       <h2>Pelada</h2>
    </div>
     <div id="cadastroPelada" style="display: none">
@@ -13,9 +13,29 @@
                   <label for="textDescricao" class="control-label">Descrição</label>
                   <textarea id="descricaoPelada" name="descricaoPelada" class="form-control" rows="3" placeholder="" type="text"></textarea>
                 </div>
-              <div class="form-group">
-                    <label for="textLocalizacao" class="control-label">Localização</label>
-                    <input id="localizacao" name="localizacao" class="form-control" required="" type="text">
+                <div class="form-group">
+                    <label for="textLocalizacao" class="control-label">Logradouro</label>
+                    <input id="rua" name="rua" class="form-control" required="" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="textBairro" class="control-label">Bairro</label>
+                    <input id="bairro" name="bairro" class="form-control" required="" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="textNumeor" class="control-label">Nº</label>
+                    <input id="numero" name="numero" class="form-control" required="" type="number">
+                </div>
+                <div class="form-group">
+                    <label for="selectEstado">Estado</label>
+                    <select class="form-control" id="estado" name="estado">
+                        <option value="" selected>Selecione Estado</option> 
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="selectCidade">Cidade</label>
+                    <select class="form-control" id="cidade" name="cidade">
+                        <option value="" selected>Selecione Cidade</option> 
+                    </select>
                 </div>
                  <div class="form-group">
                     <label for="textDuracao" class="control-label">Duração da partida:</label>
@@ -42,46 +62,7 @@
         </form>
     </div>
     <div class="table-responsive col-md-12">
-        <table class="table table-striped" cellspacing="0" cellpadding="0" id="listaPelada">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th>Data</th>
-                    <th class="actions">Ações</th>
-                 </tr>
-            </thead>
-            <tbody>
- 
-                <tr>
-                    <td>Pelada 1</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetur adipiscingJes</td>
-                    <td>01/10/2018</td>
-                    <td class="actions">
-                        <a class="btn btn-primary btn-xs" href="edit.html">Editar</a>
-                        <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pelada 2</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing</td>
-                    <td>01/01/2018</td>
-                    <td class="actions">
-                        <a class="btn btn-primary btn-xs" href="edit.html">Editar</a>
-                        <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pelada 3</td>
-                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing</td>
-                    <td>01/08/2018</td>
-                    <td class="actions">
-                        <a class="btn btn-primary btn-xs" href="edit.html">Editar</a>
-                        <a class="btn btn-danger btn-xs"  href="#" data-toggle="modal" data-target="#delete-modal">Excluir</a>
-                    </td>
-                </tr>
- 
-            </tbody>
+        <table class="table table-striped" cellspacing="0" cellpadding="0" id="listaPelada">        
         </table>
     </div>
     <div class="botoes">

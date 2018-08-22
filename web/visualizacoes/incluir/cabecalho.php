@@ -9,6 +9,7 @@
     <link type="text/css" href="./visualizacoes/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet" />
     <link type="text/css" href="./visualizacoes/css/sweetalert.css" rel="stylesheet" />
     <link type="text/css" href="./visualizacoes/css/complemento.css" rel="stylesheet" />
+    <link type="text/css" href="./visualizacoes/css/geral.css" rel="stylesheet" />
     <link type="text/css" href="./visualizacoes/css/<?php echo Inicio::getNomePaginaAtual(); ?>.css" rel="stylesheet" />
   </head>
   <body>

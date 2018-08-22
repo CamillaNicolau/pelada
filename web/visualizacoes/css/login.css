@@ -56,3 +56,8 @@ body {
   height: 100px;
   align: center;
 } 
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 70px;
+}
