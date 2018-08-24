@@ -15,19 +15,25 @@ class UsuarioRepositorio extends Usuario {
   
   
   
-  public static function buscarUsuario($email){
-      try{
-          $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
-          $QueryBuilder
-            ->select('*')
-            ->from('usuario')
-            ->where('email = :email')
-            ->setParameter(':email',$email)
-          ;
-        return $QueryBuilder->execute()->fetchAll();
-      }catch(Erro $E){
-        echo ('Erro');
-      }
+  public static function buscarUsuario($email, $ativo = true){
+        try{
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+              ->select('*')
+              ->from('usuario')
+              ->where('email = :email')
+              ->setParameter(':email',$email)
+            ;
+            if ($ativo) {
+                $QueryBuilder
+                    ->andWhere('ativo = :ativo')
+                    ->setParameter(':ativo', $ativo, \PDO::PARAM_INT)
+                ;
+            }
+            return $QueryBuilder->execute()->fetchAll();
+        }catch(Erro $E){
+          echo ('Erro'.$E);
+        }
     }
     
     public function adicionaUsuario(Usuario $Usuario) {
@@ -43,8 +49,6 @@ class UsuarioRepositorio extends Usuario {
                ->setValue('senha', ':senha')
                ->setValue('nome', ':nome')
                ->setValue('apelido', ':apelido')
-//               ->setValue('fk_posicao', ':fk_posicao')
-//               ->setValue('fk_time', ':fk_time')
                ->setValue('sexo', ':sexo')
                ->setValue('urlImagem',':urlImagem')
                ->setValue('dataCriacao',':dataCriacao')
@@ -52,8 +56,6 @@ class UsuarioRepositorio extends Usuario {
                ->setParameter(':senha', $Usuario->senha)
                ->setParameter(':nome', $Usuario->nome)
                ->setParameter(':apelido', $Usuario->apelido)
-//               ->setParameter(':fk_posicao', $Usuario->posicao)
-//               ->setParameter(':fk_time',$Usuario->timeFutebol)
                ->setParameter(':sexo', $Usuario->sexo)
                ->setParameter(':urlmagem', $Usuario->urlImagem)
                ->setParameter(':dataCriacao',$Usuario->dataCriacao)
@@ -85,8 +87,6 @@ class UsuarioRepositorio extends Usuario {
                 ->set('senha', ':senha')
                 ->set('nome', ':nome')
                 ->set('apelido', ':apelido')
-//                ->set('fk_posicao', ':fk_posicao')
-//                ->set('fk_time', ':fk_time')
                 ->set('sexo', ':sexo')
                 ->set('url_imagem',':url_imagem')
 //                ->set('dataAlteracao',':dataAlteracao')
@@ -94,8 +94,6 @@ class UsuarioRepositorio extends Usuario {
                 ->setParameter(':senha', $Usuario->senha)
                 ->setParameter(':nome', $Usuario->nome)
                 ->setParameter(':apelido', $Usuario->apelido)
-//                ->setParameter(':fk_posicao', $Usuario->posicao)
-//                ->setParameter(':fk_time',$Usuario->timeFutebol)
                 ->setParameter(':sexo', $Usuario->sexo)
                 ->setParameter(':url_imagem', $Usuario->urlImagem)
 //                ->setParameter(':dataAlteracao',date("Y-m-d H:i:s"))
