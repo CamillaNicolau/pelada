@@ -42,7 +42,7 @@ class LoginControle extends ControlaModelos
                         exit(json_encode(array('sucesso'=>false, 'mensagem'=>'Usuário desativado, favor entrar em contato com o administrador do sistema')));
                     }
                 }catch(Error $E){
-                    exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro')));
+                    exit(json_encode(array("erro" => true, "sucesso" => false)));
                 }
             break;
         }

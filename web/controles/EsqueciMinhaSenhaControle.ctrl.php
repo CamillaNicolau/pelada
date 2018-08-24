@@ -10,7 +10,23 @@
 class EsqueciMinhaSenhaControle extends ControlaModelos
 {
     public function tratarAcoes(){
-      //Nada a fazer
+      
+        if(isset($_REQUEST['acao']));
+        switch ($_REQUEST['acao']){
+            case 'recuperar_senha':
+                try {
+
+                    $usuario_recuperar = UsuarioRepositorio::buscarUsuario($_POST['email']);
+                    if($usuario_recuperar){
+                        
+                    }else{
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'E-mail inexistente!')));
+                    }
+                    
+                } catch (Exception $ex) {
+                    
+                }
+        }
     }
     public function getHtml()
     {
