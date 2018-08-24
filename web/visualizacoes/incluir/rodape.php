@@ -17,7 +17,7 @@
         <script type="text/javascript" src="./visualizacoes/js/sweetalert.min.js" ></script>
         <script type="text/javascript" src="./visualizacoes/js/complemento.js" ></script>
         <script type="text/javascript" src="./visualizacoes/bootstrap/js/sb-admin.min.js"></script>
-        <script type="text/javascript" src="./visualizacoes/js/<?php echo Inicio::getNomePaginaAtual(); ?>.js" ></script>       
+        <script type="text/javascript" src="./visualizacoes/js/autoload.js" ></script>       
     </body>
     
 </html>

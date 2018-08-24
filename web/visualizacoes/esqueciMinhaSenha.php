@@ -7,6 +7,7 @@
         <label for="inputEmail" class="control-label">Email</label>
         <input id="email" name="email" class="form-control" placeholder="Digite seu E-mail" type="email">
      </div>
+    <input name="acao" value="recuperar_senha" id="acao_recuperar_senha" type="hidden" />
     <button type="submit" class="btn btn-lg btn-success btn-default" id ="botao-enviar">Enviar</button>
 </form>
 
