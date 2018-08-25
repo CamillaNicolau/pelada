@@ -41,6 +41,9 @@ footer {
     height: 54px;
 }
 
+.endereco{
+    max-width: 50%;
+}
 *, ::after, ::before {
     box-sizing: border-box;
 }
