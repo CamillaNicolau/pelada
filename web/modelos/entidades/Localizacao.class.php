@@ -15,6 +15,7 @@ class Localizacao {
     //put your code here
     
     private $idLocalizacao;
+    private $nomeQuadra;
     private $rua;
     private $bairro;
     private $numero;
@@ -22,8 +23,7 @@ class Localizacao {
     
     public function __construct($idLocalizacao = null) {
         
-            if(isset($idLocalizacao)){
-                var_dump($idLocalizacao);
+            if($idLocalizacao != null){
                 try{
  
                     $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
@@ -37,10 +37,11 @@ class Localizacao {
                     if (!$ObjDados)
                         throw new Excecao("Registro de id ". $idLocalizacao . " não encontrado no banco de dados.");
                     $this->idLocalizacao = $ObjDados->id_localizacao_pelada;
+                    $this->nomeQuadra = $ObjDados->nome_quadra;
                     $this->rua = $ObjDados->rua;
                     $this->bairro = $ObjDados->bairro;
                     $this->numero = $ObjDados->numero;
-                    $this->cidade = (int) $ObjDados->fk_cidade;
+                    $this->cidade = $ObjDados->fk_cidade;
                 } catch (Exception $ex) {
                     echo ('Erro ao instanciar classe Localização id idLocalizacao. '. $ex->getMessage());
                 }
@@ -57,6 +58,7 @@ class Localizacao {
     public function __get($atributo) {
         switch ($atributo) {
             case 'idLocalizacao':
+            case 'nomeQuadra':
             case 'rua':
             case 'bairro':
             case 'numero':
@@ -73,6 +75,7 @@ class Localizacao {
         
         switch ($atributo) {
             case 'idLocalizacao':
+            case 'nomeQuadra';
             case 'rua':
             case 'bairro':
             case 'numero':

@@ -11,7 +11,8 @@ class Pelada{
   private $dataPartida;
   private $dataCriacao;
   private $localizacao;
-  private $fkUsuario;
+  private $fkPeladeiroAdm;
+  private $horario;
   
   public function __construct($idPelada = null){
     
@@ -24,7 +25,7 @@ class Pelada{
                 $QueryBuilder
                     ->select('*')
                     ->from('pelada')
-                    ->where('idPelada = ?')
+                    ->where('id_pelada = ?')
                     ->setParameter(0, $idPelada, \PDO::PARAM_INT)
                 ;
                 $ObjDados = $QueryBuilder->execute()->fetch();
@@ -32,16 +33,17 @@ class Pelada{
                     echo("Registro de id ". $idPelada . " não encontrado no banco de dados.");
                 }
                 
-                $this->idPelada = $ObjDados->idPelada;
+                $this->idPelada = $ObjDados->id_pelada;
                 $this->nome = $ObjDados->nome;
                 $this->descricao = $ObjDados->descricao;
-                $this->duracaoPartida = $ObjDados->duracaoPartida;
-                $this->qtJogadores = $ObjDados->qtJogadores;
+                $this->duracaoPartida = $ObjDados->duracao_pelada;
+                $this->qtJogadores = $ObjDados->qt_jogadores;
                 $this->sorteio = $ObjDados->sorteio;
-                $this->dataPartida = $ObjDados->dataPartida;
-                $this->localizacao = (int)$ObjDados->fk_localizacao;
-                $this->fkUsuario = $ObjDados->fk_usuario;
-                $this->dataCriacao = $ObjDados->dataCriacao;
+                $this->dataPartida = $ObjDados->data_pelada;
+                $this->localizacao = $ObjDados->fk_localizacao;
+                $this->fkPeladeiroAdm = $ObjDados->fk_peladeiro;
+                $this->dataCriacao = $ObjDados->data_criacao;
+                $this->horario = $ObjDados->horario;
 
             } catch(Exception $ex){
               echo ('Erro ao instanciar classe Pelada id $idPelada. '. $ex->getMessage());
@@ -67,7 +69,8 @@ class Pelada{
             case "localizacao":
             case "dataPartida":
             case "dataCriacao":
-            case "fkUsuario":
+            case "fkPeladeiroAdm":
+            case "horario":
                 return $this->$atributo;
             break;
             default:
@@ -87,7 +90,8 @@ class Pelada{
             case "qtJogadores":
             case "sorteio":
             case "dataPartida":
-            case "fkUsuario":
+            case "fkPeladeiroAdm":
+            case "horario":
                 $this->$atributo = (($value || $value === 0 || $value === '0' )?$value:null);
                 break;
             case "dataCriacao":
@@ -100,7 +104,7 @@ class Pelada{
     }
     
     /**
-     * Define a estado
+     * Define o estado
      *
      * @param Estado $Estado
      * @return void
@@ -111,7 +115,7 @@ class Pelada{
     }
 
     /**
-     * Requisita a estado
+     * Requisita o estado
      *
      * @return estado
      */
@@ -120,6 +124,26 @@ class Pelada{
         return new Localizacao($this->localizacao);
     }
     
+     /**
+     * Define o Usuario
+     *
+     * @param Usuario Usuario
+     * @return void
+     */
+    public function setUsuario(Usuario $Usuario)
+    {
+        $this->fkPeladeiroAdm = $Usuario->idUsuario;
+    }
+
+    /**
+     * Requisita o Peladeiro
+     *
+     * @return Peladeiro
+     */
+    public function getUsuario()
+    {
+        return new Usuario($this->fkPeladeiroAdm);
+    }
     
     
 }

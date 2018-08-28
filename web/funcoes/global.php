@@ -9,6 +9,7 @@ require PATH_RAIZ . "/util/Tratamentos.class.php";
 require PATH_RAIZ . "/util/Inicio.class.php";
 require PATH_RAIZ . "/util/ControlaModelos.class.php";
 require PATH_RAIZ . "/util/Imagem.class.php";
+require PATH_RAIZ . "/util/Email.class.php";
 require PATH_RAIZ . "/modelos/entidades/Usuario.class.php";
 require PATH_RAIZ . "/modelos/entidades/Time.class.php";
 require PATH_RAIZ . "/modelos/entidades/Posicao.class.php";

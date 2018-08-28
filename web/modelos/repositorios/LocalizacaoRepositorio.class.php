@@ -17,45 +17,58 @@ class LocalizacaoRepositorio extends Localizacao {
        //Nada a fazer
     }
     
-    public static function buscarLocalizacao($cidade){
-        try{
+    public static function buscarLocalizacao(array $condicoes = [], $order = false, $inicio = null, $limite = null){
+        
+        $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
+        
+        try {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->select('*')
                 ->from('localizacao_pelada')
-                ->where('fk_cidade = :fk_cidade')
-                ->setParameter(':fk_cidade',$cidade)
             ;
+            if ($where != '') {
+                $QueryBuilder->where($where);
+            }
+            
+            if (isset($inicio)) {
+                $QueryBuilder->setFirstResult($inicio);
+            }
+            if (isset($limite)) {
+                $QueryBuilder->setMaxResults($limite);
+            }
             return $QueryBuilder->execute()->fetchAll();
-        } catch (Exception $ex){
-            echo ("Erro");
+        }
+        catch (\Exception $j) {
+            echo ("Erro ao buscar localizacao". $j->getMessage());
         }
     }
+       
     public function adicionaLocalizacao(Localizacao $Localizacao) {
-        var_dump($Localizacao->idLocalizacao);
-        if($Localizacao->idLocalizacao){
-           echo("Método adicionaLocalizacao() utilizado em objeto que já é instância de usuário válido.");
-        } 
+        
+      
         try {
           $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
             $QueryBuilder
               ->insert('localizacao_pelada')
+               ->setValue('nome_quadra', ':nome_quadra')
                ->setValue('rua', ':rua')
                ->setValue('bairro', ':bairro')
                ->setValue('numero', ':numero')
                ->setValue('fk_cidade', ':fk_cidade')
-              
+               ->setParameter(':nome_quadra', $Localizacao->nomeQuadra)
                ->setParameter(':rua', $Localizacao->rua)
                ->setParameter(':bairro', $Localizacao->bairro)
                ->setParameter(':numero', $Localizacao->numero)
-               ->setParameter(':fk_cidade', $Localizacao->cidade)
-               
+               ->setParameter(':fk_cidade', $Localizacao->cidade) 
                ->execute()
             ;  
+         
           $Localizacao->idLocalizacao = $QueryBuilder->getConnection()->lastInsertId();
-          return $Localizacao->idLocalizacao;
+              
+         return $Localizacao->idLocalizacao;
         } catch (Exception $ex) {
-            echo("'Erro ao adicionar Localização");
+            echo('Erro ao adicionar na classe '.__CLASS__.': '.$ex->getMessage());
         }   
     }
     //put your code here

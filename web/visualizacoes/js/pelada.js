@@ -11,10 +11,11 @@ $(document).ready(function() {
       beforeSend: validaForm,
       success:   tratarResultado 
     });
-    
-  
+
     montarEstado();
+     
     montarCidade();
+    
       atualizarListaPelada();
     $("#listaPelada").refresh();
 });
@@ -47,8 +48,8 @@ function atualizarListaPelada() {
         success: function(retorno) {
             if (retorno.sucesso == true) {
                 $.each(retorno.html,function(i,v){
-                  $('#listaPelada').append('<tbody><tr><td class="col-md-2">'+v.nome+'</td><td>'+v.descricao+'</td>'+
-                   '<td><button onclick="editarPelada('+v.id+')" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></button></td>'+
+                  $('#listaPelada').append('<tbody><tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-6">'+v.descricao+'</td>'+
+                   '<td><button onclick="editarPelada('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
                    '<td><button onclick="removerPelada('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td></tr></tbody>');
                 });
             }
@@ -93,8 +94,12 @@ function editarPelada(idPelada){
             $("#bairro").val(retorno.bairro);
             $("#numero").val(retorno.numero);
             $("#estado").val(retorno.estado);
+             if($("#estado").is(':selected',true)){
+      console.log('aqui');
             $("#cidade").val(retorno.cidade);
+        }
             $("#horario").val(retorno.horario);
+      console.log('aqui2');
 
             $('#acao').val('atualizar');
             $(".botoes").hide();

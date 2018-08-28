@@ -40,6 +40,15 @@ define('MIN_JOGADORES','8');
 define("PATH_USUARIO", PATH_RAIZ."/visualizacoes/imagens/usuario");
 define("URL_USUARIO", URL_RAIZ_SITE."/visualizacoes/imagens/usuario");
 
+define("SMTP_ATIVAR", true);
+define("SMTP_HOST", "smtp.gmail.com");
+define("SMTP_AUTH", true);
+define("SMTP_NOME", "Camilla");
+define("SMTP_EMAIL", "millacnicolau@vectornet.com.br");
+define("SMTP_SENHA", "Mica2204");
+define("SMTP_SECURE", "TLS");
+define("SMTP_PORTA", "587");
+
 
 /**
  * 

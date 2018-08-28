@@ -6,6 +6,8 @@
  *
  * @author Camilla Nicolau
  */
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class Email
 {
@@ -51,8 +53,6 @@ class Email
             case "email_remetente":
                 if($valor)
                 {
-//                    if($valor == self::EMAIL_NOREPLY)
-//                        $this->mensagem_noreply = true;
                     $this->email_remetente = $valor;
                 }
                 else
@@ -106,7 +106,6 @@ class Email
      * Envia a mensagem para o destinatário.
      *
      * @return bool Retorna true caso a mensagem seja enviada com sucesso.
-     * @see Correio
      */
     public function enviar()
     {   
@@ -125,13 +124,10 @@ class Email
         defined('SMTP_NOME') ? $email->setFrom(SMTP_EMAIL, SMTP_NOME) : $email->setFrom(SMTP_EMAIL, (isset($this->remetente) ? $this->remetente : SIS_NOME));
         $email->addAddress($this->email_destinatario);
 
-        if(defined('SMTP_RESPOSTA'))
-            $email->addReplyTo(SMTP_RESPOSTA, '');
-
         $email->isHTML(true);
         $email->Subject = $this->assunto;
         $email->Body    = $this->mensagem;
-
+     
         return $email->send();
     }
 }

@@ -29,15 +29,15 @@ class PeladaControle extends ControlaModelos
                 $LocalizacaoRepositorio = new LocalizacaoRepositorio();
                 $Localizacao = new Localizacao();
                      
-                $Localizacao->rua = $_POST['rua'];
+                $Localizacao->nomeQuadra = $_POST['nomeQuadra'];
+                $Localizacao->rua = $_POST['rua'];           
                 $Localizacao->bairro = $_POST['bairro'];
-                $Localizacao->numero = $_POST['numero'];
+                $Localizacao->numero = $_POST['numero']; 
                 $Localizacao->setCidade(new Cidade($cidade));
-                var_dump($LocalizacaoRepositorio->adicionaLocalizacao($Localizacao));
-             
+              
                 $LocalizacaoRepositorio->adicionaLocalizacao($Localizacao);
-                //$id_localizacao = $LocalizacaoRepositorio->adicionaLocalizacao($Localizacao);
-               exit();  
+                $id_localizacao = $LocalizacaoRepositorio->adicionaLocalizacao($Localizacao);
+                
                 $PeladaRepositorio = new PeladaRepositorio();
                 $Pelada = new Pelada();
 
@@ -46,14 +46,15 @@ class PeladaControle extends ControlaModelos
                 $Pelada->duracaoPartida = $_POST['tempoJogo'];
                 $Pelada->qtJogadores = $_POST['qtJogadores'];
                 $Pelada->sorteio = $_POST['sorteio'];
-                $Pelada->localizacao = $id_localizacao;
+                $Pelada->localizacao = (int)$id_localizacao;
                 $Pelada->dataPartida = $_POST['dataPartida'];
-                $Pelada->fkUsuario = $_SESSION['id_usuario_logado'];
-
+                $Pelada->horario = $_POST['horario'];
+                $Pelada->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
+                
                 $PeladaRepositorio->adicionaPelada($Pelada);
-
-                exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
                 \Doctrine::commit();
+                exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
+               
             } catch (Erro $E) {
               \Doctrine::rollBack();
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar pelada')));
@@ -62,6 +63,8 @@ class PeladaControle extends ControlaModelos
             case 'buscar_dados_para_edicao':
                 try{
                     $Pelada = new Pelada($_POST['id_pelada']);
+                    $Localizacao = new Localizacao($Pelada->localizacao);
+                    $Cidade = new Cidade($Localizacao->cidade);
                     $saida = array();
 
                     $saida['idPelada'] = $Pelada->idPelada;
@@ -71,7 +74,13 @@ class PeladaControle extends ControlaModelos
                     $saida['qtJogadores'] = $Pelada->qtJogadores;
                     $saida['sorteio'] = $Pelada->sorteio;
                     $saida['dataPartida'] = $Pelada->dataPartida ? Tratamentos::converteData($Pelada->dataPartida) : null;
-
+                    $saida['horario'] = $Pelada->horario;
+                    $saida['nomeQuadra'] = $Localizacao->nomeQuadra;
+                    $saida['rua'] = $Localizacao->rua;
+                    $saida['bairro'] = $Localizacao->bairro;
+                    $saida['numero'] = $Localizacao->numero;
+                    $saida['estado'] = $Cidade->estado;
+                    $saida['cidade'] = $Localizacao->cidade;
                     exit(json_encode($saida));
                 }catch(Erro $E){
                     exit(json_encode(array('sucesso'=>false)));
@@ -83,8 +92,21 @@ class PeladaControle extends ControlaModelos
                       exit(json_encode(array('sucesso'=>false,'mensagem'=>'Quantidade de jogadores invalidos')));
                     }
                     \Doctrine::beginTransaction();
+                    $cidade = $_POST['cidade'];
+                
+                    $LocalizacaoRepositorio = new LocalizacaoRepositorio();
+                    $Localizacao = new Localizacao();
+
+                    $Localizacao->nomeQuadra = $_POST['nomeQuadra'];
+                    $Localizacao->rua = $_POST['rua'];           
+                    $Localizacao->bairro = $_POST['bairro'];
+                    $Localizacao->numero = $_POST['numero']; 
+                    $Localizacao->setCidade(new Cidade($cidade));
+
+                    $LocalizacaoRepositorio->atualizarLocalizacao($Localizacao);
+
                     $PeladaRepositorio = new PeladaRepositorio();
-                    $Pelada = new Pelada($_POST['id_pelada']);
+                    $Pelada = new Pelada();
 
                     $Pelada->nome = $_POST['nomePelada'];
                     $Pelada->descricao = $_POST['descricaoPelada'];
@@ -92,7 +114,9 @@ class PeladaControle extends ControlaModelos
                     $Pelada->qtJogadores = $_POST['qtJogadores'];
                     $Pelada->sorteio = $_POST['sorteio'];
                     $Pelada->dataPartida = $_POST['dataPartida'];
-
+                    $Pelada->horario = $_POST['horario'];
+                    $Pelada->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
+         
                     $PeladaRepositorio->atualizarPelada($Pelada);
                     exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
                     \Doctrine::commit();
@@ -106,10 +130,11 @@ class PeladaControle extends ControlaModelos
                     \Doctrine::beginTransaction();
                     $PeladaRepositorio = new PeladaRepositorio();
                     $Pelada = new Pelada($_POST['id_pelada']);
+              
                     $PeladaRepositorio->deletarPelada($Pelada);
-
-                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Pelada removida com sucessos')));
                     \Doctrine::commit();
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Pelada removida com sucessos')));
+                    
                 } catch(Erro $E){
                     \Doctrine::rollBack();
                    exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao remover pelada')));
@@ -120,13 +145,12 @@ class PeladaControle extends ControlaModelos
 
                     $html = [];
                     $ListaPelada = PeladaRepositorio::buscarPelada();
-
                     foreach($ListaPelada as $pelada) {
-                        $html[] =  array('id'=>$pelada->idPelada,'nome'=>$pelada->nome) ;
+                        $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome, 'descricao'=>$pelada->descricao) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
-                  exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o Shape.")));
+                  exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar lista de pelada.")));
                 }
             break;
             case 'lista_estado':
@@ -144,12 +168,10 @@ class PeladaControle extends ControlaModelos
             case 'lista_cidade':
                 try{
 
-                    $estado = $_POST['id_estado'];
+                    $estado = (int)$_POST['id_estado'];
                     $htmlCidade = [];
-                    $ListaCidade = CidadeRepositorio::buscarCidade($estado);
-                 
+                    $ListaCidade = CidadeRepositorio::buscarCidade(null,null,$estado);
                     foreach($ListaCidade as $cidade){
-                         
                        $htmlCidade[] = array('id'=>$cidade->id_cidade, 'nome'=>$cidade->nome, 'estado'=>$cidade->fk_estado) ;
                          
                     }

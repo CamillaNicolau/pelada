@@ -34,8 +34,6 @@ class UsuarioControle extends ControlaModelos
           
             \Doctrine::beginTransaction();
 
-//            $time = $_POST['time'];
-//            $posicao =  $_POST['posicao'];
             $UsuarioRepositorio = new UsuarioRepositorio();
             $Usuario = new Usuario();
 
@@ -43,9 +41,7 @@ class UsuarioControle extends ControlaModelos
             $Usuario->email = $_POST['emailUsuario'];
             $Usuario->senha = md5($_POST['password']);
             $Usuario->apelido = $_POST['apelidoUsuario'];
-            $Usuario->sexo = $_POST['sexo'];
-    //          $Usuario->setTime(new Time($time));
-    //          $Usuario->setPosicao(new Posicao($posicao));
+            $Usuario->sexo = $_POST['sexo'];     
             $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $_FILES['imagemUsuario']['name'] :null;
 
             $UsuarioRepositorio->adicionaUsuario($Usuario);

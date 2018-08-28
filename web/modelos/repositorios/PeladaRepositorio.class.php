@@ -13,33 +13,35 @@ class PeladaRepositorio extends Pelada {
            echo("Método adicionaPelada() utilizado em objeto que já é instância de usuário válido.");
         } 
         try {
-          $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
+            $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder(); 
             $QueryBuilder
-              ->insert('pelada')
-               ->setValue('nome', ':nome')
-               ->setValue('descricao', ':descricao')
-               ->setValue('duracaoPartida', ':duracaoPartida')
-               ->setValue('qtJogadores', ':qtJogadores')
-               ->setValue('sorteio', ':sorteio')
-               ->setValue('dataPartida', ':dataPartida')
-               ->setValue('fk_localizacao',':fk_localizacao')
-               ->setValue('fk_usuario',':fk_usuario')
-               ->setValue('dataCriacao',':dataCriacao')
-               ->setParameter(':nome', $Pelada->nome)
-               ->setParameter(':descricao', $Pelada->descricao)
-               ->setParameter(':duracaoPartida', $Pelada->duracaoPartida)
-               ->setParameter(':qtJogadores', $Pelada->qtJogadores)
-               ->setParameter(':sorteio', $Pelada->sorteio)
-               ->setParameter(':dataPartida',$Pelada->dataPartida)
+                ->insert('pelada')
+                ->setValue('nome', ':nome')
+                ->setValue('descricao', ':descricao')
+                ->setValue('duracao_pelada', ':duracao_pelada')
+                ->setValue('qt_jogadores', ':qt_jogadores')
+                ->setValue('sorteio', ':sorteio')
+                ->setValue('data_pelada ', ':data_pelada ')
+                ->setValue('fk_localizacao',':fk_localizacao')
+                ->setValue('fk_peladeiro',':fk_peladeiro')
+                ->setValue('horario', ':horario')
+                ->setValue('data_criacao',':data_criacao')
+                ->setParameter(':nome', $Pelada->nome)
+                ->setParameter(':descricao', $Pelada->descricao)
+                ->setParameter(':duracao_pelada', $Pelada->duracaoPartida)
+                ->setParameter(':qt_jogadores', $Pelada->qtJogadores)
+                ->setParameter(':sorteio', $Pelada->sorteio)
+                ->setParameter(':data_pelada',$Pelada->dataPartida)
                 ->setParameter(':fk_localizacao', $Pelada->localizacao)
-               ->setParameter(':fk_usuario', $Pelada->fkUsuario)
-               ->setParameter(':dataCriacao',$Pelada->dataCriacao)
-               ->execute()
+                ->setParameter(':fk_peladeiro', $Pelada->fkPeladeiroAdm)
+                ->setParameter(':horario', $Pelada->horario)
+                ->setParameter(':data_criacao',$Pelada->dataCriacao)
+                ->execute()
             ;  
           $Pelada->idPelada = $QueryBuilder->getConnection()->lastInsertId();
           return $Pelada->idPelada;
         } catch (Exception $ex) {
-            echo("'Erro ao adicionar Pelada");
+            echo("'Erro ao adicionar Pelada" . $ex);
         }   
     }
     /**
@@ -56,18 +58,26 @@ class PeladaRepositorio extends Pelada {
                 ->update('pelada')
                 ->set('nome', ':nome')
                 ->set('descricao', ':descricao')
-                ->set('duracaoPartida', ':duracaoPartida')
-                ->set('qtJogadores', ':qtJogadores')
+                ->set('duracao_pelada', ':duracao_pelada')
+                ->set('qt_jogadores', ':qt_jogadores')
                 ->set('sorteio', ':sorteio')
-                ->set('dataPartida', ':dataPartida')
+                ->set('data_pelada ', ':data_pelada ')
+                ->set('fk_localizacao',':fk_localizacao')
+                ->set('data_criacao',':data_criacao')
+                ->set('horario',':horario')
+                ->set('data_criacao',':data_criacao')
                 ->setParameter(':nome', $Pelada->nome)
                 ->setParameter(':descricao', $Pelada->descricao)
-                ->setParameter(':duracaoPartida', $Pelada->duracaoPartida)
-                ->setParameter(':qtJogadores', $Pelada->qtJogadores)
+                ->setParameter(':duracao_pelada', $Pelada->duracaoPartida)
+                ->setParameter(':qt_jogadores', $Pelada->qtJogadores)
                 ->setParameter(':sorteio', $Pelada->sorteio)
-                ->setParameter(':dataPartida', $Pelada->dataPartida)
-                ->where('idPelada = :idPelada')
-                ->setParameter(':idPelada', $Pelada->idPelada)
+                ->setParameter(':data_pelada',$Pelada->dataPartida)
+                ->setParameter(':fk_localizacao', $Pelada->localizacao)
+                ->setParameter(':fk_peladeiro', $Pelada->fkPeladeiroAdm)
+                ->setParameter(':horario',$Pelada->horario)
+                ->setParameter(':data_criacao',$Pelada->dataCriacao)
+                ->where('id_pelada = :id_pelada')
+                ->setParameter(':id_pelada', $Pelada->idPelada)
                 ->execute()
             ;
         } catch (\Exception $j) {
@@ -90,14 +100,14 @@ class PeladaRepositorio extends Pelada {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->delete('pelada')
-                ->where('idPelada = :idPelada')
-                ->setParameter(':idPelada', $Pelada->idPelada, \PDO::PARAM_INT)
+                ->where('id_pelada = :id_pelada')
+                ->setParameter(':id_pelada', $Pelada->idPelada)
                 ->execute()
             ; 
         } catch (\Exception $j) {
             echo($j->getMessage());
         }
-        return true;
+       return true;
     }
     /**
      * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.

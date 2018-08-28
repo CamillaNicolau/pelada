@@ -34,13 +34,27 @@ line-height: 1.471;
     float: right !important;
 }
 
-footer {
+/*footer {
     background: #fff;
     padding: 15px 20px;
     display: block;
     height: 54px;
-}
+    position: fixed;
+    bottom: auto;
+}*/
 
+.footer {
+    bottom: 0;
+    background: #fff;
+    padding: 15px 20px;
+    display: block;
+    height: 54px;
+    color: black;
+    text-align: center;
+}
+.pull-right {
+    float: right !important;
+}
 .endereco{
     max-width: 50%;
 }

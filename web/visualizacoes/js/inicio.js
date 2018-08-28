@@ -19,7 +19,7 @@ function atualizarListaPelada() {
                     <b>Observações: </b>'+v.observacoes+'<br>\n\
                     <b>Horário: </b>'+v.horario+'<br>\n\
                     <b>Local: </b>'+v.nome_quadra+', '+v.numero+' - '+v.bairro+', '+v.cidade+'<br></p>\n\
-                    <button onclick="confirmados('+v.id+')" class="btn btn-primary btn-xs">Confirmados</button>');
+                    <button  class="btn btn-primary btn-xs" data-toggle="modal" data-target="#exampleModal">Confirmados</button>');
                 });
             }
         }

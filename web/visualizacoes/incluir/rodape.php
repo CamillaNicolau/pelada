@@ -1,10 +1,12 @@
                 </div>
                 
-                 <footer>  
-                     
-                <p class="pull-right">© 2018 maispelada</p>
-            </footer>
-                <div class="clearfix"></div>
+                <div class="footer">
+                    <div class="pull-right">
+                          <p>© 2018 maispelada</p>
+                    </div>
+                                  <div class="clearfix"></div>
+
+                </div>
             </div>
            
         </div> <!-- Fecha div .container -->
