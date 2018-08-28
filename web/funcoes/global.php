@@ -32,4 +32,4 @@ require PATH_RAIZ . "/modelos/servicos/LoginModelo.class.php";
 require PATH_RAIZ . "/modelos/servicos/PeladaModelo.class.php";
 require PATH_RAIZ . "/modelos/servicos/PerfilModelo.class.php";
 require "../bibliotecas/doctrine/vendor/autoload.php";
-require "../bibliotecas/phpmailer/vendor/autoload.php";
+require "../bibliotecas/phpmailer/vendor/PHPMailerautoload.php";

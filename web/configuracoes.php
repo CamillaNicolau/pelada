@@ -46,7 +46,7 @@ define("SMTP_AUTH", true);
 define("SMTP_NOME", "Camilla");
 define("SMTP_EMAIL", "millacnicolau@vectornet.com.br");
 define("SMTP_SENHA", "Mica2204");
-define("SMTP_SECURE", "TLS");
+define("SMTP_SECURE", "SSL");
 define("SMTP_PORTA", "587");
 
 
