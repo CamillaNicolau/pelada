@@ -19,7 +19,7 @@ class EsqueciMinhaSenhaControle extends ControlaModelos
                     $usuario_recuperar = UsuarioRepositorio::buscarUsuario($_POST['email']);
                     if($usuario_recuperar){
                         $mensagem = 'Funcionou';
-                        $Email = new Email('camilla.nicolau@vectornet.com.br', 'Recuperar Senha', $mensagem);
+                        $Email = new Email('millacnicolau@gmail.com', 'Recuperar Senha', $mensagem);
                         $Email->remetente = 'Mais pelada';
                         $Email->enviar();
                         exit(json_encode(array('sucesso'=>true,'mensagem'=>'Enviado com sucesso')));

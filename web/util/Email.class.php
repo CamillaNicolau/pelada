@@ -6,8 +6,6 @@
  *
  * @author Camilla Nicolau
  */
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 class Email
 {
@@ -110,11 +108,10 @@ class Email
     public function enviar()
     {   
         
-        $email = new PHPMailer;
+        $email = new PHPMailer\PHPMailer\PHPMailer();
 
         $email->CharSet = 'UTF-8';
         $email->isSMTP();
-        $email->SMTPDebug = 2; //Alternative to above constant
         $email->Host = SMTP_HOST;
         $email->SMTPAuth = SMTP_AUTH;
         $email->Username = SMTP_EMAIL;

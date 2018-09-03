@@ -12,10 +12,10 @@
  * 
  * Configurações Gerais.
  */
-define('BD_USER','root');
-define('BD_PASS','ORpfhGflwODqqUON');
-define('BD_HOST' ,'localhost');
-define('BD_NAME','pelada');
+define('BD_USER','maispelada');
+define('BD_PASS','camilla2018');
+define('BD_HOST' ,'maispelada.mysql.dbaas.com.br');
+define('BD_NAME','maispelada');
 if (!defined('BD_DEBUG')) {
     define('BD_DEBUG', false);
 }
@@ -26,9 +26,9 @@ if (!defined('BD_PERSISTENT')) {
 
 define('PATH_RAIZ' , dirname( __FILE__ ));
 # URL Raiz do Site.
-define('URL_RAIZ_SITE', 'http://localhost/maispelada.com.br/web');
+define('URL_RAIZ_SITE', 'http://maispelada.tempsite.ws/mais-pelada/web');
 # Título principal do Sistema.
-define("TITULO", "Chute Certo");
+define("TITULO", "Mais Pelada");
 
 ##### constantes #####
 define('TAMANHO_IMAGEM','2097152');
@@ -40,14 +40,13 @@ define('MIN_JOGADORES','8');
 define("PATH_USUARIO", PATH_RAIZ."/visualizacoes/imagens/usuario");
 define("URL_USUARIO", URL_RAIZ_SITE."/visualizacoes/imagens/usuario");
 
-define("SMTP_ATIVAR", true);
 define("SMTP_HOST", "smtp.gmail.com");
 define("SMTP_AUTH", true);
 define("SMTP_NOME", "Camilla");
-define("SMTP_EMAIL", "millacnicolau@vectornet.com.br");
+define("SMTP_EMAIL", "camillacoelhonicolau@gmail.com");
 define("SMTP_SENHA", "Mica2204");
-define("SMTP_SECURE", "SSL");
-define("SMTP_PORTA", "587");
+define("SMTP_SECURE", "ssl");
+define("SMTP_PORTA", "465");
 
 
 /**

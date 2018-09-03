@@ -25,7 +25,7 @@ class LoginControle extends ControlaModelos
                         $ativo = $usuario->ativo;
                     }
                     $_POST['id'] = $id;
-                   
+  
                     if($_POST['email'] != $email || md5($_POST['password']) != $senha) {
                         exit(json_encode(array('sucesso'=>false,'mensagem'=>'Usuario ou senha incorreta')));
                     }

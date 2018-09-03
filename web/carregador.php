@@ -18,13 +18,13 @@ require PATH_RAIZ . '/funcoes/global.php';
 
 
 $valor = ($_GET['acao']) ? Tratamentos::index($_GET['acao']) : 'Index';
-
-if(!isset($_SESSION['id_usuario_logado']) && $valor != 'Login' && $valor != 'Usuario' && $valor != 'EsqueciMinhaSenha')
-{
-
-  header('location: '.URL_RAIZ_SITE.'/login');
-  exit();
-}
+// if(!isset($_SESSION['id_usuario_logado']) && $valor != 'Login' && $valor != 'Usuario' && $valor != 'EsqueciMinhaSenha')
+// {
+// var_dump('aqui');
+//   exit();
+//   header('location: '.URL_RAIZ_SITE.'/login');
+//   exit();
+// }
 
 // Carrega a aplicação se o $_GET for true.
 if(isset($inst)) {

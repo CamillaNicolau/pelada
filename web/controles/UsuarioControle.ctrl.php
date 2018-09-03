@@ -43,14 +43,14 @@ class UsuarioControle extends ControlaModelos
             $Usuario->apelido = $_POST['apelidoUsuario'];
             $Usuario->sexo = $_POST['sexo'];     
             $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $_FILES['imagemUsuario']['name'] :null;
-
+           
             $UsuarioRepositorio->adicionaUsuario($Usuario);
               if(isset($_FILES['imagemUsuario'])){
                 UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
               }
-
+            \Doctrine::commit();
               exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
-              \Doctrine::commit();
+              
             } catch (Erro $E) {
               \Doctrine::rollBack();
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar usuário')));

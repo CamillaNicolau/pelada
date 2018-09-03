@@ -11,7 +11,7 @@ function cadastroUsuarios() {
 function validaForm (retorno) {  
   if(retorno.sucesso === true)
   {
-    window.location = 'inicio';
+    window.location = 'pelada';
   } else {
     alertaFnc("Atenção", retorno.mensagem, null, true, "error");
   }

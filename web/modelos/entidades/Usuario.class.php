@@ -83,7 +83,7 @@ class Usuario {
 
         switch (true)
         {
-          case filter_var($idUsuario, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]):
+         case filter_var($idUsuario, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]):
           try
           {
               $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
@@ -108,18 +108,18 @@ class Usuario {
               $this->dataCriacao = $ObjDados->data_criacao;
               $this->ativo = $ObjDados->ativo;
               $this->urlImagem = $ObjDados->url_imagem;
-          } catch(Exception $ex){
-            echo ('Erro ao instanciar classe Usuario id $idUsuario. '. $ex->getMessage());
+         } catch(Exception $ex){
+           echo ('Erro ao instanciar classe Usuario id $idUsuario. '. $ex->getMessage());
           }
-          break;
-          case is_null($idUsuario):
+            break;
+          case (is_null($idUsuario)):
             $this->ativo = true;
             $this->dataCriacao = date("Y-m-d H:i:s");
             break;
-          default:
+           default:
             echo ('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idUsuario.' do tipo '.gettype($idUsuario));
-            break;
-      }
+   break;
+        }
     }
     
     public function __get($atributo) {
