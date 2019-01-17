@@ -2,19 +2,19 @@
 
 class Pelada{
   
-  private $idPelada;
-  private $nome;
-  private $descricao;
-  private $duracaoPartida;
-  private $qtJogadores;
-  private $sorteio;
-  private $dataPartida;
-  private $dataCriacao;
-  private $localizacao;
-  private $fkPeladeiroAdm;
-  private $horario;
+    private $idPelada;
+    private $nome;
+    private $descricao;
+    private $duracaoPartida;
+    private $qtJogadores;
+    private $sorteio;
+    private $dataPartida;
+    private $dataCriacao;
+    private $localizacao;
+    private $fkPeladeiroAdm;
+    private $horario;
   
-  public function __construct($idPelada = null){
+    public function __construct($idPelada = null){
     
         switch (true)
         {

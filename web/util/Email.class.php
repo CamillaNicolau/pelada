@@ -15,9 +15,7 @@ class Email
     private $email_remetente;
     private $assunto;
     private $mensagem;
-    
-    const EMAIL_NOREPLY = 'nao-responda@maispelada.com.br';
-    
+        
     
     public function __construct($email_destinatario, $assunto, $mensagem)
     {
@@ -118,6 +116,7 @@ class Email
         $email->Password = SMTP_SENHA;
         $email->SMTPSecure = SMTP_SECURE;
         $email->Port = SMTP_PORTA;
+        
 
         defined('SMTP_NOME') ? $email->setFrom(SMTP_EMAIL, SMTP_NOME) : $email->setFrom(SMTP_EMAIL, (isset($this->remetente) ? $this->remetente : SIS_NOME));
         $email->addAddress($this->email_destinatario);

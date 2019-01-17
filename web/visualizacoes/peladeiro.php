@@ -52,7 +52,8 @@
             </fieldset>
         </form>
     </div>
-    <table id="listaPeladeiro"></table>
+    <table id="listaPeladeiro">
+    </table>
     <div class="botoes">
         <button type="button" class="btn btn-success btn-default" id ="botao-cadastrar">Cadastrar</button>
         <button type="button" class="btn btn-primary btn-default" id ="botao-busca-peladeiro">Encontrar peladeiro</button>

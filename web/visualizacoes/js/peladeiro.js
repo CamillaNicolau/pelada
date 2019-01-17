@@ -42,9 +42,8 @@ function atualizarListaPeladeiro() {
       success: function(retorno) {
         if (retorno.sucesso == true) {
             $.each(retorno.html,function(i,v){
-              $('#listaPeladeiro').append('<tr><td><img src=visualizacoes/imagens/usuario/mini_21616243_1692720580740111_4603407605843624647_n.jpg class="rounded-circle"/></td>'+
-               '<td >Camilla</td><td class="col-md-3"><button onclick="editarPeladeiro()" class="btn btn-default glyphicon glyphicon-pencil">Editar</button></td>'+
-               '<td "><button onclick="removerPeladeiro()" class="btn btn-danger"> Excluir </ button></td></tr>');
+              $('#listaPeladeiro').append('<tbody><tr><td>'+v.nome+'</td><td >'+v.email+'</td><td><button onclick="editarPeladeiro('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
+                   '<td><button onclick="removerPeladeiro('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td></tr></tbody>');
             });
         }
       }
@@ -81,6 +80,40 @@ function montarPosicao(){
     } 
    } 
   });
+}
+
+function editarPeladeiro(idPeladeiro){
+    $.ajax({
+        type: 'POST',
+        url: 'peladeiro',
+        data: 'acao=buscar_dados_para_edicao&id_peladeiro='+idPeladeiro,
+        dataType: 'json',
+        beforeSend: function() {
+          alertaFnc("Aguarde", "Carregando os dados..", 250, false, null);
+        },
+        success: function(retorno) {
+            $("#id_peladeiro").val(retorno.idPeladeiro);
+            $("#nomePeladeiro").val(retorno.nome);
+            $("#emailPeladeiro").val(retorno.email);    
+            $("#telPeladeiro").val(retorno.telefone);
+            $("#dataNascimento").val(retorno.data_nasimento);
+            if(retorno.sorteio == "diarista"){
+              $("#diarista").prop('checked',true);
+              $("#diarista").val(retorno.participacao);
+            }else {
+              $("#mensalista").prop('checked',true);
+              $("#mensalista").val(retorno.participacao);
+            }
+            $("#dataPartida").val(retorno.dataPartida);
+            $("#posicao").val(retorno.posicao);
+            $("#time").val(retorno.time);
+            $('#acao').val('atualizar');
+            $(".botoes").hide();
+            $("#listaPeladeiro").hide();
+            $("#cadastroPeladeiro").fadeIn('normal');
+            atualizarListaPeladeiro();
+        }
+    });
 }
 
 function montarTime(){

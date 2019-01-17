@@ -14,15 +14,15 @@ class Posicao {
               $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
               $QueryBuilder
                   ->select('*')
-                  ->from('posicao')
-                  ->where('idPosicao = :idPosicao')
-                  ->setParameter(':idPosicao', $idPosicao, \PDO::PARAM_INT)
+                  ->from('posicao_peladeiro')
+                  ->where('id_posicao_peladeiro = ?')
+                  ->setParameter(0, $idPosicao, \PDO::PARAM_INT)
               ;
               $ObjDados = $QueryBuilder->execute()->fetch();
               if (!$ObjDados) {
                   echo("Registro de id ". $idPosicao . " não encontrado no banco de dados.");
               }
-              $this->idPosicao = $ObjDados->idPosicao;
+              $this->idPosicao = $ObjDados->id_posicao_peladeiro;
               $this->nome = $ObjDados->nome;
           } catch(Exception $ex){
 

@@ -18,41 +18,45 @@ class PeladeiroControle extends ControlaModelos
         {
             case 'adicionar':
             try
-            {   
-                
+            {            
+                if(isset($_FILES['imagemUsuario'])) {
+                    $msg_erro = false;
+                    if ($_FILES['imagemUsuario']['size'] > TAMANHO_IMAGEM) {
+                        exit(json_encode(["sucesso" => false,"mensagem" => "Imagem muito grande! O tamanho permitido é de " . UsuarioModelo::verificaTamanhoImagem(TAMANHO_IMAGEM) . "<br />"]));
+                    }
+           
+                    if ($msg_erro) {
+                        exit(json_encode(["sucesso" => false, "mensagem" => implode("<br>", $msg_erro)]));
+                    }
+                }
                 \Doctrine::beginTransaction();
 
                 $time = $_POST['time'];
                 $posicao =  $_POST['posicao'];
                 
-                $PeladeiroRepositorio = new PeladaRepositorio();
+                $PeladeiroRepositorio = new PeladeiroRepositorio();
                 $Peladeiro = new Peladeiro();
 
+                $imagem = pathinfo($_FILES['imagemUsuario']['name']);
+                $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
+                $url = $nomeImagem .'.' . $imagem['extension'];
+                
                 $Peladeiro->setTime(new Time($time));
                 $Peladeiro->setPosicao(new Posicao($posicao));
-                $Localizacao->nomeQuadra = $_POST['nomeQuadra'];
-                $Localizacao->rua = $_POST['rua'];           
-                $Localizacao->bairro = $_POST['bairro'];
-                $Localizacao->numero = $_POST['numero']; 
-                $Localizacao->setCidade(new Cidade($cidade));
-              
-                $LocalizacaoRepositorio->adicionaLocalizacao($Localizacao);
-                $id_localizacao = $LocalizacaoRepositorio->adicionaLocalizacao($Localizacao);
-                
-                $PeladaRepositorio = new PeladaRepositorio();
-                $Pelada = new Pelada();
+                $Peladeiro->nome = $_POST['nomePeladeiro'];
+                $Peladeiro->email = $_POST['emailPeladeiro'];
+                $Peladeiro->telefone = $_POST['telPeladeiro'];
+                $Peladeiro->data_nascimento = $_POST['dataNascimento'];
+                $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url :null;
+                $Peladeiro->participacao = $_POST['participacao'];
+                $Peladeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
-                $Pelada->nome = $_POST['nomePelada'];
-                $Pelada->descricao = $_POST['descricaoPelada'];
-                $Pelada->duracaoPartida = $_POST['tempoJogo'];
-                $Pelada->qtJogadores = $_POST['qtJogadores'];
-                $Pelada->sorteio = $_POST['sorteio'];
-                $Pelada->localizacao = (int)$id_localizacao;
-                $Pelada->dataPartida = $_POST['dataPartida'];
-                $Pelada->horario = $_POST['horario'];
-                $Pelada->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
-                
-                $PeladaRepositorio->adicionaPelada($Pelada);
+                if(!$PeladeiroRepositorio->adicionaPeladeiro($Peladeiro)){
+                    exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao inserir imagem')));
+                 }
+                if(isset($_FILES['imagemUsuario'])){
+                    UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
+                }
                 \Doctrine::commit();
                 exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
                
@@ -63,25 +67,22 @@ class PeladeiroControle extends ControlaModelos
             break;
             case 'buscar_dados_para_edicao':
                 try{
-                    $Pelada = new Pelada($_POST['id_pelada']);
-                    $Localizacao = new Localizacao($Pelada->localizacao);
-                    $Cidade = new Cidade($Localizacao->cidade);
+                    $Peladeiro = new Peladeiro($_POST['id_peladeiro']);
+                    $Posicao = new Posicao($Peladeiro->posicao);
+                    $Time = new Time($Peladeiro->timeFutebol);
                     $saida = array();
 
-                    $saida['idPelada'] = $Pelada->idPelada;
-                    $saida['nome'] = $Pelada->nome;
-                    $saida['descricao'] = $Pelada->descricao;
-                    $saida['duracaoPartida'] = $Pelada->duracaoPartida;
-                    $saida['qtJogadores'] = $Pelada->qtJogadores;
-                    $saida['sorteio'] = $Pelada->sorteio;
-                    $saida['dataPartida'] = $Pelada->dataPartida ? Tratamentos::converteData($Pelada->dataPartida) : null;
-                    $saida['horario'] = $Pelada->horario;
-                    $saida['nomeQuadra'] = $Localizacao->nomeQuadra;
-                    $saida['rua'] = $Localizacao->rua;
-                    $saida['bairro'] = $Localizacao->bairro;
-                    $saida['numero'] = $Localizacao->numero;
-                    $saida['estado'] = $Cidade->estado;
-                    $saida['cidade'] = $Localizacao->cidade;
+                    $saida['idPeladeiro'] = $Peladeiro->idPeladeiro;
+                    $saida['nome'] = $Peladeiro->nome;
+                    $saida['email'] = $Peladeiro->email;
+                    $saida['telefone'] = $Peladeiro->telefone;
+                    $saida['data_nascimento'] = $Peladeiro->data_nascimento ? Tratamentos::converteData($Peladeiro->data_nascimento) : null;
+                    $saida['posicao'] = $Peladeiro->posicao; 
+                    $saida['time'] = $Peladeiro->timeFutebol;
+                    $saida['participacao'] = $Peladeiro->participacao;
+                    $saida['imagemPeladeiro'] = URL_USUARIO. '/'. UsuarioModelo::PREFIXO_MINIATURA . $Peladeiro->url_imagem;
+
+
                     exit(json_encode($saida));
                 }catch(Erro $E){
                     exit(json_encode(array('sucesso'=>false)));
@@ -143,9 +144,14 @@ class PeladeiroControle extends ControlaModelos
             break;
             case 'lista_peladeiro':
                 try{
-                    exit(json_encode(array('sucesso'=>true)));
+                    $html = [];
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro();
+                    foreach($ListaPeladeiro as $peladeiro) {
+                        $html[] =  array('id'=>$peladeiro->id_peladeiro,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
+                    }
+                    exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
-                    exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o Shape.")));
+                    exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o peladeiro.")));
                 }
             break;
             case 'lista_time':
