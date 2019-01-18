@@ -21,6 +21,16 @@
             <input id="emailUsuario" name="emailUsuario" class="form-control" placeholder="Digite seu E-mail" required="" type="email">
           </div>
           <div class="form-group">
+            <label for="inputPData" class="control-label">Data Nascimento</label>
+            <input type="date" name="dataNascimento" class="form-control" id="dataNascimento" required="" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="selectTime">Time</label>
+            <select class="form-control" id="time" name="time">
+              <option value="" selected>Selecione</option> 
+            </select>
+          </div>
+          <div class="form-group">
             <label for="inputPassword" class="control-label">Senha</label>
             <input type="password" name="password" class="form-control" id="password" required="" placeholder="Digite sua Senha">
             <div class="progress">

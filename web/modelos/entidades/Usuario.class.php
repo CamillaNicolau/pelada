@@ -102,8 +102,6 @@ class Usuario {
               $this->senha = $ObjDados->senha;
               $this->nome = $ObjDados->nome;
               $this->apelido = $ObjDados->apelido;
-//              $this->posicao = (int)$ObjDados->fk_posicao;
-//              $this->timeFutebol = (int)$ObjDados->fk_time;
               $this->sexo = $ObjDados->sexo;
               $this->dataCriacao = $ObjDados->data_criacao;
               $this->ativo = $ObjDados->ativo;
@@ -130,8 +128,6 @@ class Usuario {
             case "senha":
             case "nome":
             case "apelido":
-//            case "timeFutebol":
-//            case "posicao":
             case "sexo":
             case "dataCriacao":
             case "ativo":
@@ -152,8 +148,6 @@ class Usuario {
             case "senha":
             case "nome":
             case "apelido":
-//            case "timeFutebol":
-//            case "posicao":
             case "sexo":
             case "urlImagem":
                 $this->$atributo = (($value || $value === 0 || $value === '0' )?$value:null);

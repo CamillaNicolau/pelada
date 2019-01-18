@@ -42,8 +42,8 @@ class Peladeiro {
                 $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
                 $QueryBuilder
                     ->select('*')
-                    ->from('peladeiro')
-                    ->where('id_peladeiro = ?')
+                    ->from('usuario')
+                    ->where('id_usuario = ?')
                     ->setParameter(0, $idPeladeiro, \PDO::PARAM_INT)
                 ;
                 $ObjDados = $QueryBuilder->execute()->fetch();
@@ -51,14 +51,14 @@ class Peladeiro {
                     echo("Registro de id ". $idPeladeiro . " não encontrado no banco de dados.");
                 }
                 
-                $this->idPeladeiro = $ObjDados->id_peladeiro;
+                $this->idPeladeiro = $ObjDados->id_usuario;
                 $this->nome = $ObjDados->nome;
                 $this->email = $ObjDados->email;
                 $this->telefone = $ObjDados->telefone;
                 $this->data_nascimento = $ObjDados->data_nascimento;
                 $this->url_imagem = $ObjDados->url_imagem;
                 $this->participacao = $ObjDados->participacao;
-                $this->usuario = $ObjDados->fk_usuario;
+                $this->usuario = $ObjDados->fk_criador;
                 $this->marcacoes = $ObjDados->fk_marcacoes;
                 $this->timeFutebol = $ObjDados->fk_time_futebol;
                 $this->posicao = $ObjDados->fk_posicao;

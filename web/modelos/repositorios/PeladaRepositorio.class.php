@@ -16,7 +16,7 @@ class PeladaRepositorio extends Pelada {
             $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder(); 
             $QueryBuilder
                 ->insert('pelada')
-                ->setValue('nome', ':nome')
+                ->setValue('nome_pelada', ':nome_pelada')
                 ->setValue('descricao', ':descricao')
                 ->setValue('duracao_pelada', ':duracao_pelada')
                 ->setValue('qt_jogadores', ':qt_jogadores')
@@ -26,7 +26,7 @@ class PeladaRepositorio extends Pelada {
                 ->setValue('fk_peladeiro',':fk_peladeiro')
                 ->setValue('horario', ':horario')
                 ->setValue('data_criacao',':data_criacao')
-                ->setParameter(':nome', $Pelada->nome)
+                ->setParameter(':nome_pelada', $Pelada->nome)
                 ->setParameter(':descricao', $Pelada->descricao)
                 ->setParameter(':duracao_pelada', $Pelada->duracaoPartida)
                 ->setParameter(':qt_jogadores', $Pelada->qtJogadores)
@@ -56,7 +56,7 @@ class PeladaRepositorio extends Pelada {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->update('pelada')
-                ->set('nome', ':nome')
+                ->set('nome_pelada', ':nome_pelada')
                 ->set('descricao', ':descricao')
                 ->set('duracao_pelada', ':duracao_pelada')
                 ->set('qt_jogadores', ':qt_jogadores')
@@ -66,7 +66,7 @@ class PeladaRepositorio extends Pelada {
                 ->set('data_criacao',':data_criacao')
                 ->set('horario',':horario')
                 ->set('data_criacao',':data_criacao')
-                ->setParameter(':nome', $Pelada->nome)
+                ->setParameter(':nome_pelada', $Pelada->nome)
                 ->setParameter(':descricao', $Pelada->descricao)
                 ->setParameter(':duracao_pelada', $Pelada->duracaoPartida)
                 ->setParameter(':qt_jogadores', $Pelada->qtJogadores)
@@ -144,5 +144,27 @@ class PeladaRepositorio extends Pelada {
             echo ("Erro ao buscar pelada". $j->getMessage());
         }
     }
-    
+    public static function buscaGeralPelada(array $condicoes = [], $order = false, $inicio = null, $limite = null){
+
+        $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->select('*')
+                ->from('pelada','p')
+                ->join('p','localizacao_pelada','l','p.fk_localizacao = l.id_localizacao_pelada')
+                ->join('l','cidade','c','l.fk_cidade = c.id_cidade')
+                ->join('p','usuario','u','p.fk_peladeiro = u.id_usuario')
+                ->join('c','estado','e','c.fk_estado = e.id_estado')
+            ;
+            if ($where != '') {
+                $QueryBuilder->where($where);
+            }
+            
+            return $QueryBuilder->execute()->fetchAll();
+        }
+        catch (\Exception $j) {
+            echo ("Erro ao buscar localizacao". $j->getMessage());
+        }
+    }
 }

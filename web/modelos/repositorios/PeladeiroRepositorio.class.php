@@ -19,14 +19,14 @@ class PeladeiroRepositorio extends Peladeiro {
         try {
             $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder(); 
             $QueryBuilder
-                ->insert('peladeiro')
+                ->insert('usuario')
                 ->setValue('nome', ':nome')
                 ->setValue('email', ':email')
                 ->setValue('telefone', ':telefone')
                 ->setValue('data_nascimento', ':data_nascimento')
                 ->setValue('url_imagem', ':url_imagem')
                 ->setValue('participacao', ':participacao')
-                ->setValue('fk_usuario', ':fk_usuario')
+                ->setValue('fk_criador', ':fk_criador')
                 ->setValue('fk_marcacoes',':fk_marcacoes')
                 ->setValue('fk_time_futebol',':fk_time_futebol')
                 ->setValue('fk_posicao',':fk_posicao')
@@ -36,7 +36,7 @@ class PeladeiroRepositorio extends Peladeiro {
                 ->setParameter(':data_nascimento', $Peladeiro->data_nascimento)
                 ->setParameter(':url_imagem', $Peladeiro->url_imagem)
                 ->setParameter(':participacao', $Peladeiro->participacao)
-                ->setParameter(':fk_usuario',$Peladeiro->usuario)
+                ->setParameter(':fk_criador',$Peladeiro->usuario)
                 ->setParameter(':fk_marcacoes', $Peladeiro->marcacoes)
                 ->setParameter(':fk_time_futebol', $Peladeiro->timeFutebol)
                 ->setParameter(':fk_posicao', $Peladeiro->posicao)
@@ -65,7 +65,7 @@ class PeladeiroRepositorio extends Peladeiro {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->select('*')
-                ->from('peladeiro')
+                ->from('usuario')
             ;
             if ($where != '') {
                 $QueryBuilder->where($where);

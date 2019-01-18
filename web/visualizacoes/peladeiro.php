@@ -1,10 +1,11 @@
 
 <div id="conteudo"> 
-    <div class="cabecalho_conteudo">
-      <h2>Peladeiro</h2>
-    </div>
     <div id="cadastroPeladeiro" style="display: none">
         <form class="form-horizontal mx-auto d-block" action="peladeiro" method="post" name="form_cadastra_peladeiro" id="form_cadastra_peladeiro" >
+            <h2 class="box-title"><strong>PELADEIRO</strong></h2>
+            <h4 class="subtitle">Use os campos abaixo para cadastrar os peladeiros da sua pelada.</h4>
+            <br>
+            <h3 class="box-title"><strong>INFORMAÇÕES DO PELADEIRO</strong></h3>
             <fieldset>
                 <span>
                     <div class="imagem-perfil"></div>
@@ -21,25 +22,29 @@
                     <label for="inputEmail" class="control-label">Email</label>
                     <input id="emailPeladeiro" name="emailPeladeiro" class="form-control" placeholder="Digite seu E-mail" required="" type="email">
                 </div>
-                <div class="form-group">
-                    <label for="textTelefone" class="control-label">Telefone</label>
-                    <input id="telPeladeiro" name="telPeladeiro" class="form-control" placeholder="(xx)xxxxx-xxxx" type="tel">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="textTelefone" class="control-label">Telefone</label>
+                        <input id="telPeladeiro" name="telPeladeiro" class="form-control" placeholder="(xx)xxxxx-xxxx" type="tel">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPData" class="control-label">Data Nascimento</label>
+                        <input type="date" name="dataNascimento" class="form-control" id="dataNascimento" required="" placeholder="">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="inputPData" class="control-label">Data Nascimento</label>
-                    <input type="date" name="dataNascimento" class="form-control" id="dataNascimento" required="" placeholder="">
-                </div>
-                <div class="form-group">
-                    <label for="selectPosicao">Posição</label>
-                    <select class="form-control" id="posicao" name="posicao">
-                        <option value="" selected>Selecione</option> 
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="selectTime">Time</label>
-                    <select class="form-control" id="time" name="time">
-                        <option value="" selected>Selecione</option> 
-                    </select>
+                <div class="row">
+                    <div class="form-group">
+                        <label for="selectPosicao">Posição</label>
+                        <select class="form-control" id="posicao" name="posicao">
+                            <option value="" selected>Selecione</option> 
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="selectTime">Time</label>
+                        <select class="form-control" id="time" name="time">
+                            <option value="" selected>Selecione</option> 
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
                   <label for="radioParticipacao">Participação</label>
@@ -52,8 +57,31 @@
             </fieldset>
         </form>
     </div>
-    <table id="listaPeladeiro">
-    </table>
+    <div class="table-responsive col-md-12 tabela-peladeiro">
+        <table class="table table-striped" cellspacing="0" cellpadding="0">
+            <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Email</th>
+                  <th colspan="2" scope="col" style="text-align: center;">Ação</th>
+                </tr>
+            </thead>
+            <tbody id="listaPeladeiro"></tbody>  
+        </table>
+    </div> 
+    <span class="busca-peladeiro" style="display: none">
+        <h2 class="box-title"><strong>ENCONTRE O PELADEIRO</strong></h2>
+        <div class="alert alert-warning" role="alert">
+            <strong>Informe um email para encontrar o peladeiro.</strong>
+        </div>
+        <input type="search" id="busca" name="busca">
+        <button type="submit" id="encontra-peladeiro"><i class="fas fa-search"></i></button>
+        <div id="peladeiro">
+            
+        </div>
+        <br>
+        <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button>
+    </span>
     <div class="botoes">
         <button type="button" class="btn btn-success btn-default" id ="botao-cadastrar">Cadastrar</button>
         <button type="button" class="btn btn-primary btn-default" id ="botao-busca-peladeiro">Encontrar peladeiro</button>

@@ -13,14 +13,14 @@
     overflow: hidden;
 }
 
-.sidebar {
+.sidebar{
     background-color:  #0b2e13 ;
-    width: 180px !important;
+    width: 190px !important;
 }
 
 
 .sidebar a:hover {
-    color: #1e7e34;
+    color: #008600;
     text-decoration: none;
 }
 .menu ul  {
@@ -81,4 +81,30 @@ input {
 #grupoNome, #esqueceuLogin {
 	width: 40%;
     border: 1px solid #555;
+}
+
+.perfil {
+    background-color:  #0b2e13 ;
+    width: 170px !important;
+}
+
+
+.profile-userpic img{
+  width: 60%;
+}
+
+.perfil-imagem,.perfil-titulo{
+  margin-left: 13px;
+}
+
+.perfil-nome, a{
+  color: #e5ebf3;
+}
+
+.perfil-configuracao a:hover {
+    color: #008600;
+    text-decoration: none;
+}
+.col-md-4{
+  flex: 0 0 0;
 }

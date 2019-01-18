@@ -9,48 +9,24 @@
  */
 class InicioControle extends ControlaModelos
 {
-    public function tratarAcoes(){
-      
+
+    public function tratarAcoes()
+    {
         if(isset($_REQUEST['acao']));
-        switch ($_REQUEST['acao']){
-            case "lista_pelada":
-                try {
-                    $id = $_SESSION['id_usuario_logado'];
-               
-                    $ListaPelada = PeladaRepositorio::buscarPelada(array('id_pelada'=>$id));
-                    $contador = count($ListaPelada);
-                        
+        switch ($_REQUEST['acao'])
+        {
+            case 'lista_pelada':
+                try{
+
                     $html = [];
-                    for($i = 0; $i < $contador; $i++){
-
-                        $id_pelada = $ListaPelada[$i]->id_pelada;
-                        $nome_pelada = $ListaPelada[$i]->nome;
-                        $data_pelada = date('d-m-Y', strtotime($ListaPelada[$i]->data_pelada));
-                        $horario = date('H:i', strtotime($ListaPelada[$i]->horario));
-                        $observacoes = $ListaPelada[$i]->descricao;
-                        $localizacao = $ListaPelada[$i]->fk_localizacao;
-                       
-                        $ListaLocalizacao = LocalizacaoRepositorio::buscarLocalizacao(array('fk_localizacao'=>$localizacao));
-
-                        $nome_quadra = $ListaLocalizacao[$i]->nome_quadra;
-                        $rua = $ListaLocalizacao[$i]->rua;
-                        $bairro = $ListaLocalizacao[$i]->bairro;
-                        $numero = $ListaLocalizacao[$i]->numero;
-                        $cidade = $ListaLocalizacao[$i]->fk_cidade;
-                        
-                        $Cidade = CidadeRepositorio::buscarCidade($cidade);
-                        
-                        $nome_cidade = $Cidade[$i]->nome;
-                        
-             
-                        $html[] =  array('nome_pelada'=>$nome_pelada,'data_pelada'=>$data_pelada,'observacoes'=>$observacoes,
-                        'horario'=>$horario,'nome_quadra'=>$nome_quadra,'rua'=>$rua,
-                        'bairro'=>$bairro,'numero'=>$numero, 'cidade'=>$nome_cidade,'id'=>$id_pelada) ;
-                    }
-                    
+                   
+                        $ListaPelada = PeladaRepositorio::buscaGeralPelada();
+                        foreach($ListaPelada as $pelada) {
+                            $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome, 'data_pelada'=>$pelada->data_pelada,'horario'=>$pelada->horario,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade) ;
+                        }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
-                } catch (Exception $exc) {
-                    echo $exc->getTraceAsString();
+                }catch(Erro $E){
+                  exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar lista de pelada.")));
                 }
             break;
         }
@@ -65,7 +41,7 @@ class InicioControle extends ControlaModelos
             require PATH_RAIZ . '/visualizacoes/incluir/menu.php';
 
             /*
-             * Conteúdo
+             * Conteúdo da Index
              */
             require PATH_RAIZ . '/visualizacoes/inicio.php';
 
@@ -73,13 +49,12 @@ class InicioControle extends ControlaModelos
              * Rodapé
              */
             require PATH_RAIZ . '/visualizacoes/incluir/rodape.php';
-            
         }
         catch (Exception $ex)
         {
             echo 'Exceção: ',  $ex->getMessage(), "\n";
         }
-		
+        
     }
 
 }

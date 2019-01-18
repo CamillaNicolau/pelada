@@ -50,7 +50,7 @@ class PeladaControle extends ControlaModelos
                 $Pelada->dataPartida = $_POST['dataPartida'];
                 $Pelada->horario = $_POST['horario'];
                 $Pelada->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
-                
+
                 $PeladaRepositorio->adicionaPelada($Pelada);
                 \Doctrine::commit();
                 exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
@@ -146,7 +146,7 @@ class PeladaControle extends ControlaModelos
                     $html = [];
                     $ListaPelada = PeladaRepositorio::buscarPelada();
                     foreach($ListaPelada as $pelada) {
-                        $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome, 'descricao'=>$pelada->descricao) ;
+                        $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_partida'=>Tratamentos::converteData($pelada->data_pelada), 'horario'=>$pelada->horario) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -172,13 +172,57 @@ class PeladaControle extends ControlaModelos
                     $htmlCidade = [];
                     $ListaCidade = CidadeRepositorio::buscarCidade(null,null,$estado);
                     foreach($ListaCidade as $cidade){
-                       $htmlCidade[] = array('id'=>$cidade->id_cidade, 'nome'=>$cidade->nome, 'estado'=>$cidade->fk_estado) ;
+                       $htmlCidade[] = array('id'=>$cidade->id_pelada, 'nome'=>$cidade->nome_cidade, 'estado'=>$cidade->fk_estado) ;
                          
                     }
                     exit(json_encode(['sucesso'=>true, 'html'=>$htmlCidade]));
                 } catch (Erro $E) {
                     exit(json_encode(['sucesso'=>false]));
                 }
+            break;
+            case 'buscar_pelada':
+                try{
+                    
+                    $html = [];
+                    $EncontrarPelada= PeladaRepositorio::buscaGeralPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%"']);
+                    if(count($EncontrarPelada) > 0){
+                        foreach($EncontrarPelada as $pelada) {
+                            $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade, 'sigla'=>$pelada->sigla, 'telefone_usuario'=>$pelada->telefone,'email_usuario'=>$pelada->email) ;
+                        }
+                        exit(json_encode(array('sucesso'=>true,'html'=>$html)));
+                    } else{
+                        exit(json_encode(['sucesso'=>false, "mensagem" => "Não foi encontrado nenhuma pelada."]));
+                    }
+                }catch(Erro $E){
+                    exit(json_encode(['sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o pelada."]));
+                }
+            break;
+            case 'buscar_peladeiro':
+                try{
+                    $html = [];
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro();
+                    foreach($ListaPeladeiro as $peladeiro) {
+                        $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome) ;
+                    }
+                    exit(json_encode(array('sucesso'=>true,'html'=>$html)));
+                }catch(Erro $E){
+                    exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o peladeiro.")));
+                }
+            break;
+            case 'adicionar_peladeiro':
+            try
+            {            
+               
+                // \Doctrine::beginTransaction();
+var_dump($_POST);
+           
+                // \Doctrine::commit();
+                exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
+               
+            } catch (Erro $E) {
+              \Doctrine::rollBack();
+              exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar pelada')));
+            }
             break;
         }
     }

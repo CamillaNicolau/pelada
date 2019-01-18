@@ -15,7 +15,6 @@ class LoginControle extends ControlaModelos
         switch($_REQUEST['acao']){
             case 'logar':
                 try{
-
                     $buscaUsuario = UsuarioRepositorio::buscarUsuario($_POST['email']);
                     foreach($buscaUsuario as $usuario){
                         $nome = $usuario->nome;
@@ -25,13 +24,15 @@ class LoginControle extends ControlaModelos
                         $ativo = $usuario->ativo;
                     }
                     $_POST['id'] = $id;
-  
+                    $nome = explode(' ',$nome);
+
                     if($_POST['email'] != $email || md5($_POST['password']) != $senha) {
                         exit(json_encode(array('sucesso'=>false,'mensagem'=>'Usuario ou senha incorreta')));
                     }
                     if($ativo == 1) {
                         if($_POST['email'] == $email && md5($_POST['password']) == $senha) {
                             $_SESSION['id_usuario_logado'] = $id;
+                            $_SESSION['nome_usuario_logado'] = $nome[0];
                             if(isset($_POST['_memorizar']))
                             {
                                 setcookie($_POST['email'],  $_POST['password'] ,time()+60*60*24*30);

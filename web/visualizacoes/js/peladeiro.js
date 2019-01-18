@@ -3,13 +3,25 @@ $(document).ready(function() {
     $("#botao-cadastrar").bind('click',function(){
         $('#cadastroPeladeiro').slideDown();
         $(".botoes").hide();
-        $("#listaPeladeiro").hide();
+        $(".tabela-peladeiro").hide();
     });
     $('#botao-cancelar').bind('click',resetarFormulario);
     $('#form_cadastra_peladeiro').ajaxForm({ 
         dataType:  'json',
         beforeSend: validaForm,
         success:   tratarResultado 
+    });
+    $("#botao-busca-peladeiro").bind('click',function(){
+        $('.busca-peladeiro').slideDown();
+        $(".botoes").hide();
+        $(".tabela-peladeiro").hide();
+    });
+
+    $("#encontra-peladeiro").bind('click',function(){
+      encontrarPeladeiro();
+    });
+    $("#cancelar-buscar").bind('click',function(){
+      resetarFormulario();
     });
     atualizarListaPeladeiro();
     montarPosicao();
@@ -40,10 +52,13 @@ function atualizarListaPeladeiro() {
       data: 'acao=lista_peladeiro',
       dataType: 'json',
       success: function(retorno) {
+        $('#listaPeladeiro').html('');
         if (retorno.sucesso == true) {
             $.each(retorno.html,function(i,v){
-              $('#listaPeladeiro').append('<tbody><tr><td>'+v.nome+'</td><td >'+v.email+'</td><td><button onclick="editarPeladeiro('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
-                   '<td><button onclick="removerPeladeiro('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td></tr></tbody>');
+              $('#listaPeladeiro').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-3">'+v.email+'</td>'+
+                '<td><button onclick="editarPeladeiro('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
+                '<td><button onclick="removerPeladeiro('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td>'+
+                '</tr>');
             });
         }
       }
@@ -52,9 +67,9 @@ function atualizarListaPeladeiro() {
 function resetarFormulario(){
   $("#form_cadastra_peladeiro")[0].reset();
   $("#cadastroPeladeiro").slideUp(function() {
-     $("#listaPeladeiro").show();
+     $(".tabela-peladeiro").show();
    });
- 
+  $(".busca-peladeiro").hide();
    $(".botoes").show();
 }
 function montarPosicao(){
@@ -80,6 +95,31 @@ function montarPosicao(){
     } 
    } 
   });
+}
+
+function encontrarPeladeiro() {
+  var email  = $('#busca').val();
+  $.ajax({
+      type: 'POST',
+      url: 'peladeiro',
+      data: 'acao=buscar_peladeiro&email='+email,
+      dataType: 'json',
+      beforeSend: function() {
+       
+      }, 
+      success: function(retorno) {
+        $('#peladeiro').html('');
+        if (retorno.sucesso == true) {
+            $.each(retorno.html,function(i,v){
+              $('#peladeiro').append('<tbody><tr><td>'+v.nome+'</td><td >'+v.email+'</td>'+
+                '</tr></tbody>');
+            });
+        }else { 
+                   
+                    alertaFnc("Atenção", retorno.mensagem, null, true, "warning");
+                }
+      }
+  }); 
 }
 
 function editarPeladeiro(idPeladeiro){
@@ -109,7 +149,7 @@ function editarPeladeiro(idPeladeiro){
             $("#time").val(retorno.time);
             $('#acao').val('atualizar');
             $(".botoes").hide();
-            $("#listaPeladeiro").hide();
+            $(".tabela-peladeiro").hide();
             $("#cadastroPeladeiro").fadeIn('normal');
             atualizarListaPeladeiro();
         }

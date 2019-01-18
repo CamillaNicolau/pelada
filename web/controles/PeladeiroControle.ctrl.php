@@ -33,13 +33,14 @@ class PeladeiroControle extends ControlaModelos
 
                 $time = $_POST['time'];
                 $posicao =  $_POST['posicao'];
-                
+               
                 $PeladeiroRepositorio = new PeladeiroRepositorio();
                 $Peladeiro = new Peladeiro();
-
-                $imagem = pathinfo($_FILES['imagemUsuario']['name']);
-                $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
-                $url = $nomeImagem .'.' . $imagem['extension'];
+                if($_POST['imagemUsuario']){
+                    $imagem = pathinfo($_FILES['imagemUsuario']['name']);
+                    $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
+                    $url = $nomeImagem .'.' . $imagem['extension'];
+                }
                 
                 $Peladeiro->setTime(new Time($time));
                 $Peladeiro->setPosicao(new Posicao($posicao));
@@ -68,7 +69,10 @@ class PeladeiroControle extends ControlaModelos
             case 'buscar_dados_para_edicao':
                 try{
                     $Peladeiro = new Peladeiro($_POST['id_peladeiro']);
-                    $Posicao = new Posicao($Peladeiro->posicao);
+                    if($Peladeiro->posicao){
+                        $Posicao = new Posicao($Peladeiro->posicao);
+                    }
+                    if($Peladeiro->timeFutebol)
                     $Time = new Time($Peladeiro->timeFutebol);
                     $saida = array();
 
@@ -77,8 +81,8 @@ class PeladeiroControle extends ControlaModelos
                     $saida['email'] = $Peladeiro->email;
                     $saida['telefone'] = $Peladeiro->telefone;
                     $saida['data_nascimento'] = $Peladeiro->data_nascimento ? Tratamentos::converteData($Peladeiro->data_nascimento) : null;
-                    $saida['posicao'] = $Peladeiro->posicao; 
-                    $saida['time'] = $Peladeiro->timeFutebol;
+                    $saida['posicao'] = $Peladeiro->posicao ? $Peladeiro->posicao : null ; 
+                    $saida['time'] = $Peladeiro->timeFutebol ? $Peladeiro->timeFutebol :null;
                     $saida['participacao'] = $Peladeiro->participacao;
                     $saida['imagemPeladeiro'] = URL_USUARIO. '/'. UsuarioModelo::PREFIXO_MINIATURA . $Peladeiro->url_imagem;
 
@@ -147,7 +151,7 @@ class PeladeiroControle extends ControlaModelos
                     $html = [];
                     $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro();
                     foreach($ListaPeladeiro as $peladeiro) {
-                        $html[] =  array('id'=>$peladeiro->id_peladeiro,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
+                        $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -176,6 +180,23 @@ class PeladeiroControle extends ControlaModelos
                     exit(json_encode(['sucesso'=>true, 'html'=>$htmlPosicao]));
                 } catch (Erro $E) {
                     exit(json_encode(['sucesso'=>false]));
+                }
+            break;
+            case 'buscar_peladeiro':
+                try{
+                    
+                    $html = [];
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email LIKE "%'.$_POST['email'].'%"']);
+                    if(count($ListaPeladeiro) > 0){
+                        foreach($ListaPeladeiro as $peladeiro) {
+                            $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
+                        }
+                        exit(json_encode(array('sucesso'=>true,'html'=>$html)));
+                    } else{
+                        exit(json_encode(['sucesso'=>false, "mensagem" => "Não foi encontrado nenhum peladeiro."]));
+                    }
+                }catch(Erro $E){
+                    exit(json_encode(['sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o peladeiro."]));
                 }
             break;
         }   

@@ -1,6 +1,7 @@
 <div class="box box-success">
     <div class="box-header">
-        <h3 class="box-title">Minhas Peladas</h3>
+        <h2 class="box-title">Minhas Peladas</h2>
+        <h3 class="subtitle">Bem vindo(a), <?php echo $_SESSION['nome_usuario_logado'];?></h3>
     </div>
     <div id="listaPelada"></div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

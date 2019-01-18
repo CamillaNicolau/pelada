@@ -14,7 +14,7 @@
 class Cidade {
     //put your code here
     private $idCidade;
-    private $nome;
+    private $nome_cidade;
     private $estado;
     
     public function __construct($idCidade = null) {
@@ -31,7 +31,7 @@ class Cidade {
                 echo("Registro de id ". $idCidade . " não encontrado no banco de dados.");
             }
             $this->idCidade = $ObjDados->id_cidade;
-            $this->nome = $ObjDados->nome;
+            $this->nome_cidade = $ObjDados->nome_cidade;
             $this->estado = $ObjDados->fk_estado;
         } catch(Exception $ex){
             echo('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idCidade.' do tipo '.gettype($idCidade));
@@ -40,7 +40,7 @@ class Cidade {
     public function __get($atributo) {
         switch($atributo){
             case 'idCidade':
-            case 'nome':
+            case 'nome_cidade':
             case 'estado':
                 return $this->$atributo;
             break;
@@ -52,7 +52,7 @@ class Cidade {
     public function __set($atributo,$value) {
         switch($atributo){
             case 'idCidade':
-            case 'nome':
+            case 'nome_cidade':
             case 'estado':
                 $this->$atributo = (($value || $value === 0 || $value === '0' )?$value:null);
             break;

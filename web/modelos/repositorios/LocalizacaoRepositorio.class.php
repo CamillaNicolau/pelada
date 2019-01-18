@@ -71,5 +71,7 @@ class LocalizacaoRepositorio extends Localizacao {
             echo('Erro ao adicionar na classe '.__CLASS__.': '.$ex->getMessage());
         }   
     }
+
+   
     //put your code here
 }

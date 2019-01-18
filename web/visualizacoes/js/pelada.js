@@ -3,7 +3,7 @@ $(document).ready(function() {
     $("#botao-cadastrar").bind('click',function(){
         $('#cadastroPelada').slideDown();
         $(".botoes").hide();
-        $("#listaPelada").hide();
+        $(".tabela-pelada").hide();
     });
     $('#botao-cancelar').bind('click',resetarFormulario);
     $('#form_cadastro_pelada').ajaxForm({ 
@@ -12,12 +12,30 @@ $(document).ready(function() {
       success:   tratarResultado 
     });
 
+    $("#botao-busca-pelada").bind('click',function(){
+        $('.busca-pelada').slideDown();
+        $(".botoes").hide();
+        $(".tabela-pelada").hide();
+    });
+
+    $("#encontra-pelada").bind('click',function(){
+      encontrarPelada();
+    });
+    $("#cancelar-buscar").bind('click',function(){
+      resetarFormulario();
+    });
+    $("#cancelar-peladeiro").bind('click',function(){
+      resetarFormulario();
+    });
+
+    $("#botao-adicionar").bind('click',function(){
+        $('#acao').val('adicionar_peladeiro');
+    })
+    
     montarEstado();
-     
     montarCidade();
     
-      atualizarListaPelada();
-    $("#listaPelada").refresh();
+    atualizarListaPelada();
 });
 
 function validaForm(){
@@ -46,11 +64,35 @@ function atualizarListaPelada() {
         data: 'acao=lista_pelada',
         dataType: 'json',
         success: function(retorno) {
+            $('#listaPelada').html('');
             if (retorno.sucesso == true) {
                 $.each(retorno.html,function(i,v){
-                  $('#listaPelada').append('<tbody><tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-6">'+v.descricao+'</td>'+
-                   '<td><button onclick="editarPelada('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
-                   '<td><button onclick="removerPelada('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td></tr></tbody>');
+                  $('#listaPelada').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-2">'+v.data_partida+'</td>'+
+                    '<td class="col-md-2">'+v.horario+'</td>'+
+                    '<td><button onclick="buscarPeladeiro('+v.id+')" title="adicionar peladeiro" class="btn btn-info btn-xs "><i class="fas fa-user-plus"></i></button></td>'+
+                    '<td><button onclick="editarPelada('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
+                    '<td><button onclick="removerPelada('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td></tr></tbody>');
+                });
+            }
+        }
+    }); 
+}
+
+function buscarPeladeiro(idPelada){
+    $('.adicionar-peladeiro').show();
+    $(".botoes").hide();
+    $(".tabela-pelada").hide();
+   
+    $.ajax({
+        type: 'POST',
+        url: 'pelada',
+        data: 'acao=buscar_peladeiro&pelada='+idPelada,
+        dataType: 'json',
+        success: function(retorno) {
+            $('#adicionar-peladeiro').html('');
+            if (retorno.sucesso == true) {
+                $.each(retorno.html,function(i,v){
+                  $('#adicionar-peladeiro').append('<input type="checkbox" aria-label="Chebox para permitir input text" name="check-peladeiro-'+v.id+'" value="'+v.id+'">'+v.nome+'<br>');
                 });
             }
         }
@@ -60,9 +102,44 @@ function atualizarListaPelada() {
 function resetarFormulario(){
     $("#form_cadastro_pelada")[0].reset();
     $("#cadastroPelada").slideUp(function() {
-       $("#listaPelada").show();
+       $('.tabela-pelada').show();
      });
-    $(".botoes").show();  
+     $('.busca-pelada').hide();
+     $('.adicionar-peladeiro').hide();
+     
+    $(".botoes").show(); 
+}
+
+function encontrarPelada() {
+  var cidade  = $('#busca').val();
+  $.ajax({
+      type: 'POST',
+      url: 'pelada',
+      data: 'acao=buscar_pelada&cidade='+cidade,
+      dataType: 'json',
+      beforeSend: function() {
+       
+      }, 
+      success: function(retorno) {
+        $('#pelada').html('');
+        if (retorno.sucesso == true) {
+            var telefone;
+            $.each(retorno.html,function(i,v){
+                if(v.telefone_usuario != null){
+                   telefone = '<p><i class="fab fa-whatsapp"> </i>  '+v.telefone_usuario+'</p>';
+                } else{
+                    telefone = "";
+                }
+              $('#pelada').append('<p><h3><strong>'+v.nome+'</strong>'+
+                '<p>'+v.rua+','+v.numero+' - '+v.bairro+', '+v.cidade+' - '+v.sigla+'</p>'+telefone+
+                '<p><i class="fas fa-envelope"> </i>  '+v.email_usuario+'</p>');
+            });
+        }else { 
+           
+            alertaFnc("Atenção", retorno.mensagem, null, true, "warning");
+        }
+      }
+  }); 
 }
 
 function editarPelada(idPelada){
@@ -94,16 +171,15 @@ function editarPelada(idPelada){
             $("#bairro").val(retorno.bairro);
             $("#numero").val(retorno.numero);
             $("#estado").val(retorno.estado);
-             if($("#estado").is(':selected',true)){
-      console.log('aqui');
-            $("#cidade").val(retorno.cidade);
-        }
+             if(retorno.estado){
+                console.log(retorno.cidade);
+                $("#cidade").val(retorno.cidade);
+            }
             $("#horario").val(retorno.horario);
-      console.log('aqui2');
 
             $('#acao').val('atualizar');
             $(".botoes").hide();
-            $("#listaPelada").hide();
+            $(".tabela-pelada").hide();
             $("#cadastroPelada").fadeIn('normal');
             atualizarListaPelada();
         }

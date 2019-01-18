@@ -1,17 +1,27 @@
-$(document).ready(function() { 
+$(document).ready(function() {
   
   $('#form_esqueci_senha').ajaxForm({ 
         dataType:  'json', 
-        success:   validaForm 
+        beforeSubmit: validaForm,
+        success: tratarResultado
     }); 
 });
 
-function validaForm (retorno) {  
+function validaForm(){
+    if(true){
+        alertaFnc("Aguarde", "Enviando solicitação...", null, true, null);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function tratarResultado (retorno) {  
   if(retorno.sucesso === true)
   {
-    alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
+    alertaFnc("Sucesso", retorno.mensagem,null, true, "success");
+    window.location.href = 'login';
   } else {
-   
-    alertaFnc("Atenção", retorno.mensagem, null, true, "error");
+    alertaFnc("Erro", retorno.mensagem,null, true, "error"); 
   }
 }

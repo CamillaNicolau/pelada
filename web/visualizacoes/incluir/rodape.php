@@ -1,16 +1,18 @@
-                </div>
-                
-                <div class="footer">
-                    <div class="pull-right">
-                          <p>© 2018 maispelada</p>
-                    </div>
-                                  <div class="clearfix"></div>
+<div class="row-footer full-row">
+    <div class="row between-xs">
+        <div class="col-xs-3">
+          <p>© 2018 Mais pelada</p>
+        </div>
+        
+        <div class="logo-rodape col-xs-3">
+          <img src="./visualizacoes/imagens/cn_camilla_nicolau.png" alt="Mais pelada">
+          <!--                     <img src="./visualizacoes/imagens/camilla.png" alt="">         -->
 
-                </div>
-            </div>
-           
-        </div> <!-- Fecha div .container -->
-<!--    <p class="mt-5 mb-3 text-muted">&copy;2018 Mais Pelada</p>-->
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+</div>
 
         <script type="text/javascript" src="./visualizacoes/js/jquery.min.js" ></script>
         <script type="text/javascript" src="./visualizacoes/js/jquery.form.min.js" ></script> 

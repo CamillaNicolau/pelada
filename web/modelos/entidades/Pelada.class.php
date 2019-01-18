@@ -34,7 +34,7 @@ class Pelada{
                 }
                 
                 $this->idPelada = $ObjDados->id_pelada;
-                $this->nome = $ObjDados->nome;
+                $this->nome = $ObjDados->nome_pelada;
                 $this->descricao = $ObjDados->descricao;
                 $this->duracaoPartida = $ObjDados->duracao_pelada;
                 $this->qtJogadores = $ObjDados->qt_jogadores;
