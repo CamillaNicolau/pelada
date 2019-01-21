@@ -20,10 +20,10 @@ class InicioControle extends ControlaModelos
 
                     $html = [];
                    
-                        $ListaPelada = PeladaRepositorio::buscaGeralPelada();
-                        foreach($ListaPelada as $pelada) {
-                            $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome, 'data_pelada'=>$pelada->data_pelada,'horario'=>$pelada->horario,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade) ;
-                        }
+                    $ListaPelada = PeladaRepositorio::buscaGeralPelada();
+                    foreach($ListaPelada as $pelada) {
+                        $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome, 'data_pelada'=>$pelada->data_pelada,'horario'=>$pelada->horario,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade) ;
+                    }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
                   exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar lista de pelada.")));

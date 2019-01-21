@@ -172,7 +172,7 @@ class PeladaControle extends ControlaModelos
                     $htmlCidade = [];
                     $ListaCidade = CidadeRepositorio::buscarCidade(null,null,$estado);
                     foreach($ListaCidade as $cidade){
-                       $htmlCidade[] = array('id'=>$cidade->id_pelada, 'nome'=>$cidade->nome_cidade, 'estado'=>$cidade->fk_estado) ;
+                       $htmlCidade[] = array('id'=>$cidade->id_cidade, 'nome'=>$cidade->nome_cidade, 'estado'=>$cidade->fk_estado) ;
                          
                     }
                     exit(json_encode(['sucesso'=>true, 'html'=>$htmlCidade]));
@@ -211,10 +211,10 @@ class PeladaControle extends ControlaModelos
             break;
             case 'adicionar_peladeiro':
             try
-            {            
+            {
                
                 // \Doctrine::beginTransaction();
-var_dump($_POST);
+var_dump($_REQUEST);
            
                 // \Doctrine::commit();
                 exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
