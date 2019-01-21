@@ -127,15 +127,17 @@
         <br>
         <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button>
     </span>
-    <span class="adicionar-peladeiro" style="display: none;">
-        <h2 class="box-title"><strong>ADICIONE PELADEIRO</strong></h2>
-        <div class="alert alert-warning" role="alert">
-            <strong>Olá!</strong> Aqui você pode adicionar peladeiros a sua pelada.
-        </div>
-        <div id="adicionar-peladeiro"></div>
-        <button type="button" class="btn btn-success btn-default" id ="botao-adicionar">Adicionar</button>
-        <button type="button" class="btn btn-danger btn-default" id ="cancelar-peladeiro">Cancela</button>
-    </span>
+    <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_adicionar_peladeiro" id="form_adicionar_peladeiro" >
+        <span class="adicionar-peladeiro" style="display: none;">
+            <h2 class="box-title"><strong>ADICIONE PELADEIRO</strong></h2>
+            <div class="alert alert-warning" role="alert">
+                <strong>Olá!</strong> Aqui você pode adicionar peladeiros a sua pelada.
+            </div>
+            <div id="adicionar-peladeiro"></div>
+            <button type="submit" class="btn btn-success btn-default" name="acao" value="adicionar_peladeiro" id ="botao-adicionar">Adicionar</button>
+            <button type="button" class="btn btn-danger btn-default" id ="cancelar-peladeiro">Cancela</button>
+        </span>
+    </form>
     <div class="botoes">
         <button type="button" class="btn btn-lg btn-success btn-default" id ="botao-cadastrar">Cadastrar Pelada</button>
         <button type="button" class="btn btn-lg btn-primary btn-default" id ="botao-busca-pelada">Encontrar pelada</button>

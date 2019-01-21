@@ -6,11 +6,7 @@ $(document).ready(function() {
         $(".tabela-pelada").hide();
     });
     $('#botao-cancelar').bind('click',resetarFormulario);
-    $('#form_cadastro_pelada').ajaxForm({ 
-      dataType:  'json',
-      beforeSend: validaForm,
-      success:   tratarResultado 
-    });
+    
 
     $("#botao-busca-pelada").bind('click',function(){
         $('.busca-pelada').slideDown();
@@ -27,14 +23,25 @@ $(document).ready(function() {
     $("#cancelar-peladeiro").bind('click',function(){
       resetarFormulario();
     });
-
-    $("#botao-adicionar").bind('click',function(){
-        $('#acao').val('adicionar_peladeiro');
-    })
     
     montarEstado();
-    montarCidade();
-    
+
+    $('#estado').change(function(){
+        montarCidade();
+    });
+    if($('#estado').val() != ""){
+        montarCidade();
+    }
+    $('#form_cadastro_pelada').ajaxForm({ 
+      dataType:  'json',
+      beforeSend: validaForm,
+      success:   tratarResultado 
+    });
+    $('#form_adicionar_peladeiro').ajaxForm({ 
+      dataType:  'json',
+      beforeSend: validaFormPeladeiro,
+      success:   tratarResultadoPeladeiro 
+    });
     atualizarListaPelada();
 });
 
@@ -51,6 +58,24 @@ function tratarResultado (retorno) {
     if(retorno.sucesso == true)
     {
       resetarFormulario();
+      alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
+    } else {
+      alertaFnc("Erro", retorno.mensagem,null, true, "error"); 
+    }
+}
+
+function validaFormPeladeiro(){
+    if(true){
+        alertaFnc("Aguarde", "Salvando dados...", null, true, null);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function tratarResultadoPeladeiro (retorno) {  
+    if(retorno.sucesso == true)
+    {
       alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
     } else {
       alertaFnc("Erro", retorno.mensagem,null, true, "error"); 
@@ -92,9 +117,11 @@ function buscarPeladeiro(idPelada){
             $('#adicionar-peladeiro').html('');
             if (retorno.sucesso == true) {
                 $.each(retorno.html,function(i,v){
-                  $('#adicionar-peladeiro').append('<input type="checkbox" aria-label="Chebox para permitir input text" name="check-peladeiro-'+v.id+'" value="'+v.id+'">'+v.nome+'<br>');
+                  $('#adicionar-peladeiro').append('<input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'">'+v.nome+'<br>');
                 });
+                $('#acao').val('adicionar_peladeiro');
             }
+
         }
     }); 
 }
@@ -111,35 +138,35 @@ function resetarFormulario(){
 }
 
 function encontrarPelada() {
-  var cidade  = $('#busca').val();
-  $.ajax({
-      type: 'POST',
-      url: 'pelada',
-      data: 'acao=buscar_pelada&cidade='+cidade,
-      dataType: 'json',
-      beforeSend: function() {
-       
-      }, 
-      success: function(retorno) {
-        $('#pelada').html('');
-        if (retorno.sucesso == true) {
-            var telefone;
-            $.each(retorno.html,function(i,v){
-                if(v.telefone_usuario != null){
-                   telefone = '<p><i class="fab fa-whatsapp"> </i>  '+v.telefone_usuario+'</p>';
-                } else{
-                    telefone = "";
-                }
-              $('#pelada').append('<p><h3><strong>'+v.nome+'</strong>'+
-                '<p>'+v.rua+','+v.numero+' - '+v.bairro+', '+v.cidade+' - '+v.sigla+'</p>'+telefone+
-                '<p><i class="fas fa-envelope"> </i>  '+v.email_usuario+'</p>');
-            });
-        }else { 
+    var cidade  = $('#busca').val();
+    $.ajax({
+        type: 'POST',
+        url: 'pelada',
+        data: 'acao=buscar_pelada&cidade='+cidade,
+        dataType: 'json',
+        beforeSend: function() {
            
-            alertaFnc("Atenção", retorno.mensagem, null, true, "warning");
+        }, 
+        success: function(retorno) {
+            $('#pelada').html('');
+            if (retorno.sucesso == true) {
+                var telefone;
+                $.each(retorno.html,function(i,v){
+                    if(v.telefone_usuario != null){
+                       telefone = '<p><i class="fab fa-whatsapp"> </i>  '+v.telefone_usuario+'</p>';
+                    } else{
+                        telefone = "";
+                    }
+                  $('#pelada').append('<p><h3><strong>'+v.nome+'</strong>'+
+                    '<p>'+v.rua+','+v.numero+' - '+v.bairro+', '+v.cidade+' - '+v.sigla+'</p>'+telefone+
+                    '<p><i class="fas fa-envelope"> </i>  '+v.email_usuario+'</p>');
+                });
+            }else { 
+               
+                alertaFnc("Atenção", retorno.mensagem, null, true, "warning");
+            }
         }
-      }
-  }); 
+    }); 
 }
 
 function editarPelada(idPelada){
@@ -171,8 +198,7 @@ function editarPelada(idPelada){
             $("#bairro").val(retorno.bairro);
             $("#numero").val(retorno.numero);
             $("#estado").val(retorno.estado);
-             if(retorno.estado){
-                console.log(retorno.cidade);
+            if(retorno.estado){
                 $("#cidade").val(retorno.cidade);
             }
             $("#horario").val(retorno.horario);
@@ -232,31 +258,29 @@ function montarEstado(){
 }
 
 function montarCidade(){
-    $('#estado').change(function(e){
-        var estado = $('#estado').val();
-        $('#cidade').html('<span class="mensagem">Aguarde, carregando ...</span>');  
-        $.ajax({
-            type: "POST",
-            url: "pelada",
-            data: 'acao=lista_cidade&id_estado='+estado,
-            dataType: 'json',
-            beforeSend: function() {
+    var estado = $('#estado').val();
+    $('#cidade').html('<span class="mensagem">Aguarde, carregando ...</span>');  
+    $.ajax({
+        type: "POST",
+        url: "pelada",
+        data: 'acao=lista_cidade&id_estado='+estado,
+        dataType: 'json',
+        beforeSend: function() {
 
-            },  
-            success: function(retorno) 
+        },  
+        success: function(retorno) 
+        {
+            if(retorno.sucesso === true) 
             {
-                if(retorno.sucesso === true) 
-                {
-                    $.each(retorno.html,function(i,v) {
-                        var selectCidade = document.getElementById("cidade");
-                        var opt0 = document.createElement("option");
-                        opt0.value = v.id;
-                        opt0.text = v.nome;
-                        selectCidade.add(opt0);
-                    });
-                } 
+                $.each(retorno.html,function(i,v) {
+                    var selectCidade = document.getElementById("cidade");
+                    var opt0 = document.createElement("option");
+                    opt0.value = v.id;
+                    opt0.text = v.nome;
+                    selectCidade.add(opt0);
+                });
             } 
-        });
+        } 
     });
 }
 
