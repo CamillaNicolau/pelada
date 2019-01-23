@@ -158,6 +158,26 @@ function editarPeladeiro(idPeladeiro){
   });
 }
 
+function removerPeladeiro(idPeladeiro) {
+    $.ajax({    
+        type: 'POST',
+        url: 'peladeiro',
+        data: 'acao=remover_peladeiro&id_peladeiro='+idPeladeiro,
+        dataType:'json',
+        beforeSend: function() {
+            alertaFnc("Aguarde", "Excluindo...", null, false, null);
+        },
+        success: function(retorno) {
+            if (retorno.sucesso) {
+                atualizarListaPeladeiro();
+                alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
+            } else {
+                alertaFnc("Erro", retorno.mensagem,null, true, "error");
+            }
+        }
+    });   
+}
+
 function montarTime(){
   $.ajax({
     type: "POST",

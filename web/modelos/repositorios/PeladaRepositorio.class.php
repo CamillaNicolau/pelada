@@ -63,7 +63,7 @@ class PeladaRepositorio extends Pelada {
                 ->set('sorteio', ':sorteio')
                 ->set('data_pelada ', ':data_pelada ')
                 ->set('fk_localizacao',':fk_localizacao')
-                ->set('data_criacao',':data_criacao')
+                ->set('fk_peladeiro',':fk_peladeiro')
                 ->set('horario',':horario')
                 ->set('data_criacao',':data_criacao')
                 ->setParameter(':nome_pelada', $Pelada->nome)
@@ -80,6 +80,7 @@ class PeladaRepositorio extends Pelada {
                 ->setParameter(':id_pelada', $Pelada->idPelada)
                 ->execute()
             ;
+
         } catch (\Exception $j) {
             echo("Um erro ocorreu ao salvar um conteudo da pelada no banco de dados - " . $j->getMessage());
         }
@@ -166,5 +167,36 @@ class PeladaRepositorio extends Pelada {
         catch (\Exception $j) {
             echo ("Erro ao buscar localizacao". $j->getMessage());
         }
+
+    }
+
+    /**
+     * Salva os peladeiros para a pelada.
+     *
+     * @return bool
+     */
+    public function salvarPeladeiroPelada(Pelada $Pelada)
+    {
+
+        try {
+            foreach ($Pelada->peladeiros as $chave=>$valor) {
+
+                $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+                $QueryBuilder
+                    ->insert('pelada_peladeiro')
+                    ->setValue('fk_peladeiro', ':fk_peladeiro')
+                    ->setValue('fk_pelada', ':fk_pelada')
+                    ->setParameter(':fk_pelada', $Pelada->idPelada, \PDO::PARAM_INT)
+                    ->setParameter(':fk_peladeiro', $chave, \PDO::PARAM_INT)
+                    ->execute()
+                ;
+
+            }
+         
+        } catch (\Exception $e26811) {
+            echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
+        }
+               return true;
+
     }
 }

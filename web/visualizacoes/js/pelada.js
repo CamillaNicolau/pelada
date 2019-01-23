@@ -94,16 +94,16 @@ function atualizarListaPelada() {
                 $.each(retorno.html,function(i,v){
                   $('#listaPelada').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-2">'+v.data_partida+'</td>'+
                     '<td class="col-md-2">'+v.horario+'</td>'+
-                    '<td><button onclick="buscarPeladeiro('+v.id+')" title="adicionar peladeiro" class="btn btn-info btn-xs "><i class="fas fa-user-plus"></i></button></td>'+
-                    '<td><button onclick="editarPelada('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
-                    '<td><button onclick="removerPelada('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td></tr></tbody>');
+                    '<td><button onclick="buscarPeladeiro('+v.idPelada+')" title="adicionar peladeiro" class="btn btn-info btn-xs "><i class="fas fa-user-plus"></i></button></td>'+
+                    '<td><button onclick="editarPelada('+v.idPelada+','+v.idLocalizacao+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
+                    '<td><button onclick="removerPelada('+v.idPelada+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td></tr></tbody>');
                 });
             }
         }
     }); 
 }
 
-function buscarPeladeiro(idPelada){
+function buscarPeladeiro(id_pelada){
     $('.adicionar-peladeiro').show();
     $(".botoes").hide();
     $(".tabela-pelada").hide();
@@ -111,14 +111,18 @@ function buscarPeladeiro(idPelada){
     $.ajax({
         type: 'POST',
         url: 'pelada',
-        data: 'acao=buscar_peladeiro&pelada='+idPelada,
+        data: 'acao=buscar_peladeiro&id_pelada='+id_pelada,
         dataType: 'json',
         success: function(retorno) {
             $('#adicionar-peladeiro').html('');
+
             if (retorno.sucesso == true) {
+
                 $.each(retorno.html,function(i,v){
                   $('#adicionar-peladeiro').append('<input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'">'+v.nome+'<br>');
                 });
+                $('#id-pelada').append('<input name="pelada" value="'+retorno.id_pelada+'" id="pelada" type="hidden" />');
+
                 $('#acao').val('adicionar_peladeiro');
             }
 
@@ -169,11 +173,11 @@ function encontrarPelada() {
     }); 
 }
 
-function editarPelada(idPelada){
+function editarPelada(id_pelada,id_localizacao){
     $.ajax({
         type: 'POST',
         url: 'pelada',
-        data: 'acao=buscar_dados_para_edicao&id_pelada='+idPelada,
+        data: 'acao=buscar_dados_para_edicao&id_pelada='+id_pelada+'&id_localizacao='+id_localizacao,
         dataType: 'json',
         beforeSend: function() {
           alertaFnc("Aguarde", "Carregando os dados..", 250, false, null);
@@ -181,6 +185,7 @@ function editarPelada(idPelada){
         success: function(retorno) {
 
             $("#id_pelada").val(retorno.idPelada);
+            $("#id_localizacao").val(retorno.localizacao);
             $("#nomePelada").val(retorno.nome);
             $("#descricaoPelada").val(retorno.descricao);    
             $("#tempoJogo").val(retorno.duracaoPartida);
@@ -198,6 +203,12 @@ function editarPelada(idPelada){
             $("#bairro").val(retorno.bairro);
             $("#numero").val(retorno.numero);
             $("#estado").val(retorno.estado);
+            $('#estado').change(function(){
+                montarCidade();
+            });
+            if($('#estado').val() != ""){
+                montarCidade();
+            }
             if(retorno.estado){
                 $("#cidade").val(retorno.cidade);
             }

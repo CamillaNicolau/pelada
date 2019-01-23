@@ -83,4 +83,62 @@ class PeladeiroRepositorio extends Peladeiro {
             echo ("Erro ao buscar peladeiro". $j->getMessage());
         }
     }
+    public function atualizarPeladeiro(Peladeiro $Peladeiro) {
+
+        try {
+            $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder(); 
+            $QueryBuilder
+                ->update('usuario')
+                ->set('nome', ':nome')
+                ->set('email', ':email')
+                ->set('telefone', ':telefone')
+                ->set('data_nascimento', ':data_nascimento')
+                ->set('url_imagem', ':url_imagem')
+                ->set('participacao', ':participacao')
+                ->set('fk_criador', ':fk_criador')
+                ->set('fk_marcacoes',':fk_marcacoes')
+                ->set('fk_time_futebol',':fk_time_futebol')
+                ->set('fk_posicao',':fk_posicao')
+                ->setParameter(':nome', $Peladeiro->nome)
+                ->setParameter(':email', $Peladeiro->email)
+                ->setParameter(':telefone', $Peladeiro->telefone)
+                ->setParameter(':data_nascimento', $Peladeiro->data_nascimento)
+                ->setParameter(':url_imagem', $Peladeiro->url_imagem)
+                ->setParameter(':participacao', $Peladeiro->participacao)
+                ->setParameter(':fk_criador',$Peladeiro->usuario)
+                ->setParameter(':fk_marcacoes', $Peladeiro->marcacoes)
+                ->setParameter(':fk_time_futebol', $Peladeiro->timeFutebol)
+                ->setParameter(':fk_posicao', $Peladeiro->posicao)
+                ->where('id_usuario = :id_usuario')
+                ->setParameter(':id_usuario', $Peladeiro->idPeladeiro)
+                ->execute()
+            ;  
+        } catch (Exception $ex) {
+            echo("'Erro ao adicionar Peladeiro" . $ex);
+        }   
+    }
+    /**
+     * Deleta o registro no banco de dados .
+     *
+     * @return bool Retorna true ao final da operação com sucesso
+     */
+    public function deletarPeladeiro(Peladeiro $Peladeiro) {
+        
+        if (!$Peladeiro->idPeladeiro) {
+            echo('Tentativa de deletar do banco de dados um registro inexistente.');
+        }
+        
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->delete('usuario')
+                ->where('id_usuario = :id_usuario')
+                ->setParameter(':id_usuario', $Peladeiro->idPeladeiro)
+                ->execute()
+            ; 
+        } catch (\Exception $j) {
+            echo($j->getMessage());
+        }
+       return true;
+    }
 }

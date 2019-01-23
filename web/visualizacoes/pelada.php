@@ -93,6 +93,7 @@
                     </div>   
                 </div>
                 <input name="id_pelada" value="" id="id_pelada" type="hidden" />
+                <input name="id_localizacao" value="" id="id_localizacao" type="hidden" />
                 <input name="acao" value="adicionar" id="acao" type="hidden" />
                 <button type="submit" class="btn btn-lg btn-success btn-default" id ="botao-salvar">Salvar</button>
                 <button type="button" class="btn btn-lg btn-danger btn-default" id="botao-cancelar">Cancelar</button>
@@ -134,8 +135,9 @@
                 <strong>Olá!</strong> Aqui você pode adicionar peladeiros a sua pelada.
             </div>
             <div id="adicionar-peladeiro"></div>
+            <div id="id-pelada"></div>
             <button type="submit" class="btn btn-success btn-default" name="acao" value="adicionar_peladeiro" id ="botao-adicionar">Adicionar</button>
-            <button type="button" class="btn btn-danger btn-default" id ="cancelar-peladeiro">Cancela</button>
+            <button type="button" class="btn btn-danger btn-default" id ="cancelar-peladeiro">Cancelar</button>
         </span>
     </form>
     <div class="botoes">

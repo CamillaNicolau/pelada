@@ -51,6 +51,7 @@
                   <input type="radio" name="participacao" id="mensalista" value="mensalista">Mensalista</label>
                   <input type="radio" name="participacao" id="diarista" value="diarista">Diarista</label>
                 </div>
+                <input name="id_peladeiro" value="" id="id_peladeiro" type="hidden" />
                 <input name="acao" value="adicionar" id="acao" type="hidden" />
                 <button type="submit" class="btn btn-lg btn-success btn-default" id ="botao-salvar">Salvar</button>
                 <button type="button" class="btn btn-lg btn-danger btn-default" id="botao-cancelar">Cancelar</button>

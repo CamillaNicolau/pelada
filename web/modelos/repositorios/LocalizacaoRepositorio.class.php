@@ -71,7 +71,30 @@ class LocalizacaoRepositorio extends Localizacao {
             echo('Erro ao adicionar na classe '.__CLASS__.': '.$ex->getMessage());
         }   
     }
-
+    public function atualizarLocalizacao(Localizacao $Localizacao) {
+        
+      
+        try {
+          $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
+            $QueryBuilder
+              ->update('localizacao_pelada')
+               ->set('nome_quadra', ':nome_quadra')
+               ->set('rua', ':rua')
+               ->set('bairro', ':bairro')
+               ->set('numero', ':numero')
+               ->set('fk_cidade', ':fk_cidade')
+               ->setParameter(':nome_quadra', $Localizacao->nomeQuadra)
+               ->setParameter(':rua', $Localizacao->rua)
+               ->setParameter(':bairro', $Localizacao->bairro)
+               ->setParameter(':numero', $Localizacao->numero)
+               ->setParameter(':fk_cidade', $Localizacao->cidade) 
+                ->where('id_localizacao_pelada = :id_localizacao_pelada')
+                ->setParameter(':id_localizacao_pelada', $Localizacao->idLocalizacao)
+                ->execute();
+        } catch (Exception $ex) {
+            echo('Erro ao adicionar na classe '.__CLASS__.': '.$ex->getMessage());
+        }   
+    }
    
     //put your code here
 }

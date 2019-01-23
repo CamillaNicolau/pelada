@@ -94,52 +94,61 @@ class PeladeiroControle extends ControlaModelos
             break;
             case 'atualizar':
                 try{
-                    if($_POST['qtJogadores'] < MIN_JOGADORES){
-                      exit(json_encode(array('sucesso'=>false,'mensagem'=>'Quantidade de jogadores invalidos')));
+                    if(isset($_FILES['imagemUsuario'])) {
+                    $msg_erro = false;
+                    if ($_FILES['imagemUsuario']['size'] > TAMANHO_IMAGEM) {
+                        exit(json_encode(["sucesso" => false,"mensagem" => "Imagem muito grande! O tamanho permitido é de " . UsuarioModelo::verificaTamanhoImagem(TAMANHO_IMAGEM) . "<br />"]));
                     }
-                    \Doctrine::beginTransaction();
-                    $cidade = $_POST['cidade'];
+           
+                    if ($msg_erro) {
+                        exit(json_encode(["sucesso" => false, "mensagem" => implode("<br>", $msg_erro)]));
+                    }
+                }
+                \Doctrine::beginTransaction();
+
+                $time = $_POST['time'];
+                $posicao =  $_POST['posicao'];
+
+                $PeladeiroRepositorio = new PeladeiroRepositorio();
+                $Peladeiro = new Peladeiro($_POST['id_peladeiro']);
+                if($_POST['imagemUsuario']){
+                    $imagem = pathinfo($_FILES['imagemUsuario']['name']);
+                    $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
+                    $url = $nomeImagem .'.' . $imagem['extension'];
+                }
                 
-                    $LocalizacaoRepositorio = new LocalizacaoRepositorio();
-                    $Localizacao = new Localizacao();
+                $Peladeiro->setTime(new Time($time));
+                $Peladeiro->setPosicao(new Posicao($posicao));
+                $Peladeiro->nome = $_POST['nomePeladeiro'];
+                $Peladeiro->email = $_POST['emailPeladeiro'];
+                $Peladeiro->telefone = $_POST['telPeladeiro'];
+                $Peladeiro->data_nascimento = $_POST['dataNascimento'];
+                $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url :null;
+                $Peladeiro->participacao = $_POST['participacao'];
+                $Peladeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
-                    $Localizacao->nomeQuadra = $_POST['nomeQuadra'];
-                    $Localizacao->rua = $_POST['rua'];           
-                    $Localizacao->bairro = $_POST['bairro'];
-                    $Localizacao->numero = $_POST['numero']; 
-                    $Localizacao->setCidade(new Cidade($cidade));
-
-                    $LocalizacaoRepositorio->atualizarLocalizacao($Localizacao);
-
-                    $PeladaRepositorio = new PeladaRepositorio();
-                    $Pelada = new Pelada();
-
-                    $Pelada->nome = $_POST['nomePelada'];
-                    $Pelada->descricao = $_POST['descricaoPelada'];
-                    $Pelada->duracaoPartida = $_POST['tempoJogo'];
-                    $Pelada->qtJogadores = $_POST['qtJogadores'];
-                    $Pelada->sorteio = $_POST['sorteio'];
-                    $Pelada->dataPartida = $_POST['dataPartida'];
-                    $Pelada->horario = $_POST['horario'];
-                    $Pelada->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
-         
-                    $PeladaRepositorio->atualizarPelada($Pelada);
-                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
-                    \Doctrine::commit();
+                if(isset($_FILES['imagemUsuario'])){
+                    UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
+                }
+                $PeladeiroRepositorio->atualizarPeladeiro($Peladeiro);
+                    
+                \Doctrine::commit();
+                exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
+               
                 } catch (Erro $E) {
                 \Doctrine::rollBack();
                  exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao atualizar dados da pelada')));
                 }
             break;
-            case 'remover_pelada':
+            case 'remover_peladeiro':
                 try{
                     \Doctrine::beginTransaction();
-                    $PeladaRepositorio = new PeladaRepositorio();
-                    $Pelada = new Pelada($_POST['id_pelada']);
+                    $PeladeiroRepositorio = new PeladeiroRepositorio();
+                    $Peladeiro = new Peladeiro($_POST['id_peladeiro']);
               
-                    $PeladaRepositorio->deletarPelada($Pelada);
+                    $PeladeiroRepositorio->deletarPeladeiro($Peladeiro);
                     \Doctrine::commit();
-                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Pelada removida com sucessos')));
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Peladeiro removido com sucessos')));
                     
                 } catch(Erro $E){
                     \Doctrine::rollBack();

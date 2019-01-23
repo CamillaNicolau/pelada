@@ -12,6 +12,13 @@ class Pelada{
     private $dataCriacao;
     private $localizacao;
     private $fkPeladeiroAdm;
+
+    /**
+     * Agrupa os itens antes de salvar no banco.
+     *
+     * @var array
+     */
+    private $peladeiros = array();
     private $horario;
   
     public function __construct($idPelada = null){
@@ -66,6 +73,7 @@ class Pelada{
             case "duracaoPartida":
             case "qtJogadores":
             case "sorteio":
+            case "peladeiros":
             case "localizacao":
             case "dataPartida":
             case "dataCriacao":
@@ -89,6 +97,7 @@ class Pelada{
             case "duracaoPartida":
             case "qtJogadores":
             case "sorteio":
+            case "peladeiros":
             case "dataPartida":
             case "fkPeladeiroAdm":
             case "horario":
@@ -143,6 +152,19 @@ class Pelada{
     public function getUsuario()
     {
         return new Usuario($this->fkPeladeiroAdm);
+    }
+    
+     /**
+     * Prepara os peladeiros antes de cadastrar.
+     *
+     * @param Usuario $Peladeiro
+     */
+    public function addPeladeiros(Usuario $Peladeiro)
+    { 
+
+        if ($Peladeiro->idUsuario) {
+            $this->peladeiros[$Peladeiro->idUsuario] = $Peladeiro->nome; 
+        }
     }
     
     
