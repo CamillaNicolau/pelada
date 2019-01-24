@@ -190,7 +190,6 @@ class Email
            
            // $this->headers .= $this->getCabecalhoInfoEnvio();
             $this->headers .= "From: \"" . self::getTextoCodificadoCabecalho(($this->remetente) ? $this->remetente : SIS_NOME) . " \" <" . (($this->email_remetente) ? $this->email_remetente : SIS_EMAIL) . ">\n";
-            var_dump($this->email_destinatario,self::getTextoCodificadoCabecalho($this->assunto), $this->body);
             return mail($this->email_destinatario, self::getTextoCodificadoCabecalho($this->assunto), $this->body, $this->headers);
         
         }
