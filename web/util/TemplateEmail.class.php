@@ -80,7 +80,7 @@ class TemplateEmail
 
             if(!file_exists($this->caminho_html) && !file_exists($this->caminho_css))
             {
-                throw new Excecao("Caminho do templates html e css inválidos.");
+                echo("Caminho do templates html e css inválidos.");
             }
         }
     }
