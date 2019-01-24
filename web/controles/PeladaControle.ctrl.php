@@ -256,8 +256,8 @@ class PeladaControle extends ControlaModelos
                         $Email = new Email($destinatarios, ($assuntoFormulario), ($Template->getHtmlTemplates()));
                         $Email->ativar_html = true;
                         $Email->remetente = 'Mais Pelada';
-                        //var_dump($Email);
-                        var_dump($Email->enviar());
+                       
+                        $Email->enviar();
                         exit();
                     }
                     $PeladaRepositorio->salvarPeladeiroPelada($Pelada);  
