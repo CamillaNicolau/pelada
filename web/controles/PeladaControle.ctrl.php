@@ -93,6 +93,7 @@ class PeladaControle extends ControlaModelos
                       exit(json_encode(array('sucesso'=>false,'mensagem'=>'Quantidade de jogadores invalidos')));
                     }
                     \Doctrine::beginTransaction();
+                    
                     $cidade = $_POST['cidade'];
 
                     $LocalizacaoRepositorio = new LocalizacaoRepositorio();
@@ -103,7 +104,7 @@ class PeladaControle extends ControlaModelos
                     $Localizacao->bairro = $_POST['bairro'];
                     $Localizacao->numero = $_POST['numero']; 
                     $Localizacao->setCidade(new Cidade($cidade));
-
+                
                     $LocalizacaoRepositorio->atualizarLocalizacao($Localizacao);
                     \Doctrine::commit();
                     \Doctrine::beginTransaction();
@@ -149,7 +150,9 @@ class PeladaControle extends ControlaModelos
                     $html = [];
                     $ListaPelada = PeladaRepositorio::buscarPelada();
                     foreach($ListaPelada as $pelada) {
-                        $html[] =  array('idPelada'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_partida'=>Tratamentos::converteData($pelada->data_pelada), 'horario'=>$pelada->horario,'idLocalizacao'=>$pelada->fk_localizacao) ;
+                        $DataPelada = $pelada->data_pelada;
+                        $novaData = date("d/m/Y", strtotime($DataPelada));
+                        $html[] =  array('idPelada'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_partida'=>$novaData, 'horario'=>$pelada->horario,'idLocalizacao'=>$pelada->fk_localizacao) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -222,7 +225,7 @@ class PeladaControle extends ControlaModelos
                 \Doctrine::beginTransaction();
                 $PeladaRepositorio = new PeladaRepositorio();
                 $Pelada = new Pelada($_POST['pelada']);
-
+          
                 $Pelada->idPelada = $_POST['pelada'];
 
                 $peladeirosPost = $_REQUEST['peladeiro'];
@@ -230,39 +233,38 @@ class PeladaControle extends ControlaModelos
                     foreach ($peladeirosPost as $valores) {
 
                         $Pelada->addPeladeiros(new Usuario($valores));
+                        $buscaUsuario = UsuarioRepositorio::buscarUsuario(['id_usuario ='.$valores.' and ativo ='.true]);
+                        foreach ($buscaUsuario as $usuario){
+                            $email = $usuario->email;
+                            $nome = $usuario->nome;
+                        }
+                        $destinatarios = $email;
+                        
+                        $assuntoFormulario = 'Convocação - Mais Pelada';
+
+                        $valores_convocacao_tpl = [
+                            '%nome_site%' =>TITULO,
+                            '%nome%' =>$nome,
+                            '%formulario_titulo%' => $assuntoFormulario,
+                            '%url_raiz_site%' => URL_RAIZ_SITE,
+                            '%data_hora%' => date('d/m/Y H:i:s'),
+                            '%senha%' => $Pelada->dataPartida,
+                            '%email%' => $email
+                        ];
+                        $Template = new TemplateEmail($valores_convocacao_tpl, 'convocacao');
+
+                        $Email = new Email($destinatarios, ($assuntoFormulario), ($Template->getHtmlTemplates()));
+                        $Email->ativar_html = true;
+                        $Email->remetente = 'Mais Pelada';
+                        //var_dump($Email);
+                        var_dump($Email->enviar());
+                        exit();
                     }
-                    $PeladaRepositorio->salvarPeladeiroPelada($Pelada);
-                    
-                   
+                    $PeladaRepositorio->salvarPeladeiroPelada($Pelada);  
                 }
                 \Doctrine::commit();
                     
-                    // foreach ($peladeirosPost as $usuario){
-                    //     $nome = $usuario->nome;
-                    //     $email = $usuario->email;
-                    //     $id = $usuario->id_usuario;
-                    // } 
-                    // if($email){
-                    //     $destinatarios = $_POST['email'];
-                    //     $assuntoFormulario = 'Convicação - Mais Pelada';
-
-                    //     $valores_convocacao_tpl = [
-                    //         '%nome_site%' =>TITULO,
-                    //         '%nome%' =>$nome,
-                    //         '%formulario_titulo%' => $assuntoFormulario,
-                    //         '%url_raiz_site%' => URL_RAIZ_SITE,
-                    //         '%data_hora%' => date('d/m/Y H:i:s'),
-                    //         '%senha%' => $Pelada->dataPartida,
-                    //         '%email%' => $_POST['email']
-                    //     ];
-                    //     $Template = new TemplateEmail($valores_convocacao_tpl, 'recuperarSenha');
-
-                    //     $Email = new Email($destinatarios, ($assuntoFormulario), ($Template->getHtmlTemplates()));
-                    //     $Email->ativar_html = true;
-                    //     $Email->remetente = 'Mais Pelada';
-
-                    //     $Email->enviar();
-                    //  }
+                    
                 exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
 
             } catch (Erro $E) {

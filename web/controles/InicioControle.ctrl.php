@@ -20,9 +20,11 @@ class InicioControle extends ControlaModelos
 
                     $html = [];
                    
-                    $ListaPelada = PeladaRepositorio::buscaGeralPelada();
+                    $ListaPelada = PeladaRepositorio::buscaGeralPelada(['p.fk_peladeiro ='.$_SESSION['id_usuario_logado']]);
                     foreach($ListaPelada as $pelada) {
-                        $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome, 'data_pelada'=>$pelada->data_pelada,'horario'=>$pelada->horario,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade) ;
+                        $DataPelada = $pelada->data_pelada;
+                        $novaData = date("d/m/Y", strtotime($DataPelada));
+                        $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_pelada'=>$novaData,'horario'=>$pelada->horario,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){

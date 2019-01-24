@@ -28,7 +28,10 @@ function tratarResultado (retorno) {
     alertaFnc("Erro", retorno.mensagem,null, true, "error"); 
   }
 }
-
+function resetarFormulario(){
+  $("#form_editar_usuario")[0].reset();
+  window.location.assign('inicio');
+}
 function montaPerfil(){
   $.ajax({
     type: 'POST',

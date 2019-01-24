@@ -1,6 +1,6 @@
 <div class="box box-success">
     <div class="box-header">
-        <h2 class="box-title">Minhas Peladas</h2>
+        <h2 class="box-title"><strong>MINHAS PELADAS</strong></h2>
         <h3 class="subtitle">Bem vindo(a), <?php echo $_SESSION['nome_usuario_logado'];?></h3>
     </div>
     <div id="listaPelada"></div>

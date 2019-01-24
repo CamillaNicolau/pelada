@@ -15,20 +15,17 @@ class UsuarioRepositorio extends Usuario {
   
   
   
-  public static function buscarUsuario($email, $ativo = true){
+    public static function buscarUsuario(array $condicoes = [], $order = false, $inicio = null, $limite = null){
+        $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
         try{
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
               ->select('*')
               ->from('usuario')
-              ->where('email = :email')
-              ->setParameter(':email',$email)
+             
             ;
-            if ($ativo) {
-                $QueryBuilder
-                    ->andWhere('ativo = :ativo')
-                    ->setParameter(':ativo', $ativo, \PDO::PARAM_INT)
-                ;
+            if ($where != '') {
+                $QueryBuilder->where($where);
             }
             return $QueryBuilder->execute()->fetchAll();
         }catch(Erro $E){
@@ -91,14 +88,12 @@ class UsuarioRepositorio extends Usuario {
                 ->set('apelido', ':apelido')
                 ->set('sexo', ':sexo')
                 ->set('url_imagem',':url_imagem')
-//                ->set('dataAlteracao',':dataAlteracao')
                 ->setParameter(':email', $Usuario->email)
                 ->setParameter(':senha', $Usuario->senha)
                 ->setParameter(':nome', $Usuario->nome)
                 ->setParameter(':apelido', $Usuario->apelido)
                 ->setParameter(':sexo', $Usuario->sexo)
                 ->setParameter(':url_imagem', $Usuario->urlImagem)
-//                ->setParameter(':dataAlteracao',date("Y-m-d H:i:s"))
                 ->where('id_usuario = :id_usuario')
                 ->setParameter(':id_usuario', $Usuario->idUsuario)
                 ->execute()

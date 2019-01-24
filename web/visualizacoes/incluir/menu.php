@@ -35,6 +35,8 @@
               <li><a href="#"><i class="far fa-calendar"></i> Partida</a></li>
               <li><a  href="#"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
               <li><a href="#"><i class="fas fa-file-alt"></i>  Relatório</a></li>
+              <li><a href="perfil"><i class="fas fa-file-alt"></i>  Meus dados</a></li>
+               <li><a href="logout"><i class="fas fa-file-alt"></i>  sair</a></li>
             </ul>
           </nav>
         </div>

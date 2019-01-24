@@ -152,10 +152,11 @@ class PeladaRepositorio extends Pelada {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->select('*')
-                ->from('pelada','p')
-                ->join('p','localizacao_pelada','l','p.fk_localizacao = l.id_localizacao_pelada')
+                ->from('pelada_peladeiro','p')
+                ->join('p','pelada','pe','p.fk_pelada = pe.id_pelada')
+                ->join('p','localizacao_pelada','l','pe.fk_localizacao = l.id_localizacao_pelada')
                 ->join('l','cidade','c','l.fk_cidade = c.id_cidade')
-                ->join('p','usuario','u','p.fk_peladeiro = u.id_usuario')
+                ->join('p','usuario','u','pe.fk_peladeiro = u.id_usuario')
                 ->join('c','estado','e','c.fk_estado = e.id_estado')
             ;
             if ($where != '') {

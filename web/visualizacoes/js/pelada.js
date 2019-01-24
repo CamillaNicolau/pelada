@@ -76,6 +76,7 @@ function validaFormPeladeiro(){
 function tratarResultadoPeladeiro (retorno) {  
     if(retorno.sucesso == true)
     {
+        resetarFormulario();
       alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
     } else {
       alertaFnc("Erro", retorno.mensagem,null, true, "error"); 
@@ -115,11 +116,12 @@ function buscarPeladeiro(id_pelada){
         dataType: 'json',
         success: function(retorno) {
             $('#adicionar-peladeiro').html('');
-
+            $('#id-pelada').html('');
             if (retorno.sucesso == true) {
 
                 $.each(retorno.html,function(i,v){
-                  $('#adicionar-peladeiro').append('<input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'">'+v.nome+'<br>');
+                    $('#adicionar-peladeiro').append('<input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'"> <strong>'+v.nome+'</strong> - '+v.email+'<br>'+
+                    '<input name="email" value="'+v.email+'" id="email" type="hidden" />');
                 });
                 $('#id-pelada').append('<input name="pelada" value="'+retorno.id_pelada+'" id="pelada" type="hidden" />');
 
@@ -209,9 +211,8 @@ function editarPelada(id_pelada,id_localizacao){
             if($('#estado').val() != ""){
                 montarCidade();
             }
-            if(retorno.estado){
-                $("#cidade").val(retorno.cidade);
-            }
+            $("#cidade").val(retorno.cidade);
+
             $("#horario").val(retorno.horario);
 
             $('#acao').val('atualizar');

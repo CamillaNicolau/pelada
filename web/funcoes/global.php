@@ -36,4 +36,4 @@ require PATH_RAIZ . "/modelos/servicos/PeladaModelo.class.php";
 require PATH_RAIZ . "/modelos/servicos/PerfilModelo.class.php";
 require "../bibliotecas/doctrine/vendor/autoload.php";
 require "../bibliotecas/phpmailer/vendor/PHPMailerAutoload.php";
-require "../bibliotecas/emogrifer/vendor/EmogriferAutoload.php";
+require "../bibliotecas/emogrifier/vendor/EmogriferAutoload.php";
