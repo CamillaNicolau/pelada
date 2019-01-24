@@ -257,8 +257,10 @@ class PeladaControle extends ControlaModelos
                         $Email->ativar_html = true;
                         $Email->remetente = 'Mais Pelada';
                        
-                        $Email->enviar();
-                        exit();
+                        if(!$Email->enviar()){
+                            \Doctrine::rollBack();
+                            exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao notificar peladeiro')));
+                        }
                     }
                     $PeladaRepositorio->salvarPeladeiroPelada($Pelada);  
                 }
