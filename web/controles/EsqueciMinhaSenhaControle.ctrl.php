@@ -15,7 +15,7 @@ class EsqueciMinhaSenhaControle extends ControlaModelos
         switch ($_REQUEST['acao']){
             case 'recuperar_senha':
                 try {
-                    $usuario_recuperar = UsuarioRepositorio::buscarUsuario(['email ='.$_POST['email'].' and ativo ='.true]);
+                    $usuario_recuperar = UsuarioRepositorio::buscarUsuario(['email ="'.$_POST['email'].'" and ativo ='.true]);
                     
                     foreach ($usuario_recuperar as $usuario){
                         $nome = $usuario->nome;

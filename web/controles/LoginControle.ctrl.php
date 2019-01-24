@@ -15,7 +15,7 @@ class LoginControle extends ControlaModelos
         switch($_REQUEST['acao']){
             case 'logar':
                 try{
-                    $buscaUsuario = UsuarioRepositorio::buscarUsuario(['email ='.$_POST['email'].' and ativo ='.true]);
+                    $buscaUsuario = UsuarioRepositorio::buscarUsuario(['email = "'.$_POST['email'].'" and ativo ='.true]);
                     foreach($buscaUsuario as $usuario){
                         $nome = $usuario->nome;
                         $email = $usuario->email;
