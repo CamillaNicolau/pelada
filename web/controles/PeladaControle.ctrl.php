@@ -190,10 +190,13 @@ class PeladaControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    $EncontrarPelada= PeladaRepositorio::buscaGeralPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%"']);
+                    $EncontrarPelada= PeladaRepositorio::buscarPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%"']);
                     if(count($EncontrarPelada) > 0){
                         foreach($EncontrarPelada as $pelada) {
-                            $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade, 'sigla'=>$pelada->sigla, 'telefone_usuario'=>$pelada->telefone,'email_usuario'=>$pelada->email) ;
+                            $novaData = date("d/m/Y", strtotime($pelada->data_pelada));
+                            $horarioNovo = date("H:i", strtotime($pelada->horario));
+
+                            $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade,'sigla'=>$pelada->sigla, 'data'=>$novaData, 'horario'=>$horarioNovo) ;
                         }
                         exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                     } else{
@@ -211,7 +214,22 @@ class PeladaControle extends ControlaModelos
                     $html = [];
                     $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro();
                     foreach($ListaPeladeiro as $peladeiro) {
-                        $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome,'email'=>$peladeiro->email) ;
+                        $buscaPelada = PeladaRepositorio::buscaGeralPelada(['p.fk_peladeiro ='.$peladeiro->id_usuario.' and p.fk_pelada = '.$_POST['id_pelada']]);
+
+                        if(count($buscaPelada)>0){
+
+                            foreach ($buscaPelada as $peladeiroPelada) {
+
+                                if($peladeiroPelada->fk_peladeiro == $peladeiroPelada->id_usuario){
+                                    $idCad= $peladeiroPelada->fk_peladeiro ;
+                                }
+                            }
+                        }else{
+                            $idCad = false;
+                        }
+                        
+                        $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome,'email'=>$peladeiro->email, 'idCad'=>$idCad);
+
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html,'id_pelada'=>$id_pelada)));
                 }catch(Erro $E){
@@ -237,6 +255,19 @@ class PeladaControle extends ControlaModelos
                         foreach ($buscaUsuario as $usuario){
                             $email = $usuario->email;
                             $nome = $usuario->nome;
+                            $senha = $usuario->senha;
+                        }
+                        $buscaPelada = PeladaRepositorio::buscarPelada(['id_pelada ='.$_POST['pelada']]);
+                        foreach ($buscaPelada as $pelada) {
+                            $cidade = $pelada->nome_cidade;
+                            $bairro = $pelada->bairro;
+                            $estado = $pelada->sigla;
+                            $rua = $pelada->rua;
+                            $numero = $pelada->numero;
+                            $quadra = $pelada->nome_quadra;
+                            $nome_pelada = $pelada->nome_pelada;
+                            $novaData = date("d/m/Y", strtotime($pelada->data_pelada));
+                            $horarioNovo = date("H:i", strtotime($pelada->horario));
                         }
                         $destinatarios = $email;
                         
@@ -248,8 +279,12 @@ class PeladaControle extends ControlaModelos
                             '%formulario_titulo%' => $assuntoFormulario,
                             '%url_raiz_site%' => URL_RAIZ_SITE,
                             '%data_hora%' => date('d/m/Y H:i:s'),
-                            '%senha%' => $Pelada->dataPartida,
-                            '%email%' => $email
+                            '%senha%' => $senha,
+                            '%data%' => $novaData,
+                            '%hora%' => $horarioNovo,
+                            '%email%' => $email,
+                            '%pelada%' => $nome_pelada,
+                            '%local%' =>  $quadra.' - '.$rua.' - '.$numero.' '.$bairro.', '.$cidade.' - '.$estado
                         ];
                         $Template = new TemplateEmail($valores_convocacao_tpl, 'convocacao');
 
@@ -264,14 +299,30 @@ class PeladaControle extends ControlaModelos
                     }
                     $PeladaRepositorio->salvarPeladeiroPelada($Pelada);  
                 }
-                \Doctrine::commit();
-                    
-                    
+                \Doctrine::commit();     
                 exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
-
             } catch (Erro $E) {
               \Doctrine::rollBack();
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar peladeiro')));
+            }
+            break;
+            case 'remover_peladeiro_pelada':
+            try{
+                \Doctrine::beginTransaction();
+                $PeladaRepositorio = new PeladaRepositorio();
+                $Peladeiro = new Peladeiro($_POST['id_peladeiro']);
+                if($_POST['id_peladeiro']){
+                    if(!$PeladaRepositorio->deletarPeladeiroPelada(['fk_peladeiro ='.$_POST['id_peladeiro'].' and fk_pelada = '.$_POST['id_pelada']])){
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'O peladeiro '.$Peladeiro->nome.' não está participando desta pelada')));
+                    } else{
+                        \Doctrine::commit();
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Peladeiro removida com sucessos')));
+                    }
+                    
+                }  
+            }catch (Erro $E) {
+              \Doctrine::rollBack();
+              exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao remover peladeiro')));
             }
             break;
         }

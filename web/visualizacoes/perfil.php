@@ -1,10 +1,14 @@
-<div id="perfil">
-    <div class="panel panel-default ">
+<div class="col-lg-10 box h-100">
+    <div class="box-header">
         <h2 class="box-title"><strong>MEUS DADOS</strong></h2>
         <h4 class="subtitle">Use os campos abaixo para consultar e gerenciar suas informações pessoais.</h4>
+        <br><br>
+        <h3 class="box-title"><strong>INFORMAÇÕES PESSOAIS</strong></h3> 
+    </div>
+    <div class="panel panel-default ">
         <div class="panel-body">
             <form class="form-horizontal mx-auto d-block col-md-6" action="perfil" method="post" name="form_editar_usuario" id="form_editar_usuario" >
-                <h3 class="box-title"><strong>INFORMAÇÕES PESSOAIS</strong></h3> 
+                
                 <div class="form-group" style="text-align: center" >
                     <label>
                         <input type="file"name="imagemUsuario" class="custom-file-input ">

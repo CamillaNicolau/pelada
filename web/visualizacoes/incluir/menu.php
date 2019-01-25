@@ -22,13 +22,14 @@
                     <!--<img src="./visualizacoes/imagens/logo.jpg" alt="futebol">;-->
                     <nav id="navbar-fixed" class="col-lg-2 bg-success sticky-top d-flex align-items-start navbar navbar-dark">
                         <ul class="nav navbar-nav text-light w-100">
-                            <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
-                            <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
-                            <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="#"><i class="far fa-calendar"></i> Partida</a></li>
-                            <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="#"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
-                            <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="#"><i class="fas fa-file-alt"></i>  Relatório</a></li>
-                            <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="perfil"><i class="fas fa-file-alt"></i>  Meus dados</a></li>
-                            <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="logout"><i class="fas fa-file-alt"></i>  sair</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="inicio"><i class="fas fa-home"></i></i> Inicio</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="#"><i class="far fa-calendar"></i> Partida</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="#"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="#"><i class="fas fa-file-alt"></i>  Relatório</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="perfil"><i class="fas fa-user"></i>  Meus dados</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="logout"><i class="fas fa-sign-out-alt"></i>  sair</a></li>
                         </ul>
                         <div class=" row d-flex flex-column flex-nowrap justify-content-center text-light align-self-end w-100 ml-auto">
                             <div class="col-xs-3">
@@ -36,7 +37,7 @@
                             </div>
 
                             <div class="logo-rodape col-xs-3">
-                              <img src="./visualizacoes/imagens/cn_camilla_nicolau.png" alt="Mais pelada">
+                              <img src="./visualizacoes/imagens/cn_camilla_nicolau.png" alt="Mais pelada" width="150" height="50">
                               <!--                     <img src="./visualizacoes/imagens/camilla.png" alt="">         -->
 
                             </div>

@@ -1,9 +1,12 @@
-
-<div id="conteudo"> 
+<div class="col-lg-10 box h-100">
+    <div class="box-header">
+        <h2 class="box-title"><strong>PELADEIRO</strong></h2>
+    </div>
     <div id="cadastroPeladeiro" style="display: none">
         <form class="form-horizontal mx-auto d-block" action="peladeiro" method="post" name="form_cadastra_peladeiro" id="form_cadastra_peladeiro" >
-            <h2 class="box-title"><strong>PELADEIRO</strong></h2>
-            <h4 class="subtitle">Use os campos abaixo para cadastrar os peladeiros da sua pelada.</h4>
+            <div class="box-header">
+                <h4 class="subtitle">Use os campos abaixo para cadastrar os peladeiros da sua pelada.</h4>
+            </div>
             <br>
             <h3 class="box-title"><strong>INFORMAÇÕES DO PELADEIRO</strong></h3>
             <fieldset>
@@ -73,7 +76,7 @@
     <span class="busca-peladeiro" style="display: none">
         <h2 class="box-title"><strong>ENCONTRE O PELADEIRO</strong></h2>
         <div class="alert alert-warning" role="alert">
-            <strong>Informe um email para encontrar o peladeiro.</strong>
+            <strong>Olá,</strong> informe um email para encontrar o peladeiro.
         </div>
         <input type="search" id="busca" name="busca">
         <button type="submit" id="encontra-peladeiro"><i class="fas fa-search"></i></button>

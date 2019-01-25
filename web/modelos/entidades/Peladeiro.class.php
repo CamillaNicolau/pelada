@@ -19,6 +19,12 @@ class Peladeiro {
     protected $usuario;
     protected $marcacoes;
     /**
+     * Senha criptografada do usuário. Ao ser alterada é criptografada internamente automaticamente.
+     *
+     * @var string
+     */
+    protected $senha;
+    /**
      * Qual posição o usuário joga.
      *
      * @var string
@@ -63,6 +69,7 @@ class Peladeiro {
                 $this->timeFutebol = $ObjDados->fk_time_futebol;
                 $this->posicao = $ObjDados->fk_posicao;
 
+
             } catch(Exception $ex){
               echo ('Erro ao instanciar classe Peladeiro id $idPeladeiro. '. $ex->getMessage());
             }
@@ -86,6 +93,7 @@ class Peladeiro {
             case "url_imagem":
             case "participacao":
             case "usuario":
+            case "senha":
             case "marcacoes":
             case "timeFutebol":
             case "posicao":
@@ -105,6 +113,7 @@ class Peladeiro {
             case "email":
             case "telefone":
             case "data_nascimento":
+            case "senha":
             case "url_imagem":
             case "participacao":
             case "usuario":

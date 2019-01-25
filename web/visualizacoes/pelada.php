@@ -1,8 +1,12 @@
-<div id="conteudo">  
+<div class="col-lg-10 box h-100">
+    <div class="box-header">
+        <h2 class="box-title"><strong>MINHA PELADA</strong></h2>
+    </div>
     <div id="cadastroPelada" style="display: none">
         <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_cadastro_pelada" id="form_cadastro_pelada" >
-            <h2 class="box-title"><strong>MINHA PELADA</strong></h2>
-            <h4 class="subtitle">Use os campos abaixo para cadastrar sua pelada.</h4>
+            <div class="box-header">
+                <h4 class="subtitle">Use os campos abaixo para cadastrar sua pelada.</h4>
+            </div>
             <fieldset>
                 <div class="form-group">
                    <label for="textNome" class="control-label">Pelada:</label>
@@ -122,11 +126,9 @@
         </div>
         <input type="search" id="busca" name="busca" placeholder="Informe a cidade">
         <button type="submit" id="encontra-pelada"><i class="fas fa-search"></i></button>
-        <div id="pelada">
-            
-        </div>
+        <div id="pelada"></div>
         <br>
-        <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button>
+        <!-- <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button> -->
     </span>
     <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_adicionar_peladeiro" id="form_adicionar_peladeiro" >
         <span class="adicionar-peladeiro" style="display: none;">

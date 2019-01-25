@@ -118,14 +118,19 @@ function buscarPeladeiro(id_pelada){
             $('#adicionar-peladeiro').html('');
             $('#id-pelada').html('');
             if (retorno.sucesso == true) {
-
+                 var disable;
                 $.each(retorno.html,function(i,v){
-                    $('#adicionar-peladeiro').append('<input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'"> <strong>'+v.nome+'</strong> - '+v.email+'<br>'+
-                    '<input name="email" value="'+v.email+'" id="email" type="hidden" />');
+
+                    if(v.idCad){
+                        disable = 'disabled="disable"';
+                    }else{
+                        disable = "";
+                    }
+                    $('#adicionar-peladeiro').append('<div><input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'" '+disable+'> <strong>'+v.nome+'</strong> - '+v.email+'<br>'+
+                    '<input name="email" value="'+v.email+'" id="email" type="hidden" /> <button onclick="removerPeladeiroPelada('+v.id+','+retorno.id_pelada+')" class="btn btn-danger btn-xs"> <i class="fas fa-trash"></i></ button><div>');
+                    
                 });
                 $('#id-pelada').append('<input name="pelada" value="'+retorno.id_pelada+'" id="pelada" type="hidden" />');
-
-                $('#acao').val('adicionar_peladeiro');
             }
 
         }
@@ -154,18 +159,15 @@ function encontrarPelada() {
            
         }, 
         success: function(retorno) {
+
             $('#pelada').html('');
+            
             if (retorno.sucesso == true) {
-                var telefone;
                 $.each(retorno.html,function(i,v){
-                    if(v.telefone_usuario != null){
-                       telefone = '<p><i class="fab fa-whatsapp"> </i>  '+v.telefone_usuario+'</p>';
-                    } else{
-                        telefone = "";
-                    }
                   $('#pelada').append('<p><h3><strong>'+v.nome+'</strong>'+
-                    '<p>'+v.rua+','+v.numero+' - '+v.bairro+', '+v.cidade+' - '+v.sigla+'</p>'+telefone+
-                    '<p><i class="fas fa-envelope"> </i>  '+v.email_usuario+'</p>');
+                    '<br>Dia:'+v.data+'  -  Hora:'+v.horario+
+                    '<p>'+v.rua+','+v.numero+' - '+v.bairro+', '+v.cidade+' - '+v.sigla+'</p> '+
+                    '<button type="submit" class="btn btn-success btn-default" name="acao" value="enviar_solicitacao" id ="botao-solicitacao">Candidatar</button>');
                 });
             }else { 
                
@@ -243,6 +245,26 @@ function removerPelada(idPelada) {
         }
     });   
 }
+
+function removerPeladeiroPelada(idPeladeiro,idPelada) {
+    $.ajax({    
+        type: 'POST',
+        url: 'pelada',
+        data: 'acao=remover_peladeiro_pelada&id_peladeiro='+idPeladeiro+'&id_pelada='+idPelada,
+        dataType:'json',
+        beforeSend: function() {
+            alertaFnc("Aguarde", "Excluindo...", null, false, null);
+        },
+        success: function(retorno) {
+            if (retorno.sucesso) {
+                alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
+            } else {
+                alertaFnc("Erro", retorno.mensagem,null, true, "error");
+            }
+        }
+    });   
+}
+
 
 function montarEstado(){
     $.ajax({

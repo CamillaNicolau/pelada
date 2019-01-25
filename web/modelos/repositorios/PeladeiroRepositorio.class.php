@@ -30,6 +30,7 @@ class PeladeiroRepositorio extends Peladeiro {
                 ->setValue('fk_marcacoes',':fk_marcacoes')
                 ->setValue('fk_time_futebol',':fk_time_futebol')
                 ->setValue('fk_posicao',':fk_posicao')
+                ->setValue('senha',':senha')
                 ->setParameter(':nome', $Peladeiro->nome)
                 ->setParameter(':email', $Peladeiro->email)
                 ->setParameter(':telefone', $Peladeiro->telefone)
@@ -40,6 +41,7 @@ class PeladeiroRepositorio extends Peladeiro {
                 ->setParameter(':fk_marcacoes', $Peladeiro->marcacoes)
                 ->setParameter(':fk_time_futebol', $Peladeiro->timeFutebol)
                 ->setParameter(':fk_posicao', $Peladeiro->posicao)
+                ->setParameter(':senha', $Peladeiro->senha)
                 ->execute()
             ;  
           $Peladeiro->idPeladeiro = $QueryBuilder->getConnection()->lastInsertId();

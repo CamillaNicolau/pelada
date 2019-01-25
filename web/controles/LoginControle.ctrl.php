@@ -23,6 +23,10 @@ class LoginControle extends ControlaModelos
                         $id = $usuario->id_usuario;
                         $ativo = $usuario->ativo;
                     }
+
+                    // if(isset($email) && $senha == ""){
+                    //     exit(json_encode(array('sucesso'=>false,'mensagem'=>'Usuario ou senha incorreta')));
+                    // }
                     $_POST['id'] = $id;
                     $nome = explode(' ',$nome);
 

@@ -60,7 +60,11 @@ class PerfilControle extends ControlaModelos
             $Usuario->email = $_POST['emailUsuario'];
             $Usuario->apelido = $_POST['apelidoUsuario'];
             $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $_FILES['imagemUsuario']['name'] :$Usuario->urlImagem;
-            $Usuario->senha = md5($_POST['password']);           
+
+            if($_POST['password'] != "" ){
+              $Usuario->senha = md5($_POST['password']); 
+            }
+                      
             $UsuarioRepositorio->atualizarUsuario($Usuario,$file);
 
             exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));

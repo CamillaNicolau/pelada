@@ -29,6 +29,8 @@ class PeladeiroControle extends ControlaModelos
                         exit(json_encode(["sucesso" => false, "mensagem" => implode("<br>", $msg_erro)]));
                     }
                 }
+
+
                 \Doctrine::beginTransaction();
 
                 $time = $_POST['time'];
@@ -36,6 +38,11 @@ class PeladeiroControle extends ControlaModelos
                
                 $PeladeiroRepositorio = new PeladeiroRepositorio();
                 $Peladeiro = new Peladeiro();
+
+                $buscarPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email = "'.$_POST['emailPeladeiro'].'" and ativo ='.true]);
+                if(count($buscarPeladeiro)>0){
+                    exit(json_encode(["sucesso" => false, "mensagem" => 'Usuário cadastrado no sistema']));
+                }
                 if($_POST['imagemUsuario']){
                     $imagem = pathinfo($_FILES['imagemUsuario']['name']);
                     $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
@@ -104,8 +111,13 @@ class PeladeiroControle extends ControlaModelos
                         exit(json_encode(["sucesso" => false, "mensagem" => implode("<br>", $msg_erro)]));
                     }
                 }
+                
                 \Doctrine::beginTransaction();
 
+                $buscarPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email = "'.$_POST['emailPeladeiro'].'" and ativo ='.true]);
+                if(count($buscarPeladeiro)>0){
+                    exit(json_encode(["sucesso" => false, "mensagem" => 'Usuário cadastrado no sistema']));
+                }
                 $time = $_POST['time'];
                 $posicao =  $_POST['posicao'];
 
