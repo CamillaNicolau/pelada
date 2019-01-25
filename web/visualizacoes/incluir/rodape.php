@@ -1,18 +1,10 @@
-<div class="row-footer full-row">
-    <div class="row between-xs">
-        <div class="col-xs-3">
-          <p>© 2018 Mais pelada</p>
-        </div>
-        
-        <div class="logo-rodape col-xs-3">
-          <img src="./visualizacoes/imagens/cn_camilla_nicolau.png" alt="Mais pelada">
-          <!--                     <img src="./visualizacoes/imagens/camilla.png" alt="">         -->
+                <div id="row-footer-login" class="col-sm-10 row-footer full-row offset-2">
+                    
+                    <div class="clearfix"></div>
 
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="clearfix"></div>
-
-</div>
 
         <script type="text/javascript" src="./visualizacoes/js/jquery.min.js" ></script>
         <script type="text/javascript" src="./visualizacoes/js/jquery.form.min.js" ></script> 
