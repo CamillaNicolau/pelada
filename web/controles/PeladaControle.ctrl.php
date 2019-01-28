@@ -148,7 +148,7 @@ class PeladaControle extends ControlaModelos
                 try{
 
                     $html = [];
-                    $ListaPelada = PeladaRepositorio::buscarPelada();
+                    $ListaPelada = PeladaRepositorio::buscarPelada(['p.fk_peladeiro ='.$_SESSION['id_usuario_logado']]);
                     foreach($ListaPelada as $pelada) {
                         $DataPelada = $pelada->data_pelada;
                         $novaData = date("d/m/Y", strtotime($DataPelada));
@@ -226,10 +226,8 @@ class PeladaControle extends ControlaModelos
                             }
                         }else{
                             $idCad = false;
-                        }
-                        
+                        }        
                         $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome,'email'=>$peladeiro->email, 'idCad'=>$idCad);
-
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html,'id_pelada'=>$id_pelada)));
                 }catch(Erro $E){
@@ -324,6 +322,46 @@ class PeladaControle extends ControlaModelos
               \Doctrine::rollBack();
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao remover peladeiro')));
             }
+            break;
+            case 'enviar_solicitacao':
+                try {
+                    $dadosPelada = PeladaRepositorio::buscarPelada(['id_pelada ='.$_POST['id_pelada']]);
+                    foreach ($dadosPelada as $pelada){
+                        $emailCriador = $pelada->email;
+                        $nomeCriador = $pelada->apelido;
+                        $nomePelada = $pelada->nome_pelada;
+                        
+                    }
+                    $dadosUsuario = PeladeiroRepositorio::buscarPeladeiro(['id_usuario ='.$_SESSION['id_usuario_logado'].' and ativo ='.true]);
+                    foreach ($dadosUsuario as $usuario){
+                        var_dump($usuario);
+                        exit();
+                    }
+                    
+                    
+//                    $destinatarios = $_POST['email'];
+//                    $senha = Tratamentos::gerarSenha();
+//                    $assuntoFormulario = 'Solicitar  - Mais Pelada';
+//
+//                    $valores_recuperarSenha_tpl = [
+//                        '%nome_site%' =>TITULO,
+//                        '%nome%' =>$nome,
+//                        '%formulario_titulo%' => $assuntoFormulario,
+//                        '%url_raiz_site%' => URL_RAIZ_SITE,
+//                        '%data_hora%' => date('d/m/Y H:i:s'),
+//                        '%senha%' => $senha,
+//                        '%email%' => $_POST['email']
+//                    ];
+//                    $Template = new TemplateEmail($valores_recuperarSenha_tpl, 'recuperarSenha');
+//
+//                    $Email = new Email($destinatarios, ($assuntoFormulario), ($Template->getHtmlTemplates()));
+//                    $Email->ativar_html = true;
+//                    $Email->remetente = 'Mais Pelada';
+//
+//                    $Email->enviar();
+                } catch (Exception $ex) {
+                    
+                }
             break;
         }
     }

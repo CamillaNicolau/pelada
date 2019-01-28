@@ -128,7 +128,7 @@
         <button type="submit" id="encontra-pelada"><i class="fas fa-search"></i></button>
         <div id="pelada"></div>
         <br>
-        <!-- <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button> -->
+         <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button> 
     </span>
     <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_adicionar_peladeiro" id="form_adicionar_peladeiro" >
         <span class="adicionar-peladeiro" style="display: none;">

@@ -24,13 +24,36 @@ class InicioControle extends ControlaModelos
                     foreach($ListaPelada as $pelada) {
                         $novaData = date("d/m/Y", strtotime($pelada->data_pelada));
                         $horarioNovo = date("H:i", strtotime($pelada->horario));
-                        $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_pelada'=>$novaData,'horario'=>$horarioNovo,'rua'=>$pelada->rua,'numero'=>$pelada->numero, 'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade) ;
+                        $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_pelada'=>$novaData,
+                            'horario'=>$horarioNovo,'rua'=>$pelada->rua,'numero'=>$pelada->numero,
+                            'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade,
+                            'id_peladeiro_pelada'=>$pelada->id, 'data_atual'=>date("d/m/Y"), 'confirmacao'=>$pelada->confirmacao) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
                   exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar lista de pelada.")));
                 }
             break;
+             case 'status_pelada_peladeiro':
+                try{
+                    \Doctrine::beginTransaction();
+                    $confimarPeladeiro = new PeladaRepositorio();
+                    if($_POST['confirmacao'] == "1"){
+                        if(!$confimarPeladeiro->statusPeladeiroPelada(['id='.$_POST['id_pelada_peladeiro']])){
+                            exit(json_encode(array('sucesso'=>false,'mensagem'=>"Erro ao confirmar a presença")));
+                        } else{
+                            \Doctrine::commit();
+                            exit(json_encode(array('sucesso'=>true,'mensagem'=>"Presença confirmada")));
+                        }
+                    } else{
+                        exit(json_encode(array('sucesso'=>true,'mensagem'=>"Pelada descartada")));
+                    }   
+                }catch(Erro $E){
+                    \Doctrine::rollBack();
+                  exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar lista de pelada.")));
+                }
+            break;
+            
         }
     }
     public function getHtml()

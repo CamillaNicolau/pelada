@@ -222,9 +222,35 @@ class PeladaRepositorio extends Pelada {
             if ($where != '') {
                 $QueryBuilder->where($where);
             }
-            return $QueryBuilder->execute()->fetchAll();
+            return $QueryBuilder->execute();
         } catch (\Exception $j) {
             echo($j->getMessage());
+        }
+    }
+    
+    /**
+     * Salva as informações aramazenadas nos atributos do objeto no banco de dados.
+     *
+     * @access public
+     * @return string
+     */
+    public function statusPeladeiroPelada(array $condicoes = [])
+    {
+        $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->update('pelada_peladeiro')
+                ->set('confirmacao', ':confirmacao')
+                ->setParameter(':confirmacao', true)
+            ;
+            if ($where != '') {
+                $QueryBuilder->where($where);
+            }
+            return $QueryBuilder->execute();
+            
+        } catch (\Exception $j) {
+            echo("Um erro ocorreu ao salvar a confirmação da pelada no banco de dados - " . $j->getMessage());
         }
     }
 }

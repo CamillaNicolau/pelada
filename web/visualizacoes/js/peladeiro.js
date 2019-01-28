@@ -41,6 +41,7 @@ function validaForm(){
 function tratarResultado (retorno) {  
   if(retorno.sucesso == true) {
     resetarFormulario();
+    atualizarListaPeladeiro()
     alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
   } else {
     alertaFnc("Erro", retorno.mensagem,null, true, "error"); 

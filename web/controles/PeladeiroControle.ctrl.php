@@ -115,9 +115,7 @@ class PeladeiroControle extends ControlaModelos
                 \Doctrine::beginTransaction();
 
                 $buscarPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email = "'.$_POST['emailPeladeiro'].'" and ativo ='.true]);
-                if(count($buscarPeladeiro)>0){
-                    exit(json_encode(["sucesso" => false, "mensagem" => 'Usuário cadastrado no sistema']));
-                }
+         
                 $time = $_POST['time'];
                 $posicao =  $_POST['posicao'];
 
@@ -170,7 +168,7 @@ class PeladeiroControle extends ControlaModelos
             case 'lista_peladeiro':
                 try{
                     $html = [];
-                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro();
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['fk_criador ='.$_SESSION['id_usuario_logado']]);
                     foreach($ListaPeladeiro as $peladeiro) {
                         $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
                     }
