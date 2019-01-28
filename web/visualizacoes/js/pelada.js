@@ -273,9 +273,6 @@ function candidataPelada(idPelada) {
         url: 'pelada',
         data: 'acao=enviar_solicitacao&id_pelada='+idPelada,
         dataType:'json',
-        beforeSend: function() {
-            alertaFnc("Aguarde", "Enviando solcitação...", null, false, null);
-        },
         success: function(retorno) {
             if (retorno.sucesso) {
                 
