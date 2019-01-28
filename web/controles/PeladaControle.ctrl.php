@@ -190,7 +190,7 @@ class PeladaControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    $EncontrarPelada= PeladaRepositorio::buscarPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%"']);
+                    $EncontrarPelada= PeladaRepositorio::buscarPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%" and fk_peladeiro<>'.$_SESSION['id_usuario_logado']]);
                     if(count($EncontrarPelada) > 0){
                         foreach($EncontrarPelada as $pelada) {
                             $novaData = date("d/m/Y", strtotime($pelada->data_pelada));
@@ -212,7 +212,7 @@ class PeladaControle extends ControlaModelos
               
                     $id_pelada = $Pelada->idPelada;
                     $html = [];
-                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro();
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['fk_criador ='.$_SESSION['id_usuario_logado']]);
                     foreach($ListaPeladeiro as $peladeiro) {
                         $buscaPelada = PeladaRepositorio::buscaGeralPelada(['p.fk_peladeiro ='.$peladeiro->id_usuario.' and p.fk_pelada = '.$_POST['id_pelada']]);
 
@@ -334,7 +334,7 @@ class PeladaControle extends ControlaModelos
                     $dadosUsuario = PeladeiroRepositorio::buscarPeladeiro(['id_usuario ='.$_SESSION['id_usuario_logado'].' and ativo ='.true]);
                     foreach ($dadosUsuario as $usuario){
                         $nomeUsuario = $usuario->apelido ? $usuario->apelido : $usuario->nome;
-                        $emailUsuario = $pelada->email;
+                        $emailUsuario = $usuario->email;
                     }
 
                     $destinatarios = $emailCriador;

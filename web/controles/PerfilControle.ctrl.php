@@ -20,7 +20,7 @@ class PerfilControle extends ControlaModelos
 
               $Usuario = new Usuario($_SESSION['id_usuario_logado']);
               $saida = array();
-
+              
               $saida['idUsuario'] = $Usuario->idUsuario;
               $saida['imagemUsuario'] = URL_USUARIO. '/'. UsuarioModelo::PREFIXO_MINIATURA . $Usuario->urlImagem;
               $saida['nomeUsuario'] = $Usuario->nome;
@@ -55,11 +55,15 @@ class PerfilControle extends ControlaModelos
 
             $UsuarioRepositorio = new UsuarioRepositorio();
             $Usuario = new Usuario($_SESSION['id_usuario_logado']);
-
+            if($_FILES['imagemUsuario']){
+                $imagem = pathinfo($_FILES['imagemUsuario']['name']);
+                $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
+                $url = $nomeImagem .'.' . $imagem['extension'];
+            }
             $Usuario->nome = $_POST['nomeUsuario'];
             $Usuario->email = $_POST['emailUsuario'];
             $Usuario->apelido = $_POST['apelidoUsuario'];
-            $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $_FILES['imagemUsuario']['name'] :$Usuario->urlImagem;
+            $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $url :$Usuario->urlImagem;
 
             if($_POST['password'] != "" ){
               $Usuario->senha = md5($_POST['password']); 

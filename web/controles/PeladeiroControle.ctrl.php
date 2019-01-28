@@ -133,7 +133,7 @@ class PeladeiroControle extends ControlaModelos
                 $Peladeiro->email = $_POST['emailPeladeiro'];
                 $Peladeiro->telefone = $_POST['telPeladeiro'];
                 $Peladeiro->data_nascimento = $_POST['dataNascimento'];
-                $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url :null;
+                $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url :$Peladeiro->url_imagem;
                 $Peladeiro->participacao = $_POST['participacao'];
                 $Peladeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
@@ -205,7 +205,7 @@ class PeladeiroControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email LIKE "%'.$_POST['email'].'%"']);
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email LIKE "%'.$_POST['email'].'%" and fk_criador<>'.$_SESSION['id_usuario_logado']]);
                     if(count($ListaPeladeiro) > 0){
                         foreach($ListaPeladeiro as $peladeiro) {
                             $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
