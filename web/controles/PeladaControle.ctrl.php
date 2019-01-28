@@ -357,7 +357,9 @@ class PeladaControle extends ControlaModelos
                     $Email->remetente = $nomeUsuario;
 
                     if(!$Email->enviar()){
-                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao notificar peladeiro')));
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao notificar')));
+                    } else{
+                        exit(json_encode(array('sucesso'=>true,'mensagem'=>'Solicitação enviada.')));
                     }
                 } catch (Exception $ex) {
                     exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro')));
