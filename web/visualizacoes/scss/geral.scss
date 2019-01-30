@@ -1,0 +1,135 @@
+/* #region Definições de tema Bootstrap */
+$green: #017240;
+$light-green: #008773;
+$dark-blue: #1c3341;
+$yellow: #fcbd26;
+$red: #ed262d;
+
+$primary:       $green;
+$secondary:     $dark-blue;
+$tertiary:       $light-green;
+
+@import "../bootstrap/scss/bootstrap"; 
+/* #endregion Fim definições de tema Bootstrap*/
+
+html, body, #navbar-fixed{
+    height: 100%!important;
+    min-height: 100vh;  
+}
+
+.sticky-top{
+    position: sticky!important;
+    position: -webkit-stiky!important;
+    top: 0px;
+}
+
+#navbar-fixed{
+    box-shadow: 0 0 6px 3px rgba(0,0,0,.3);
+
+    ul li:not(:last-child){
+        border-bottom: 1px solid lighten($primary, 3);
+    }
+
+    ul li:not(:first-child){
+        border-top: 1px solid darken($primary, 3);
+    }
+}
+
+.box-header{
+    h2{
+        background: $tertiary;
+        margin: 0 -40px 0 -25px;
+    }
+}
+ 
+
+
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+}
+
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 20%;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
+.profile-usertitle {
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+body{
+   color: #111112;
+font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+font-size: 14px;
+font-weight: 400;
+line-height: 1.471;
+}
+.pull-right {
+    float: right !important;
+}
+
+/*footer {
+    background: #fff;
+    padding: 15px 20px;
+    display: block;
+    height: 54px;
+    position: fixed;
+    bottom: auto;
+}*/
+
+.footer {
+    bottom: 0;
+    background: #fff;
+    padding: 15px 20px;
+    display: block;
+    height: 54px;
+    color: black;
+    text-align: center;
+}
+.pull-right {
+    float: right !important;
+}
+.endereco{
+    max-width: 50%;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+.box-title{
+  color:#0a3f0a ;
+}
+.subtitle{
+  color: #999999;
+}
+.row-footer {
+background: #0b2e13;
+color: #fff;
+padding: 30px 0;
+}
+
+#row-footer-login{
+    background: none;
+    text-align: center;
+}
+
+.full-row, .container {
+    width: 100%;
+}
+* {
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+   }
+
+

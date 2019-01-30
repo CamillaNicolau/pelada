@@ -143,7 +143,7 @@ function buscarPeladeiro(id_pelada){
 }
 
 function resetarFormulario(){
-   // $("#form_cadastro_pelada")[0].reset();
+    $("#form_cadastro_pelada")[0].reset();
     $("#cadastroPelada").slideUp(function() {
        $('.tabela-pelada').show();
      });
