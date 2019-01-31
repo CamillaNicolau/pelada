@@ -1,4 +1,33 @@
-INSERT INTO `cidade` (`id_cidade`, `nome`, `fk_estado`) VALUES
+-- phpMyAdmin SQL Dump
+-- version 4.6.6deb5
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: 31-Jan-2019 √†s 17:52
+-- Vers√£o do servidor: 5.7.25-0ubuntu0.18.04.2
+-- PHP Version: 7.1.23-2+ubuntu18.04.1+deb.sury.org+1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `camilla_pelada`
+--
+
+-- --------------------------------------------------------
+
+
+--
+-- Extraindo dados da tabela `cidade`
+--
+
+INSERT INTO `cidade` (`id_cidade`, `nome_cidade`, `fk_estado`) VALUES
 (1, 'ACRELANDIA', 1),
 (2, 'ASSIS BRASIL', 1),
 (3, 'BRASILEIA', 1),
@@ -123,10 +152,10 @@ INSERT INTO `cidade` (`id_cidade`, `nome`, `fk_estado`) VALUES
 (122, 'MURICI', 2),
 (123, 'NOVO LINO', 2),
 (124, 'OLHO D AGUA GRANDE', 2),
-(125, 'OLHO D''AGUA DAS FLORES', 2),
-(126, 'OLHO D''AGUA DE CIMA', 2),
-(127, 'OLHO D''AGUA DO CASADO', 2),
-(128, 'OLHO D''AGUA DOS DANDANHAS', 2),
+(125, 'OLHO D\'AGUA DAS FLORES', 2),
+(126, 'OLHO D\'AGUA DE CIMA', 2),
+(127, 'OLHO D\'AGUA DO CASADO', 2),
+(128, 'OLHO D\'AGUA DOS DANDANHAS', 2),
 (129, 'OLIVENCA', 2),
 (130, 'OURO BRANCO', 2),
 (131, 'PALESTINA', 2),
@@ -136,7 +165,7 @@ INSERT INTO `cidade` (`id_cidade`, `nome`, `fk_estado`) VALUES
 (135, 'PARICONHA', 2),
 (136, 'PARIPUEIRA', 2),
 (137, 'PASSO DE CAMARAGIBE', 2),
-(138, 'PAU D''ARCO', 2),
+(138, 'PAU D\'ARCO', 2),
 (139, 'PAU FERRO', 2),
 (140, 'PAULO JACINTO', 2),
 (141, 'PENEDO', 2),
@@ -176,7 +205,7 @@ INSERT INTO `cidade` (`id_cidade`, `nome`, `fk_estado`) VALUES
 (175, 'SERRA DO SAO JOSE', 2),
 (176, 'TABOLEIRO DO PINTO', 2),
 (177, 'TABOQUINHA', 2),
-(178, 'TANQUE D''ARCA', 2),
+(178, 'TANQUE D\'ARCA', 2),
 (179, 'TAQUARANA', 2),
 (180, 'TATUAMUNHA', 2),
 (181, 'TEOTONIO VILELA', 2),
@@ -874,8 +903,8 @@ INSERT INTO `cidade` (`id_cidade`, `nome`, `fk_estado`) VALUES
 (873, 'NOVO TRIUNFO', 5),
 (874, 'NUCLEO RESIDENCIAL PILAR', 5),
 (875, 'NUGUACU', 5),
-(876, 'OLHOS D''AGUA DO SECO', 5),
-(877, 'OLHOS D''AGUA DO SERAFIM', 5),
+(876, 'OLHOS D\'AGUA DO SECO', 5),
+(877, 'OLHOS D\'AGUA DO SERAFIM', 5),
 (878, 'OLINDINA', 5),
 (879, 'OLIVEIRA DOS BREJINHOS', 5),
 (880, 'OLIVENCA', 5),
@@ -1518,8 +1547,8 @@ INSERT INTO `cidade` (`id_cidade`, `nome`, `fk_estado`) VALUES
 (1517, 'NOVO ORIENTE', 6),
 (1518, 'OCARA', 6),
 (1519, 'OITICICA', 6),
-(1520, 'OLHO-D''AGUA', 6),
-(1521, 'OLHO-D''AGUA DA BICA', 6),
+(1520, 'OLHO-D\'AGUA', 6),
+(1521, 'OLHO-D\'AGUA DA BICA', 6),
 (1522, 'OLIVEIRAS', 6),
 (1523, 'OROS', 6),
 (1524, 'PACAJUS', 6),
@@ -2186,7 +2215,7 @@ INSERT INTO `cidade` (`id_cidade`, `nome`, `fk_estado`) VALUES
 (2185, 'MONTIVIDIU DO NORTE', 9),
 (2186, 'MORRINHOS', 9),
 (2187, 'MORRO AGUDO DE GOIAS', 9);
-INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
+INSERT INTO `cidade` (`id_cidade`, `nome_cidade`, `fk_estado`) VALUES
 (2188, 'MOSSAMEDES', 9),
 (2189, 'MOZARLANDIA', 9),
 (2190, 'MUNDO NOVO', 9),
@@ -2206,7 +2235,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (2204, 'NOVO GAMA', 9),
 (2205, 'NOVO PLANALTO', 9),
 (2206, 'OLARIA DO ANGICO', 9),
-(2207, 'OLHOS D''AGUA', 9),
+(2207, 'OLHOS D\'AGUA', 9),
 (2208, 'ORIZONA', 9),
 (2209, 'OURO VERDE DE GOIAS', 9),
 (2210, 'OUROANA', 9),
@@ -2236,7 +2265,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (2234, 'PORTEIRAO', 9),
 (2235, 'PORTELANDIA', 9),
 (2236, 'POSSE', 9),
-(2237, 'POSSE D''ABADIA', 9),
+(2237, 'POSSE D\'ABADIA', 9),
 (2238, 'PROFESSOR JAMIL', 9),
 (2239, 'QUIRINOPOLIS', 9),
 (2240, 'REGISTRO DO ARAGUAIA', 9),
@@ -2269,7 +2298,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (2267, 'SAO FRANCISCO DE GOIAS', 9),
 (2268, 'SAO GABRIEL DE GOIAS', 9),
 (2269, 'SAO JOAO', 9),
-(2270, 'SAO JOAO D''ALIANCA', 9),
+(2270, 'SAO JOAO D\'ALIANCA', 9),
 (2271, 'SAO JOAO DA PARAUNA', 9),
 (2272, 'SAO LUIS DE MONTES BELOS', 9),
 (2273, 'SAO LUIZ DO NORTE', 9),
@@ -2286,7 +2315,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (2284, 'SERRANOPOLIS', 9),
 (2285, 'SILVANIA', 9),
 (2286, 'SIMOLANDIA', 9),
-(2287, 'SITIO D''ABADIA', 9),
+(2287, 'SITIO D\'ABADIA', 9),
 (2288, 'SOUSANIA', 9),
 (2289, 'TAQUARAL DE GOIAS', 9),
 (2290, 'TAVEIRA', 9),
@@ -2465,7 +2494,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (2463, 'NOVA COLINAS', 10),
 (2464, 'NOVA IORQUE', 10),
 (2465, 'NOVA OLINDA DO MARANHAO', 10),
-(2466, 'OLHO D''AGUA DAS CUNHAS', 10),
+(2466, 'OLHO D\'AGUA DAS CUNHAS', 10),
 (2467, 'OLINDA NOVA DO MARANHAO', 10),
 (2468, 'PACO DO LUMIAR', 10),
 (2469, 'PALMEIRANDIA', 10),
@@ -3289,7 +3318,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (3287, 'LEVINOPOLIS', 11),
 (3288, 'LIBERDADE', 11),
 (3289, 'LIMA DUARTE', 11),
-(3290, 'LIMEIRA D''OESTE', 11),
+(3290, 'LIMEIRA D\'OESTE', 11),
 (3291, 'LIMEIRA DE MANTENA', 11),
 (3292, 'LOBO LEITE', 11),
 (3293, 'LONTRA', 11),
@@ -3437,8 +3466,8 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (3435, 'OCIDENTE', 11),
 (3436, 'OLARIA', 11),
 (3437, 'OLEGARIO MACIEL', 11),
-(3438, 'OLHOS D''AGUA DO OESTE', 11),
-(3439, 'OLHOS-D''AGUA', 11),
+(3438, 'OLHOS D\'AGUA DO OESTE', 11),
+(3439, 'OLHOS-D\'AGUA', 11),
 (3440, 'OLIMPIO CAMPOS', 11),
 (3441, 'OLIMPIO NORONHA', 11),
 (3442, 'OLIVEIRA', 11),
@@ -3545,7 +3574,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (3543, 'PILAR', 11),
 (3544, 'PIMENTA', 11),
 (3545, 'PINDAIBAS', 11),
-(3546, 'PINGO-D''AGUA', 11),
+(3546, 'PINGO-D\'AGUA', 11),
 (3547, 'PINHEIRINHOS', 11),
 (3548, 'PINHEIROS ALTOS', 11),
 (3549, 'PINHOTIBA', 11),
@@ -4067,7 +4096,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (4065, 'BAUS', 12),
 (4066, 'BELA VISTA', 12),
 (4067, 'BOCAJA', 12);
-INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
+INSERT INTO `cidade` (`id_cidade`, `nome_cidade`, `fk_estado`) VALUES
 (4068, 'BODOQUENA', 12),
 (4069, 'BOM FIM', 12),
 (4070, 'BONITO', 12),
@@ -4301,7 +4330,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (4298, 'FONTANILHAS', 13),
 (4299, 'GAUCHA DO NORTE', 13),
 (4300, 'GENERAL CARNEIRO', 13),
-(4301, 'GLORIA D''OESTE', 13),
+(4301, 'GLORIA D\'OESTE', 13),
 (4302, 'GUARANTA DO NORTE', 13),
 (4303, 'GUARITA', 13),
 (4304, 'GUIRATINGA', 13),
@@ -4322,7 +4351,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (4319, 'JUINA', 13),
 (4320, 'JURUENA', 13),
 (4321, 'JUSCIMEIRA', 13),
-(4322, 'LAMBARI D''OESTE', 13),
+(4322, 'LAMBARI D\'OESTE', 13),
 (4323, 'LAVOURAS', 13),
 (4324, 'LUCAS DO RIO VERDE', 13),
 (4325, 'LUCIALVA', 13),
@@ -4333,7 +4362,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (4330, 'MATA DENTRO', 13),
 (4331, 'MATUPA', 13),
 (4332, 'MIMOSO', 13),
-(4333, 'MIRASSOL D''OESTE', 13),
+(4333, 'MIRASSOL D\'OESTE', 13),
 (4334, 'NOBRES', 13),
 (4335, 'NONOAI DO NORTE', 13),
 (4336, 'NORTELANDIA', 13),
@@ -4664,7 +4693,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (4661, 'PARAGOMINAS', 14),
 (4662, 'PARATINS', 14),
 (4663, 'PARAUAPEBAS', 14),
-(4664, 'PAU D''ARCO', 14),
+(4664, 'PAU D\'ARCO', 14),
 (4665, 'PEDREIRA', 14),
 (4666, 'PEIXE-BOI', 14),
 (4667, 'PENHALONGA', 14),
@@ -4909,7 +4938,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (4906, 'LIVRAMENTO', 15),
 (4907, 'LOGRADOURO', 15),
 (4908, 'LUCENA', 15),
-(4909, 'MAE D''AGUA', 15),
+(4909, 'MAE D\'AGUA', 15),
 (4910, 'MAIA', 15),
 (4911, 'MALTA', 15),
 (4912, 'MAMANGUAPE', 15),
@@ -4942,7 +4971,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (4939, 'NUCLEO N NULL', 15),
 (4940, 'NUCLEO N NULL', 15),
 (4941, 'ODILANDIA', 15),
-(4942, 'OLHO D''AGUA', 15),
+(4942, 'OLHO D\'AGUA', 15),
 (4943, 'OLIVEDOS', 15),
 (4944, 'OURO VELHO', 15),
 (4945, 'PARARI', 15),
@@ -5161,7 +5190,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (5158, 'CONDADO', 16),
 (5159, 'CORRENTES', 16),
 (5160, 'CORTES', 16),
-(5161, 'COURO D''ANTAS', 16),
+(5161, 'COURO D\'ANTAS', 16),
 (5162, 'CRISTALIA', 16),
 (5163, 'CRUANJI', 16),
 (5164, 'CRUZES', 16),
@@ -5288,7 +5317,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (5285, 'NOSSA SENHORA DO CARMO', 16),
 (5286, 'NOSSA SENHORA DO O', 16),
 (5287, 'NOVA CRUZ', 16),
-(5288, 'OLHO D''AGUA DE DENTRO', 16),
+(5288, 'OLHO D\'AGUA DE DENTRO', 16),
 (5289, 'OLINDA', 16),
 (5290, 'ORATORIO', 16),
 (5291, 'ORI', 16),
@@ -5451,7 +5480,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (5448, 'ASSUNCAO DO PIAUI', 17),
 (5449, 'AVELINO LOPES', 17),
 (5450, 'BAIXA GRANDE DO RIBEIRO', 17),
-(5451, 'BARRA D''ALCANTARA', 17),
+(5451, 'BARRA D\'ALCANTARA', 17),
 (5452, 'BARRAS', 17),
 (5453, 'BARREIRAS DO PIAUI', 17),
 (5454, 'BARRO DURO', 17),
@@ -5576,7 +5605,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (5573, 'NOVO ORIENTE DO PIAUI', 17),
 (5574, 'NOVO SANTO ANTONIO', 17),
 (5575, 'OEIRAS', 17),
-(5576, 'OLHO D''AGUA DO PIAUI', 17),
+(5576, 'OLHO D\'AGUA DO PIAUI', 17),
 (5577, 'PADRE MARCOS', 17),
 (5578, 'PAES LANDIM', 17),
 (5579, 'PAJEU DO PIAUI', 17),
@@ -5730,7 +5759,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (5727, 'BAIRRO LIMOEIRO', 18),
 (5728, 'BALSA NOVA', 18),
 (5729, 'BANDEIRANTES', 18),
-(5730, 'BANDEIRANTES D''OESTE', 18),
+(5730, 'BANDEIRANTES D\'OESTE', 18),
 (5731, 'BANHADO', 18),
 (5732, 'BARAO DE LUCENA', 18),
 (5733, 'BARBOSA FERRAZ', 18),
@@ -5923,7 +5952,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (5920, 'DESPRAIADO', 18),
 (5921, 'DEZ DE MAIO', 18),
 (5922, 'DIAMANTE', 18),
-(5923, 'DIAMANTE D''OESTE', 18),
+(5923, 'DIAMANTE D\'OESTE', 18),
 (5924, 'DIAMANTE DO NORTE', 18),
 (5925, 'DIAMANTE DO SUL', 18),
 (5926, 'DOCE GRANDE', 18),
@@ -5941,7 +5970,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (5938, 'EDUARDO XAVIER DA SILVA', 18),
 (5939, 'EMBOGUACU', 18),
 (5940, 'EMBOQUE', 18),
-(5941, 'ENCANTADO D''OESTE', 18),
+(5941, 'ENCANTADO D\'OESTE', 18),
 (5942, 'ENCRUZILHADA', 18),
 (5943, 'ENEAS MARQUES', 18),
 (5944, 'ENGENHEIRO BELTRAO', 18),
@@ -6018,9 +6047,9 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6015, 'GUAMIRIM', 18),
 (6016, 'GUAPIRAMA', 18),
 (6017, 'GUAPORE', 18),
-(6018, 'GUAPOREMA', 18),
-(6019, 'GUARA', 18);
-INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
+(6018, 'GUAPOREMA', 18);
+INSERT INTO `cidade` (`id_cidade`, `nome_cidade`, `fk_estado`) VALUES
+(6019, 'GUARA', 18),
 (6020, 'GUARACI', 18),
 (6021, 'GUARAGI', 18),
 (6022, 'GUARAITUBA', 18),
@@ -6080,7 +6109,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6076, 'ITAMBE', 18),
 (6077, 'ITAPANHACANGA', 18),
 (6078, 'ITAPARA', 18),
-(6079, 'ITAPEJARA D''OESTE', 18),
+(6079, 'ITAPEJARA D\'OESTE', 18),
 (6080, 'ITAPERUCU', 18),
 (6081, 'ITAQUI', 18),
 (6082, 'ITAUNA DO SUL', 18),
@@ -6266,7 +6295,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6262, 'NOVO TRES PASSOS', 18),
 (6263, 'OLARIA', 18),
 (6264, 'OLHO AGUDO', 18),
-(6265, 'OLHO D''AGUA', 18),
+(6265, 'OLHO D\'AGUA', 18),
 (6266, 'OROITE', 18),
 (6267, 'ORTIGUEIRA', 18),
 (6268, 'OURILANDIA', 18),
@@ -6290,7 +6319,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6286, 'PANGARE', 18),
 (6287, 'PAPAGAIOS NOVOS', 18),
 (6288, 'PARAISO DO NORTE', 18),
-(6289, 'PARANA D''OESTE', 18),
+(6289, 'PARANA D\'OESTE', 18),
 (6290, 'PARANACITY', 18),
 (6291, 'PARANAGI', 18),
 (6292, 'PARANAGUA', 18),
@@ -6304,7 +6333,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6300, 'PATO BRAGADO', 18),
 (6301, 'PATO BRANCO', 18),
 (6302, 'PATOS VELHOS', 18),
-(6303, 'PAU D''ALHO DO SUL', 18),
+(6303, 'PAU D\'ALHO DO SUL', 18),
 (6304, 'PAULA FREITAS', 18),
 (6305, 'PAULISTANIA', 18),
 (6306, 'PAULO FRONTIN', 18),
@@ -6382,7 +6411,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6378, 'QUITANDINHA', 18),
 (6379, 'RAMILANDIA', 18),
 (6380, 'RANCHO ALEGRE', 18),
-(6381, 'RANCHO ALEGRE D''OESTE', 18),
+(6381, 'RANCHO ALEGRE D\'OESTE', 18),
 (6382, 'REALEZA', 18),
 (6383, 'REBOUCAS', 18),
 (6384, 'REGIAO DOS VALOS', 18),
@@ -6489,7 +6518,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6485, 'SAO GOTARDO', 18),
 (6486, 'SAO JERONIMO DA SERRA', 18),
 (6487, 'SAO JOAO', 18),
-(6488, 'SAO JOAO D''OESTE', 18),
+(6488, 'SAO JOAO D\'OESTE', 18),
 (6489, 'SAO JOAO DA BOA VISTA', 18),
 (6490, 'SAO JOAO DO CAIUA', 18),
 (6491, 'SAO JOAO DO IVAI', 18),
@@ -6497,7 +6526,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6493, 'SAO JOAO DO TRIUNFO', 18),
 (6494, 'SAO JOAQUIM', 18),
 (6495, 'SAO JOAQUIM DO PONTAL', 18),
-(6496, 'SAO JORGE D''OESTE', 18),
+(6496, 'SAO JORGE D\'OESTE', 18),
 (6497, 'SAO JORGE DO IVAI', 18),
 (6498, 'SAO JORGE DO PATROCINIO', 18),
 (6499, 'SAO JOSE', 18),
@@ -6542,7 +6571,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (6538, 'SAUDADE DO IGUACU', 18),
 (6539, 'SEDE ALVORADA', 18),
 (6540, 'SEDE CHAPARRAL', 18),
-(6541, 'SEDE NOVA SANT''ANA', 18),
+(6541, 'SEDE NOVA SANT\'ANA', 18),
 (6542, 'SEDE PROGRESSO', 18),
 (6543, 'SELVA', 18),
 (6544, 'SENGES', 18),
@@ -7018,7 +7047,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (7014, 'JOSE DA PENHA', 20),
 (7015, 'JUCURUTU', 20),
 (7016, 'JUNDIA DE CIMA', 20),
-(7017, 'LAGOA D''ANTA', 20),
+(7017, 'LAGOA D\'ANTA', 20),
 (7018, 'LAGOA DE PEDRAS', 20),
 (7019, 'LAGOA DE VELHOS', 20),
 (7020, 'LAGOA NOVA', 20),
@@ -7043,7 +7072,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (7039, 'NATAL', 20),
 (7040, 'NISIA FLORESTA', 20),
 (7041, 'NOVA CRUZ', 20),
-(7042, 'OLHO-D''AGUA DO BORGES', 20),
+(7042, 'OLHO-D\'AGUA DO BORGES', 20),
 (7043, 'OURO BRANCO', 20),
 (7044, 'PARANA', 20),
 (7045, 'PARAZINHO', 20),
@@ -7149,19 +7178,19 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (7145, 'CORUMBIARA', 21),
 (7146, 'COSTA MARQUES', 21),
 (7147, 'CUJUBIM', 21),
-(7148, 'ESPIGAO D''OESTE', 21),
+(7148, 'ESPIGAO D\'OESTE', 21),
 (7149, 'GOVERNADOR JORGE TEIXEIRA', 21),
 (7150, 'GUAJARA-MIRIM', 21),
 (7151, 'JACI PARANA', 21),
 (7152, 'JAMARI', 21),
 (7153, 'JARU', 21),
 (7154, 'JI-PARANA', 21),
-(7155, 'MACHADINHO D''OESTE', 21),
+(7155, 'MACHADINHO D\'OESTE', 21),
 (7156, 'MARCO RONDON', 21),
 (7157, 'MINISTRO ANDREAZZA', 21),
 (7158, 'MIRANTE DA SERRA', 21),
 (7159, 'MONTE NEGRO', 21),
-(7160, 'NOVA BRASILANDIA D''OESTE', 21),
+(7160, 'NOVA BRASILANDIA D\'OESTE', 21),
 (7161, 'NOVA MAMORE', 21),
 (7162, 'NOVA UNIAO', 21),
 (7163, 'NOVA VIDA', 21),
@@ -7179,7 +7208,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (7175, 'RIOZINHO', 21),
 (7176, 'ROLIM DE MOURA', 21),
 (7177, 'SANTA LUZIA DO OESTE', 21),
-(7178, 'SAO FELIPE D''OESTE', 21),
+(7178, 'SAO FELIPE D\'OESTE', 21),
 (7179, 'SAO FRANCISCO DO GUAPORE', 21),
 (7180, 'SAO MIGUEL DO GUAPORE', 21),
 (7181, 'SERINGUEIRAS', 21),
@@ -7963,9 +7992,9 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (7959, 'SERAFIM SCHMIDT', 23),
 (7960, 'SERAFINA CORREA', 23),
 (7961, 'SERIO', 23),
-(7962, 'SERRA DOS GREGORIOS', 23),
-(7963, 'SERRINHA', 23);
-INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
+(7962, 'SERRA DOS GREGORIOS', 23);
+INSERT INTO `cidade` (`id_cidade`, `nome_cidade`, `fk_estado`) VALUES
+(7963, 'SERRINHA', 23),
 (7964, 'SERTAO', 23),
 (7965, 'SERTAO SANTANA', 23),
 (7966, 'SERTAOZINHO', 23),
@@ -8241,7 +8270,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (8236, 'GUATAMBU', 24),
 (8237, 'HERCILIO LUZ', 24),
 (8238, 'HERCILIOPOLIS', 24),
-(8239, 'HERVAL D''OESTE', 24),
+(8239, 'HERVAL D\'OESTE', 24),
 (8240, 'IBIAM', 24),
 (8241, 'IBICARE', 24),
 (8242, 'IBICUI', 24),
@@ -8405,7 +8434,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (8400, 'RIBEIRAO PEQUENO', 24),
 (8401, 'RIO ANTINHA', 24),
 (8402, 'RIO BONITO', 24),
-(8403, 'RIO D''UNA', 24),
+(8403, 'RIO D\'UNA', 24),
 (8404, 'RIO DA ANTA', 24),
 (8405, 'RIO DA LUZ', 24),
 (8406, 'RIO DAS ANTAS', 24),
@@ -8468,7 +8497,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (8463, 'SAO LOURENCO DO OESTE', 24),
 (8464, 'SAO LUDGERO', 24),
 (8465, 'SAO MARTINHO', 24),
-(8466, 'SAO MIGUEL D''OESTE', 24),
+(8466, 'SAO MIGUEL D\'OESTE', 24),
 (8467, 'SAO MIGUEL DA BOA VISTA', 24),
 (8468, 'SAO MIGUEL DA SERRA', 24),
 (8469, 'SAO PEDRO DE ALCANTARA', 24),
@@ -8558,7 +8587,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (8553, 'ITABAIANA', 25),
 (8554, 'ITABAIANINHA', 25),
 (8555, 'ITABI', 25),
-(8556, 'ITAPORANGA D''AJUDA', 25),
+(8556, 'ITAPORANGA D\'AJUDA', 25),
 (8557, 'JAPARATUBA', 25),
 (8558, 'JAPOATA', 25),
 (8559, 'LAGARTO', 25),
@@ -8655,7 +8684,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (8650, 'ANHEMBI', 26),
 (8651, 'ANHUMAS', 26),
 (8652, 'APARECIDA', 26),
-(8653, 'APARECIDA D''OESTE', 26),
+(8653, 'APARECIDA D\'OESTE', 26),
 (8654, 'APARECIDA DE MONTE ALTO', 26),
 (8655, 'APARECIDA DE SAO MANUEL', 26),
 (8656, 'APARECIDA DO BONITO', 26),
@@ -8701,7 +8730,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (8696, 'BALBINOS', 26),
 (8697, 'BALSAMO', 26),
 (8698, 'BANANAL', 26),
-(8699, 'BANDEIRANTES D''OESTE', 26),
+(8699, 'BANDEIRANTES D\'OESTE', 26),
 (8700, 'BARAO ATALIBA NOGUEIRA', 26),
 (8701, 'BARAO DE ANTONINA', 26),
 (8702, 'BARAO DE GERALDO', 26),
@@ -8879,12 +8908,12 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (8874, 'ENGENHEIRO MAIA', 26),
 (8875, 'ENGENHEIRO SCHMIDT', 26),
 (8876, 'ESMERALDA', 26),
-(8877, 'ESPERANCA D''OESTE', 26),
+(8877, 'ESPERANCA D\'OESTE', 26),
 (8878, 'ESPIGAO', 26),
 (8879, 'ESPIRITO SANTO DO PINHAL', 26),
 (8880, 'ESPIRITO SANTO DO TURVO', 26),
 (8881, 'ESTIVA GERBI', 26),
-(8882, 'ESTRELA D''OESTE', 26),
+(8882, 'ESTRELA D\'OESTE', 26),
 (8883, 'ESTRELA DO NORTE', 26),
 (8884, 'EUCLIDES DA CUNHA PAULISTA', 26),
 (8885, 'EUGENIO DE MELO', 26),
@@ -8927,8 +8956,8 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (8922, 'GUARA', 26),
 (8923, 'GUARACAI', 26),
 (8924, 'GUARACI', 26),
-(8925, 'GUARACIABA D''OESTE', 26),
-(8926, 'GUARANI D''OESTE', 26),
+(8925, 'GUARACIABA D\'OESTE', 26),
+(8926, 'GUARANI D\'OESTE', 26),
 (8927, 'GUARANTA', 26),
 (8928, 'GUARAPIRANGA', 26),
 (8929, 'GUARAPUA', 26),
@@ -9200,7 +9229,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (9195, 'PADRE NOBREGA', 26),
 (9196, 'PALESTINA', 26),
 (9197, 'PALMARES PAULISTA', 26),
-(9198, 'PALMEIRA D''OESTE', 26),
+(9198, 'PALMEIRA D\'OESTE', 26),
 (9199, 'PALMEIRAS DE SAO PAULO', 26),
 (9200, 'PALMITAL', 26),
 (9201, 'PANORAMA', 26),
@@ -9351,9 +9380,9 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (9346, 'SANTA ADELIA', 26),
 (9347, 'SANTA ALBERTINA', 26),
 (9348, 'SANTA AMERICA', 26),
-(9349, 'SANTA BARBARA D''OESTE', 26),
+(9349, 'SANTA BARBARA D\'OESTE', 26),
 (9350, 'SANTA BRANCA', 26),
-(9351, 'SANTA CLARA D''OESTE', 26),
+(9351, 'SANTA CLARA D\'OESTE', 26),
 (9352, 'SANTA CRUZ DA CONCEICAO', 26),
 (9353, 'SANTA CRUZ DA ESPERANCA', 26),
 (9354, 'SANTA CRUZ DA ESTRELA', 26),
@@ -9371,7 +9400,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (9366, 'SANTA MARIA DA SERRA', 26),
 (9367, 'SANTA MARIA DO GURUPA', 26),
 (9368, 'SANTA MERCEDES', 26),
-(9369, 'SANTA RITA D''OESTE', 26),
+(9369, 'SANTA RITA D\'OESTE', 26),
 (9370, 'SANTA RITA DO PASSA QUATRO', 26),
 (9371, 'SANTA RITA DO RIBEIRA', 26),
 (9372, 'SANTA ROSA DE VITERBO', 26),
@@ -9408,7 +9437,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (9403, 'SAO JOAO DE IRACEMA', 26),
 (9404, 'SAO JOAO DE ITAGUACU', 26),
 (9405, 'SAO JOAO DO MARINHEIRO', 26),
-(9406, 'SAO JOAO DO PAU D''ALHO', 26),
+(9406, 'SAO JOAO DO PAU D\'ALHO', 26),
 (9407, 'SAO JOAO NOVO', 26),
 (9408, 'SAO JOAQUIM DA BARRA', 26),
 (9409, 'SAO JOSE DA BELA VISTA', 26),
@@ -9422,7 +9451,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (9417, 'SAO LUIS DO PARAITINGA', 26),
 (9418, 'SAO LUIZ DO GUARICANGA', 26),
 (9419, 'SAO MANUEL', 26),
-(9420, 'SAO MARTINHO D''OESTE', 26),
+(9420, 'SAO MARTINHO D\'OESTE', 26),
 (9421, 'SAO MIGUEL ARCANJO', 26),
 (9422, 'SAO PAULO', 26),
 (9423, 'SAO PEDRO', 26),
@@ -9487,7 +9516,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (9482, 'TEJUPA', 26),
 (9483, 'TEODORO SAMPAIO', 26),
 (9484, 'TERMAS DE IBIRA', 26),
-(9485, 'TERRA NOVA D''OESTE', 26),
+(9485, 'TERRA NOVA D\'OESTE', 26),
 (9486, 'TERRA ROXA', 26),
 (9487, 'TIBIRICA', 26),
 (9488, 'TIBIRICA DO PARANAPANEMA', 26),
@@ -9660,7 +9689,7 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (9655, 'PALMEIROPOLIS', 27),
 (9656, 'PARAISO DO TOCANTINS', 27),
 (9657, 'PARANA', 27),
-(9658, 'PAU D''ARCO', 27),
+(9658, 'PAU D\'ARCO', 27),
 (9659, 'PE DA SERRA', 27),
 (9660, 'PEDRO AFONSO', 27),
 (9661, 'PEDRO LUDOVICO', 27),
@@ -9718,43 +9747,151 @@ INSERT INTO `sis_cidades` (`id_cidade`, `nome`, `fk_uf`) VALUES
 (9713, 'WANDERLANDIA', 27),
 (9714, 'XAMBIOA', 27);
 
+-- --------------------------------------------------------
+
+--
+-- Extraindo dados da tabela `estado`
+--
 
 INSERT INTO `estado` (`id_estado`, `nome`, `sigla`) VALUES
 (1, 'Acre', 'AC'),
 (2, 'Alagoas', 'AL'),
 (3, 'Amazonas', 'AM'),
-(4, 'Amap·', 'AP'),
+(4, 'Amap√°', 'AP'),
 (5, 'Bahia', 'BA'),
-(6, 'Cear·', 'CE'),
+(6, 'Cear√°', 'CE'),
 (7, 'Distrito Federal', 'DF'),
-(8, 'EspÌrito Santo', 'ES'),
-(9, 'Goi·s', 'GO'),
-(10, 'Maranh„o', 'MA'),
+(8, 'Esp√≠rito Santo', 'ES'),
+(9, 'Goi√°s', 'GO'),
+(10, 'Maranh√£o', 'MA'),
 (11, 'Minas Gerais', 'MG'),
 (12, 'Mato Grosso do Sul', 'MS'),
 (13, 'Mato Grosso', 'MT'),
-(14, 'Par·', 'PA'),
-(15, 'ParaÌba', 'PB'),
+(14, 'Par√°', 'PA'),
+(15, 'Para√≠ba', 'PB'),
 (16, 'Pernambuco', 'PE'),
-(17, 'PiauÌ', 'PI'),
-(18, 'Paran·', 'PR'),
+(17, 'Piau√≠', 'PI'),
+(18, 'Paran√°', 'PR'),
 (19, 'Rio de Janeiro', 'RJ'),
 (20, 'Rio Grande do Norte', 'RN'),
-(21, 'RondÙnia', 'RO'),
+(21, 'Rond√¥nia', 'RO'),
 (22, 'Roraima', 'RR'),
 (23, 'Rio Grande do Sul', 'RS'),
 (24, 'Santa Catarina', 'SC'),
 (25, 'Sergipe', 'SE'),
-(26, 'S„o Paulo', 'SP'),
+(26, 'S√£o Paulo', 'SP'),
 (27, 'Tocantins', 'TO');
 
+-- --------------------------------------------------------
 
-insert into time_futebol (nome) value ('AmÈrica Mineiro'),
-('AltÈtico Mineiro'),('AtlÈtico Paranaense'),('Bahia'),
-('Botafogo'),('Cear·'),('Chapecoense'),('Corinthians'),
-('Cruzeiro'),('Flamengo'),('Fluminense'),('GrÍmio'),
-('Internacional'),('Palmeiras'),('Paran·'),('Santos'),
-('S„o Paulo'),('Sport'),('Vasco'),('VitÛria');
+--
+-- Extraindo dados da tabela `localizacao_pelada`
+--
 
-insert into posicao_peladeiro (nome) value ('Atacante'),
-('Goleiro'),('Meio Campo'),('Lateral'),('Volante'),('Zagueiros');
+INSERT INTO `localizacao_pelada` (`id_localizacao_pelada`, `nome_quadra`, `rua`, `bairro`, `numero`, `fk_cidade`) VALUES
+(10, 'Teste', 'rua teste', 'bairro teste', 1254, 1501),
+(11, 'Quadra Visual', 'Rua Mariana', 'PRADO', 25, 219),
+(12, 'Quadra Visual', 'Rua Mariana', 'PRADO', 25, 2700),
+(13, 'Quadra', 'Logradouro', 'Bairro', 1245, 1487),
+(14, 'Quadra', 'Logradouro', 'Bairro', 1245, 3666),
+(15, 'Quadra 3', 'Logradouro 3', 'Bairro 3', 789, 1758),
+(16, 'Quadra 3', 'Logradouro 3', 'Bairro 3', 789, 1758);
+
+
+-- --------------------------------------------------------
+
+--
+-- Extraindo dados da tabela `pelada`
+--
+
+INSERT INTO `pelada` (`id_pelada`, `nome_pelada`, `descricao`, `duracao_pelada`, `qt_jogadores`, `sorteio`, `data_pelada`, `horario`, `data_criacao`, `fk_peladeiro`, `fk_localizacao`, `status`) VALUES
+(4, 'Minha pelada', 'teste', '01:20:00', 10, 'chegada', '2019-06-25 00:00:00', '05:30:00', '2019-01-17 14:15:42', 1, 10, 'aguardando'),
+(5, 'Pelada 123', NULL, '01:30:00', 20, 'chegada', '2019-01-28 00:00:00', '20:00:00', '2019-01-25 16:30:26', 3, 12, 'encerrada'),
+(6, 'Pelada 2', NULL, '02:20:00', 25, 'chegada', '2019-01-30 00:00:00', '11:00:00', '2019-01-31 09:34:42', 1, 14, 'encerrada'),
+(7, 'Pelada 3', NULL, '01:00:00', 10, 'semSorteio', '2019-03-28 00:00:00', '16:30:00', '2019-01-31 14:12:59', 1, 16, 'aguardando');
+
+-- --------------------------------------------------------
+
+--
+-- Extraindo dados da tabela `pelada_peladeiro`
+--
+
+INSERT INTO `pelada_peladeiro` (`id`, `fk_peladeiro`, `fk_pelada`, `confirmacao`) VALUES
+(34, 5, 4, 0),
+(40, 6, 5, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Extraindo dados da tabela `posicao_peladeiro`
+--
+
+INSERT INTO `posicao_peladeiro` (`id_posicao_peladeiro`, `nome`) VALUES
+(1, 'Atacante'),
+(2, 'Goleiro'),
+(3, 'Meia'),
+(4, 'Lateral'),
+(5, 'Volante'),
+(6, 'Zagueiro');
+
+-- --------------------------------------------------------
+
+--
+-- Extraindo dados da tabela `privilegios`
+--
+
+INSERT INTO `privilegios` (`id_privilegios`, `tipo`) VALUES
+(1, 'administrador_sistema'),
+(2, 'administrador_pelada'),
+(3, 'peladeiro');
+
+
+-- --------------------------------------------------------
+
+--
+-- Extraindo dados da tabela `time_futebol`
+--
+
+INSERT INTO `time_futebol` (`id_time_futebol`, `nome`) VALUES
+(1, 'Am√©rica Mineiro'),
+(2, 'Alt√©tico Mineiro'),
+(3, 'Atl√©tico Paranaense'),
+(4, 'Bahia'),
+(5, 'Botafogo'),
+(6, 'Cear√°'),
+(7, 'Chapecoense'),
+(8, 'Corinthians'),
+(9, 'Cruzeiro'),
+(10, 'Flamengo'),
+(11, 'Fluminense'),
+(12, 'Gr√™mio'),
+(13, 'Internacional'),
+(14, 'Palmeiras'),
+(15, 'Paran√°'),
+(16, 'Santos'),
+(17, 'S√£o Paulo'),
+(18, 'Sport'),
+(19, 'Vasco'),
+(20, 'Vit√≥ria');
+
+-- --------------------------------------------------------
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nome`, `email`, `apelido`, `senha`, `sexo`, `url_imagem`, `telefone`, `data_nascimento`, `participacao`, `fk_criador`, `fk_marcacoes`, `fk_time_futebol`, `fk_posicao`, `ativo`, `data_criacao`) VALUES
+(1, 'Camilla Nicolau', 'millacnicolau@gmail.com', 'Milla Nicolau', 'b077f51ff36868f21ea52956adcf7ff4', NULL, '21616243_1692720580740111_4603407605843624647_n.jpg', NULL, NULL, NULL, 1, NULL, NULL, NULL, 1, '2018-08-04 13:29:48'),
+(3, 'Valente 2', 'valente@checar.ml', NULL, NULL, NULL, NULL, '(31) 3333-33333', '1995-02-20 00:00:00', 'mensalista', 1, NULL, 14, 4, 1, NULL),
+(4, 'Valente', 'valente2@checar.ml', NULL, NULL, NULL, NULL, '(31) 9999-99999', '1970-04-30 00:00:00', 'diarista', 1, NULL, 13, 2, 1, NULL),
+(5, 'Miqueis Azevedo', 'miqueias.azevedo@hotmail.com', NULL, NULL, NULL, NULL, '(31) 9838-32700', '1991-06-20 00:00:00', 'diarista', 5, NULL, 9, 4, 1, NULL),
+(6, 'Camilla Coelho', 'camillacnicolau@hotmail.com', NULL, NULL, NULL, NULL, '(31) 9957-41125', '1995-02-20 00:00:00', 'mensalista', 5, NULL, 9, 1, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Extraindo dados da tabela `usuario_privilegio`
+--
+
+INSERT INTO `usuario_privilegio` (`id_privilegio_usuario`, `fk_usuario`, `fk_privilegio`) VALUES
+(1, 1, 1);
+
