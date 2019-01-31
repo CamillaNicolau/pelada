@@ -22,6 +22,11 @@ class PeladaControle extends ControlaModelos
                 if($_POST['qtJogadores'] < MIN_JOGADORES){
                   exit(json_encode(array('sucesso'=>false,'mensagem'=>'Quantidade de jogadores invalidos')));
                 }
+                if($_POST['dataPartida'] < date("Y-m-d")){
+                    $status = 'encerrada';
+                } else{
+                    $status = 'aguardando';
+                }
                 \Doctrine::beginTransaction();
 
                 $cidade = $_POST['cidade'];
@@ -49,6 +54,7 @@ class PeladaControle extends ControlaModelos
                 $Pelada->localizacao = (int)$id_localizacao;
                 $Pelada->dataPartida = $_POST['dataPartida'];
                 $Pelada->horario = $_POST['horario'];
+                $Pelada->status = $status;
                 $Pelada->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
                 $PeladaRepositorio->adicionaPelada($Pelada);
@@ -92,6 +98,12 @@ class PeladaControle extends ControlaModelos
                     if($_POST['qtJogadores'] < MIN_JOGADORES){
                       exit(json_encode(array('sucesso'=>false,'mensagem'=>'Quantidade de jogadores invalidos')));
                     }
+
+                    if($_POST['dataPartida'] < date("Y-m-d")){
+                        $status = 'encerrada';
+                    } else{
+                        $status = 'aguardando';
+                    }
                     \Doctrine::beginTransaction();
                     
                     $cidade = $_POST['cidade'];
@@ -119,6 +131,7 @@ class PeladaControle extends ControlaModelos
                     $Pelada->sorteio = $_POST['sorteio'];
                     $Pelada->dataPartida = $_POST['dataPartida'];
                     $Pelada->horario = $_POST['horario'];
+                    $Pelada->status = $status;
                     $Pelada->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
                     $PeladaRepositorio->atualizarPelada($Pelada);
@@ -144,6 +157,7 @@ class PeladaControle extends ControlaModelos
                    exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao remover pelada')));
                 }
             break;
+
             case 'lista_pelada':
                 try{
 
@@ -152,7 +166,7 @@ class PeladaControle extends ControlaModelos
                     foreach($ListaPelada as $pelada) {
                         $DataPelada = $pelada->data_pelada;
                         $novaData = date("d/m/Y", strtotime($DataPelada));
-                        $html[] =  array('idPelada'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_partida'=>$novaData, 'horario'=>$pelada->horario,'idLocalizacao'=>$pelada->fk_localizacao) ;
+                        $html[] =  array('idPelada'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_partida'=>$novaData, 'horario'=>$pelada->horario,'idLocalizacao'=>$pelada->fk_localizacao,'status'=>$pelada->status) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -190,7 +204,7 @@ class PeladaControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    $EncontrarPelada= PeladaRepositorio::buscarPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%" and fk_peladeiro<>'.$_SESSION['id_usuario_logado']]);
+                    $EncontrarPelada= PeladaRepositorio::buscarPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%" and fk_peladeiro<>'.$_SESSION['id_usuario_logado'].' and data_pelada > now()']);
                     if(count($EncontrarPelada) > 0){
                         foreach($EncontrarPelada as $pelada) {
                             $novaData = date("d/m/Y", strtotime($pelada->data_pelada));
@@ -206,6 +220,7 @@ class PeladaControle extends ControlaModelos
                     exit(json_encode(['sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o pelada."]));
                 }
             break;
+
             case 'buscar_peladeiro':
                 try{
                     $Pelada = new Pelada($_POST['id_pelada']);
@@ -234,6 +249,7 @@ class PeladaControle extends ControlaModelos
                     exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o peladeiro.")));
                 }
             break;
+
             case 'adicionar_peladeiro':
             try
             {
@@ -304,6 +320,7 @@ class PeladaControle extends ControlaModelos
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar peladeiro')));
             }
             break;
+
             case 'remover_peladeiro_pelada':
             try{
                 \Doctrine::beginTransaction();
@@ -323,6 +340,7 @@ class PeladaControle extends ControlaModelos
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao remover peladeiro')));
             }
             break;
+
             case 'enviar_solicitacao':
                 try {
                     $dadosPelada = PeladaRepositorio::buscarPelada(['id_pelada ='.$_POST['id_pelada']]);
@@ -363,6 +381,25 @@ class PeladaControle extends ControlaModelos
                     }
                 } catch (Exception $ex) {
                     exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro')));
+                }
+            break;
+
+            case 'info_pelada':
+
+                try{
+                    
+                    $html = [];
+                    $InfoPelada= PeladaRepositorio::buscarPelada(['id_pelada='.$_POST['id_pelada']]);
+                   
+                    foreach($InfoPelada as $pelada) {
+                        $duracao = date("H:i", strtotime($pelada->duracao_pelada));
+                        $descricao = ($pelada->descricao)?$pelada->descricao: "";
+                        $html[] =  array('id'=>$pelada->id_pelada,'descricao'=>$descricao,'duracao'=>$duracao,'jogadores'=>$pelada->qt_jogadores, 'status'=>$pelada->status,'nome'=>$pelada->nome_pelada) ;
+                    }
+                    exit(json_encode(array('sucesso'=>true,'html'=>$html)));
+                  
+                }catch(Erro $E){
+                    exit(json_encode(['sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o pelada."]));
                 }
             break;
         }
