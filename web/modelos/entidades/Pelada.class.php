@@ -12,6 +12,7 @@ class Pelada{
     private $dataCriacao;
     private $localizacao;
     private $fkPeladeiroAdm;
+    private $status;
 
     /**
      * Agrupa os itens antes de salvar no banco.
@@ -79,6 +80,7 @@ class Pelada{
             case "dataCriacao":
             case "fkPeladeiroAdm":
             case "horario":
+            case "status":
                 return $this->$atributo;
             break;
             default:
@@ -101,6 +103,7 @@ class Pelada{
             case "dataPartida":
             case "fkPeladeiroAdm":
             case "horario":
+            case "status":
                 $this->$atributo = (($value || $value === 0 || $value === '0' )?$value:null);
                 break;
             case "dataCriacao":

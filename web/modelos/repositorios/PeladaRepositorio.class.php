@@ -26,6 +26,7 @@ class PeladaRepositorio extends Pelada {
                 ->setValue('fk_peladeiro',':fk_peladeiro')
                 ->setValue('horario', ':horario')
                 ->setValue('data_criacao',':data_criacao')
+                ->setValue('status',':status')
                 ->setParameter(':nome_pelada', $Pelada->nome)
                 ->setParameter(':descricao', $Pelada->descricao)
                 ->setParameter(':duracao_pelada', $Pelada->duracaoPartida)
@@ -36,6 +37,7 @@ class PeladaRepositorio extends Pelada {
                 ->setParameter(':fk_peladeiro', $Pelada->fkPeladeiroAdm)
                 ->setParameter(':horario', $Pelada->horario)
                 ->setParameter(':data_criacao',$Pelada->dataCriacao)
+                ->setParameter(':status',$Pelada->status)
                 ->execute()
             ;  
           $Pelada->idPelada = $QueryBuilder->getConnection()->lastInsertId();
@@ -66,6 +68,7 @@ class PeladaRepositorio extends Pelada {
                 ->set('fk_peladeiro',':fk_peladeiro')
                 ->set('horario',':horario')
                 ->set('data_criacao',':data_criacao')
+                ->set('status',':status')
                 ->setParameter(':nome_pelada', $Pelada->nome)
                 ->setParameter(':descricao', $Pelada->descricao)
                 ->setParameter(':duracao_pelada', $Pelada->duracaoPartida)
@@ -76,6 +79,7 @@ class PeladaRepositorio extends Pelada {
                 ->setParameter(':fk_peladeiro', $Pelada->fkPeladeiroAdm)
                 ->setParameter(':horario',$Pelada->horario)
                 ->setParameter(':data_criacao',$Pelada->dataCriacao)
+                ->setParameter(':status',$Pelada->status)
                 ->where('id_pelada = :id_pelada')
                 ->setParameter(':id_pelada', $Pelada->idPelada)
                 ->execute()
@@ -150,7 +154,7 @@ class PeladaRepositorio extends Pelada {
             echo ("Erro ao buscar pelada". $j->getMessage());
         }
     }
-    public static function buscaGeralPelada(array $condicoes = [], $order = false, $inicio = null, $limite = null){
+    public static function buscaGeralPelada(array $condicoes = [], $order = null, $inicio = null, $limite = null){
 
         $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
         try {
@@ -166,6 +170,15 @@ class PeladaRepositorio extends Pelada {
             ;
             if ($where != '') {
                 $QueryBuilder->where($where);
+            }
+            if($order) {
+                $QueryBuilder->orderBy(($order),'DESC');
+            }
+            if(isset($inicio)) {
+                $QueryBuilder->setFirstResult($inicio);
+            }
+            if(isset($limite)) {
+                $QueryBuilder->setMaxResults($limite);
             }
             
             return $QueryBuilder->execute()->fetchAll();
@@ -234,7 +247,7 @@ class PeladaRepositorio extends Pelada {
      * @access public
      * @return string
      */
-    public function statusPeladeiroPelada(array $condicoes = [])
+    public function statusPeladeiroPelada(array $condicoes = [], $status)
     {
         $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
         try {
@@ -242,7 +255,7 @@ class PeladaRepositorio extends Pelada {
             $QueryBuilder
                 ->update('pelada_peladeiro')
                 ->set('confirmacao', ':confirmacao')
-                ->setParameter(':confirmacao', true)
+                ->setParameter(':confirmacao', $status)
             ;
             if ($where != '') {
                 $QueryBuilder->where($where);
