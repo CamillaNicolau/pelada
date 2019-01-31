@@ -91,7 +91,6 @@
                         <div class="form-group">
                             <label for="selectCidade">Cidade</label>
                             <select class="form-control" id="cidade" name="cidade">
-                                <option value="" selected>Selecione Cidade</option> 
                             </select>
                         </div>
                     </div>   
@@ -111,7 +110,7 @@
                   <th scope="col">Nome</th>
                   <th scope="col">Data</th>
                   <th scope="col">Hora</th>
-                  <th colspan="3" scope="col" style="text-align: center;">Ação</th>
+                  <th colspan="4" scope="col" style="text-align: center;">Ação</th>
                 </tr>
             </thead>
             <tbody id="listaPelada">
@@ -142,6 +141,15 @@
             <button type="button" class="btn btn-danger btn-default" id ="cancelar-peladeiro">Cancelar</button>
         </span>
     </form>
+   
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" id="modal-pelada">
+            </div>
+        </div>
+    </div>
+
     <div class="botoes">
         <button type="button" class="btn btn-lg btn-success btn-default" id ="botao-cadastrar">Cadastrar Pelada</button>
         <button type="button" class="btn btn-lg btn-primary btn-default" id ="botao-busca-pelada">Encontrar pelada</button>

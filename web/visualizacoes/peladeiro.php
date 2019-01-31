@@ -1,6 +1,6 @@
-<div class="col-lg-10 box h-100">
+<div class="col-lg-10 box h-100 pl-4">
     <div class="box-header">
-        <h2 class="box-title"><strong>PELADEIRO</strong></h2>
+       <h2 class="box-title py-2 px-4 text-light"><strong>PELADEIRO</strong></h2>
     </div>
     <div id="cadastroPeladeiro" style="display: none">
         <form class="form-horizontal mx-auto d-block" action="peladeiro" method="post" name="form_cadastra_peladeiro" id="form_cadastra_peladeiro" >

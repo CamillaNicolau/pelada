@@ -3,6 +3,17 @@
         <h2 class="box-title py-2 px-4 text-light">MINHAS PELADAS</h2>
         <h3 class="subtitle">Bem vindo(a), <?php echo $_SESSION['nome_usuario_logado'];?></h3>
     </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="selectStatus">Status Pelada</label>
+            <select class="form-control" id="status" name="status">
+                <option value="" selected>Selecione Status</option>
+                <option value="1" >AGUARDANDO</option>
+                <option value="2" >CONFIRMADA</option>
+                <option value="3" >CANCELADA</option>
+                <option value="4" >ENCERRADA</option>
+            </select>
+        </div>
     <div id="listaPelada"></div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

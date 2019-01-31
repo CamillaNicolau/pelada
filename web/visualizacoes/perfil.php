@@ -1,6 +1,6 @@
-<div class="col-lg-10 box h-100">
+<div class="col-lg-10 box h-100 pl-4">
     <div class="box-header">
-        <h2 class="box-title"><strong>MEUS DADOS</strong></h2>
+        <h2 class="box-title py-2 px-4 text-light"><strong>MEUS DADOS</strong></h2>
         <h4 class="subtitle">Use os campos abaixo para consultar e gerenciar suas informações pessoais.</h4>
         <br><br>
         <h3 class="box-title"><strong>INFORMAÇÕES PESSOAIS</strong></h3> 

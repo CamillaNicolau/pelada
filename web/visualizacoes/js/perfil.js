@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
-    montaPerfil();
-$('#botao-desativar').bind('click',desativarUsuario);
+  $('#botao-desativar').bind('click',desativarUsuario);
   $('#form_editar_usuario').ajaxForm({ 
     dataType:  'json',
     beforeSend: validaForm,
@@ -10,6 +9,8 @@ $('#botao-desativar').bind('click',desativarUsuario);
   $('#password').keyup(function() {
     $('#progresso').html(verificaForcaSenha($('#password').val()));
   });
+
+  montaPerfil();
 });
 function validaForm(){
   if(true){

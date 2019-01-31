@@ -24,14 +24,17 @@ $(document).ready(function() {
       resetarFormulario();
     });
     
-    montarEstado();
-
     $('#estado').change(function(){
         montarCidade();
     });
-    if($('#estado').val() != ""){
+    if($('#estado').val() != "" || $('#estado').val() != null){
+
         montarCidade();
-    }
+    } else {
+        $('#cidade').html('');
+        $('#cidade').html('<option value="" selected>Selecione Estado</option>');
+    }montarEstado();
+    montarCidade();
     $('#form_cadastro_pelada').ajaxForm({ 
       dataType:  'json',
       beforeSend: validaForm,
@@ -43,8 +46,7 @@ $(document).ready(function() {
       success:   tratarResultadoPeladeiro 
     });
     
-      montarEstado();
-      montarCidade();
+   
       atualizarListaPelada();
 });
 
@@ -100,9 +102,14 @@ function atualizarListaPelada() {
                 $.each(retorno.html,function(i,v){
                   $('#listaPelada').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-2">'+v.data_partida+'</td>'+
                     '<td class="col-md-2">'+v.horario+'</td>'+
-                    '<td><button onclick="buscarPeladeiro('+v.idPelada+')" title="adicionar peladeiro" class="btn btn-info btn-xs "><i class="fas fa-user-plus"></i></button></td>'+
+                    '<td><button onclick="buscarPeladeiro('+v.idPelada+')" title="adicionar peladeiro" class="btn btn-info btn-xs adiciona-peladeiro-'+v.idPelada+'" id="adiciona-peladeiro"><i class="fas fa-user-plus"></i></button></td>'+
                     '<td><button onclick="editarPelada('+v.idPelada+','+v.idLocalizacao+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
-                    '<td><button onclick="removerPelada('+v.idPelada+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td></tr></tbody>');
+                    '<td><button onclick="removerPelada('+v.idPelada+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td>'+
+                    '<td><button onclick="infoPelada('+v.idPelada+')" title="Informações da pelada" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"><i class="fas fa-info-circle"></i></ button></td>'+
+                    '</tr></tbody>');
+                    if(v.status == 'encerrada'){
+                        $('.adiciona-peladeiro-'+v.idPelada).prop('disabled',true);
+                    }
                 });
             }
         }
@@ -267,6 +274,33 @@ function removerPeladeiroPelada(idPeladeiro,idPelada) {
     });   
 }
 
+function infoPelada(idPelada) {
+    $.ajax({    
+        type: 'POST',
+        url: 'pelada',
+        data: 'acao=info_pelada&id_pelada='+idPelada,
+        dataType:'json',
+        beforeSend: function() {
+           
+        },
+        success: function(retorno) {
+            if (retorno.sucesso) {
+                $('#modal-pelada').html('');
+                if (retorno.sucesso == true) {
+                    $.each(retorno.html,function(i,v){
+                      $('#modal-pelada').append('<div class="modal-header"><h4 class="modal-title">'+v.nome+'</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>'+
+                        '<div class="modal-body"><p><strong>Descrição: </strong>'+v.descricao+'</p>'+
+                        '<hr><p><strong>Duração: </strong>'+v.duracao+'</p>'+
+                        '<p><strong>Quantidade de jogadores: </strong>'+v.jogadores+'</p>'+
+                        '<p><strong>Status da Pelada: </strong>'+v.status+'</p></div>');
+                    });
+                }
+            }
+        }
+    });   
+}
+
+
 function candidataPelada(idPelada) {
     $.ajax({    
         type: 'POST',
@@ -301,11 +335,7 @@ function montarEstado(){
             if(retorno.sucesso === true) 
             {
                 $.each(retorno.html,function(i,v) {
-                    var selectEstado = document.getElementById("estado");
-                    var opt0 = document.createElement("option");
-                    opt0.value = v.id;
-                    opt0.text = v.sigla;
-                    selectEstado.add(opt0);
+                  $('#estado').append('<option value="'+v.id+'">'+v.sigla+'</option>');
                 });
             } 
         } 
@@ -325,14 +355,11 @@ function montarCidade(){
         },  
         success: function(retorno) 
         {
+            $('#cidade').html('');
             if(retorno.sucesso === true) 
             {
                 $.each(retorno.html,function(i,v) {
-                    var selectCidade = document.getElementById("cidade");
-                    var opt0 = document.createElement("option");
-                    opt0.value = v.id;
-                    opt0.text = v.nome;
-                    selectCidade.add(opt0);
+                  $('#cidade').append('<option value="'+v.id+'">'+v.nome+'</option>');
                 });
             } 
         } 
