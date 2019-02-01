@@ -213,6 +213,13 @@ function editarPelada(id_pelada,id_localizacao){
               $("#semSorteio").prop('checked',true);
               $("#semSorteio").val(retorno.sorteio);
             }
+            if(retorno.status ==  "encerrada"){
+                $("#dataPartida").prop('disabled',true);
+                $("#horario").prop('disabled',true);
+            }else{
+                $("#dataPartida").prop('disabled',false);
+                $("#horario").prop('disabled',false);
+            }
             $("#dataPartida").val(retorno.dataPartida);
             $("#nomeQuadra").val(retorno.nomeQuadra);
             $("#rua").val(retorno.rua);

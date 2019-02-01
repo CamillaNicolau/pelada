@@ -15,13 +15,20 @@
       <link type="text/css" href="./visualizacoes/css/menu.css" rel="stylesheet" /> -->
       <link type="text/css" href="./visualizacoes/fontes/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
       <link type="text/css" href="./visualizacoes/css/<?php echo Inicio::getNomePaginaAtual(); ?>.css" rel="stylesheet"/>
-      <script src="./visualizacoes/js/perfil.js"></script>
+      
     </head>
     <body>
         <div class="container container-fluid h-100 mw-100">
             <div class="row justify-content-center pr-3">
                     <!--<img src="./visualizacoes/imagens/logo.jpg" alt="futebol">;-->
                     <nav id="navbar-fixed" class="col-lg-2 bg-primary sticky-top d-flex align-items-start navbar navbar-dark">
+                        <div class="form-group" style="text-align: center" >
+                            <label>
+                                <input type="file"name="imagemUsuario" class="custom-file-input ">
+                                <div id="imagem-perfil-menu">  
+                                </div>
+                            </label>
+                        </div>
                         <ul class="nav navbar-nav text-light w-100">
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="inicio"><i class="fas fa-home"></i></i> Inicio</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
