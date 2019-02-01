@@ -88,6 +88,7 @@ class PeladaControle extends ControlaModelos
                     $saida['estado'] = $Cidade->estado;
                     $saida['cidade'] = $Localizacao->cidade;
                     $saida['localizacao'] = $Pelada->localizacao;
+                    $saida['status'] = $Pelada->status;
                     exit(json_encode($saida));
                 }catch(Erro $E){
                     exit(json_encode(array('sucesso'=>false)));

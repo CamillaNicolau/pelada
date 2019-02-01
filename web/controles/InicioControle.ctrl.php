@@ -39,7 +39,7 @@ class InicioControle extends ControlaModelos
                         $novaData = date("d/m/Y", strtotime($pelada->data_pelada));
                         $horarioNovo = date("H:i", strtotime($pelada->horario));
                         $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada, 'data_pelada'=>$novaData,
-                            'horario'=>$horarioNovo,'rua'=>$pelada->rua,'numero'=>$pelada->numero,
+                            'horario'=>$horarioNovo,'rua'=>$pelada->rua,'numero'=>$pelada->numero,'sigla'=>$pelada->sigla,
                             'quadra'=>$pelada->nome_quadra, 'bairro'=>$pelada->bairro,'cidade'=>$pelada->nome_cidade,
                             'id_peladeiro_pelada'=>$pelada->id, 'status'=>$pelada->status, 'confirmacao'=>$pelada->confirmacao) ;
                     }
