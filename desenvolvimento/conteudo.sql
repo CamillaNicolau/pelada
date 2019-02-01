@@ -9894,4 +9894,12 @@ INSERT INTO `usuario` (`id_usuario`, `nome`, `email`, `apelido`, `senha`, `sexo`
 
 INSERT INTO `usuario_privilegio` (`id_privilegio_usuario`, `fk_usuario`, `fk_privilegio`) VALUES
 (1, 1, 1);
+-- --------------------------------------------------------
+--
+-- Extraindo dados da tabela `financeiro`
+--
+
+INSERT INTO `financeiro` (`id_lancamento`, `mensalidade`, `diaria`, `total_pelada`, `fk_peladeiro`, `fk_pelada`, `data_criacao`) VALUES
+(2, '37.00', '15.00', '150.00', 1, 8, '2019-02-01 16:24:48');
+
 
