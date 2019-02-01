@@ -103,7 +103,9 @@
             </fieldset>
         </form>
     </div>
-    <div class="table-responsive col-md-12 tabela-pelada">
+    <div id="pelada-exibir" style="display: none">
+    </div>
+    <div class="table-responsive col-md-12 tabela-pelada" style="display: none">
         <table class="table table-striped" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
@@ -135,7 +137,20 @@
             <div class="alert alert-warning" role="alert">
                 <strong>Olá!</strong> Aqui você pode adicionar peladeiros a sua pelada.
             </div>
-            <div id="adicionar-peladeiro"></div>
+            <div class="table-responsive col-md-12 tabela-adiciona-peladeiro">
+                <table class="table table-striped" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                          <th scope="col">Nome</th>
+                          <th scope="col">E-mail</th>
+                          <th scope="col">Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adicionar-peladeiro">
+                        
+                    </tbody>     
+                </table>
+            </div>
             <div id="id-pelada"></div>
             <button type="submit" class="btn btn-success btn-default" name="acao" value="adicionar_peladeiro" id ="botao-adicionar">Adicionar</button>
             <button type="button" class="btn btn-danger btn-default" id ="cancelar-peladeiro">Cancelar</button>

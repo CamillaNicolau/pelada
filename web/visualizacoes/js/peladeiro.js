@@ -114,8 +114,10 @@ function encontrarPeladeiro() {
     success: function(retorno) {
       $('#peladeiro').html('');
       if (retorno.sucesso == true) {
+        $(".tabela-inserir-peladeiro").show();
         $.each(retorno.html,function(i,v){
-          $('#peladeiro').append('<tbody><tr><td>'+v.nome+'</td><td >'+v.email+'</td>'+
+          $('#peladeiro').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-2">'+v.email+'</td>'+
+            '<td><button onclick="adicionarListaPeladeiro('+v.id+')" title="adicionar peladeiro" class="btn btn-info btn-xs"><i class="fas fa-user-plus"></i></button></td>'+
             '</tr></tbody>');
         });
       }else { 

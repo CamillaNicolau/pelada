@@ -22,8 +22,8 @@ function atualizarListaPelada(status_pelada) {
                             <p class="card-text"><b>Horário: </b>'+v.horario+'<br>'+
                             '<b>Quadra: </b>'+v.quadra+'<br><b>Endereço</b><br>'+
                             ''+v.rua+' - '+v.numero+', '+v.bairro+' , '+v.cidade+' - '+v.sigla+' <br>'+
-                            '<span class="botoes"><button type="submit" onclick="confirmarPelada('+v.id_peladeiro_pelada+',1)" class="btn btn-lg btn-success btn-default confirma-pelada-'+v.id_peladeiro_pelada+'" id="confirma-pelada">Confirmar Presença</button>'+
-                            '<button type="button" onclick="confirmarPelada('+v.id_peladeiro_pelada+',2)" class="btn btn-lg btn-danger btn-default botao-cancelar-'+v.id_peladeiro_pelada+'" id="botao-cancelar">Cancelar</button></span></h4></div></div>');
+                            '<span class="botoes"><button type="submit" onclick="confirmarPelada('+v.id_peladeiro_pelada+',1)" class="btn btn-lg btn-success btn-default confirma-pelada-'+v.id_peladeiro_pelada+'" id="confirma-pelada">Confirmar</button>'+
+                            '<button type="button" onclick="confirmarPelada('+v.id_peladeiro_pelada+',2)" class="btn btn-lg btn-danger btn-default botao-cancelar-'+v.id_peladeiro_pelada+'" id="botao-cancelar">Desistir</button></span></h4></div></div>');
                             if(v.confirmacao == 2 ){
                                 $('.card-'+v.id).html('Pelada Cancelada').addClass('text-danger');
                                 $('.confirma-pelada-'+v.id_peladeiro_pelada).hide();                               

@@ -1,6 +1,5 @@
 $(document).ready(function() {
   montaImagem();
-          console.log('aqui');
 
 });
 function montaImagem(){

@@ -80,8 +80,19 @@
         </div>
         <input type="search" id="busca" name="busca">
         <button type="submit" id="encontra-peladeiro"><i class="fas fa-search"></i></button>
-        <div id="peladeiro">
-            
+        <div class="table-responsive col-md-12 tabela-inserir-peladeiro" style="display: none">
+            <table class="table table-striped" cellspacing="0" cellpadding="0">
+                <thead>
+                    <tr>
+                      <th scope="col">Nome</th>
+                      <th scope="col">E-mail</th>
+                      <th scope="col">Adicionar</th>
+                    </tr>
+                </thead>
+                <tbody id="peladeiro">
+                    
+                </tbody>     
+            </table>
         </div>
         <br>
         <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button>

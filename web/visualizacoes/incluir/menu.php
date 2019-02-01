@@ -34,7 +34,7 @@
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="#"><i class="far fa-calendar"></i> Partida</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="#"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="financeiro"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="#"><i class="fas fa-file-alt"></i>  Relatório</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="perfil"><i class="fas fa-user"></i>  Meus dados</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="logout"><i class="fas fa-sign-out-alt"></i>  sair</a></li>

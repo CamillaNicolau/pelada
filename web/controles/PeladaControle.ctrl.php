@@ -94,6 +94,7 @@ class PeladaControle extends ControlaModelos
                     exit(json_encode(array('sucesso'=>false)));
                 }
             break;
+            
             case 'atualizar':
                 try{
                     if($_POST['qtJogadores'] < MIN_JOGADORES){
@@ -143,6 +144,7 @@ class PeladaControle extends ControlaModelos
                  exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao atualizar dados da pelada')));
                 }
             break;
+
             case 'remover_pelada':
                 try{
                     \Doctrine::beginTransaction();
@@ -174,6 +176,7 @@ class PeladaControle extends ControlaModelos
                   exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar lista de pelada.")));
                 }
             break;
+            
             case 'lista_estado':
                 try{
                     $html = [];

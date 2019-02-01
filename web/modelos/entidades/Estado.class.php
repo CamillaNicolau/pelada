@@ -26,7 +26,7 @@ class Estado {
                 echo("Registro de id ". $idEstado . " não encontrado no banco de dados.");
             }
             $this->idEstado = $ObjDados->id_estado;
-            $this->nome = $ObjDados->nome;
+            $this->nome = $ObjDados->nome_estado;
             $this->sigla = $ObjDados->sigla;
         } catch(Exception $ex){
             echo('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idEstado.' do tipo '.gettype($idEstado));

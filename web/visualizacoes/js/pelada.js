@@ -99,18 +99,24 @@ function atualizarListaPelada() {
         success: function(retorno) {
             $('#listaPelada').html('');
             if (retorno.sucesso == true) {
-                $.each(retorno.html,function(i,v){
-                  $('#listaPelada').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-2">'+v.data_partida+'</td>'+
-                    '<td class="col-md-2">'+v.horario+'</td>'+
-                    '<td><button onclick="buscarPeladeiro('+v.idPelada+')" title="adicionar peladeiro" class="btn btn-info btn-xs adiciona-peladeiro-'+v.idPelada+'" id="adiciona-peladeiro"><i class="fas fa-user-plus"></i></button></td>'+
-                    '<td><button onclick="editarPelada('+v.idPelada+','+v.idLocalizacao+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
-                    '<td><button onclick="removerPelada('+v.idPelada+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td>'+
-                    '<td><button onclick="infoPelada('+v.idPelada+')" title="Informações da pelada" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"><i class="fas fa-info-circle"></i></ button></td>'+
-                    '</tr></tbody>');
-                    if(v.status == 'encerrada'){
-                        $('.adiciona-peladeiro-'+v.idPelada).prop('disabled',true);
-                    }
-                });
+                if((retorno.html).length > 0){
+                    $('.tabela-pelada').show();
+                    $.each(retorno.html,function(i,v){
+                      $('#listaPelada').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-2">'+v.data_partida+'</td>'+
+                        '<td class="col-md-2">'+v.horario+'</td>'+
+                        '<td><button onclick="buscarPeladeiro('+v.idPelada+')" title="adicionar peladeiro" class="btn btn-info btn-xs adiciona-peladeiro-'+v.idPelada+'" id="adiciona-peladeiro"><i class="fas fa-user-plus"></i></button></td>'+
+                        '<td><button onclick="editarPelada('+v.idPelada+','+v.idLocalizacao+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
+                        '<td><button onclick="removerPelada('+v.idPelada+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td>'+
+                        '<td><button onclick="infoPelada('+v.idPelada+')" title="Informações da pelada" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"><i class="fas fa-info-circle"></i></ button></td>'+
+                        '</tr></tbody>');
+                        if(v.status == 'encerrada'){
+                            $('.adiciona-peladeiro-'+v.idPelada).prop('disabled',true);
+                        }
+                    });
+                } else{
+                    $('#pelada-exibir').show();
+                    $('#pelada-exibir').append('<div class="alert alert-warning" role="alert"><strong>Olá!</strong> Você não possui nenhuma pelada</div>');
+                }
             }
         }
     }); 
@@ -138,8 +144,11 @@ function buscarPeladeiro(id_pelada){
                     }else{
                         disable = "";
                     }
-                    $('#adicionar-peladeiro').append('<div><input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'" '+disable+'> <strong>'+v.nome+'</strong> - '+v.email+'<br>'+
-                    '<input name="email" value="'+v.email+'" id="email" type="hidden" /> <button onclick="removerPeladeiroPelada('+v.id+','+retorno.id_pelada+')" class="btn btn-danger btn-xs"> <i class="fas fa-trash"></i></ button><div>');
+                    $('#adicionar-peladeiro').append('<tr><td class="col-md-2"><input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'" '+disable+'>  '+v.nome+'</td>'+
+                        '<td class="col-md-2">'+v.email+'</td>'+
+                        '<td><button onclick="removerPeladeiroPelada('+v.id+','+retorno.id_pelada+')" class="btn btn-danger btn-xs"> <i class="fas fa-trash"></i></ button></td>'+
+                        '</tr></tbody>');
+
                     
                 });
                 $('#id-pelada').append('<input name="pelada" value="'+retorno.id_pelada+'" id="pelada" type="hidden" />');
