@@ -23,17 +23,15 @@ $(document).ready(function() {
     $("#cancelar-peladeiro").bind('click',function(){
       resetarFormulario();
     });
-    
+    montarEstado();
     $('#estado').change(function(){
         montarCidade();
     });
     if($('#estado').val() != "" || $('#estado').val() != null){
 
         montarCidade();
-    } else {
-        $('#cidade').html('');
-        $('#cidade').html('<option value="" selected>Selecione Estado</option>');
-    }montarEstado();
+    } 
+
     montarCidade();
     $('#form_cadastro_pelada').ajaxForm({ 
       dataType:  'json',
@@ -170,6 +168,7 @@ function resetarFormulario(){
 }
 
 function encontrarPelada() {
+    $('#pelada-exibir').hide();
     var cidade  = $('#busca').val();
     $.ajax({
         type: 'POST',

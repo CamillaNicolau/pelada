@@ -182,7 +182,7 @@ class PeladaControle extends ControlaModelos
                     $html = [];
                     $ListaEstado = EstadoRepositorio::buscarEstado();
                     foreach($ListaEstado as $estado) {
-                      $html[] = array('id'=>$estado->id_estado, 'nome'=>$estado->nome, 'sigla'=>$estado->sigla);
+                      $html[] = array('id'=>$estado->id_estado, 'nome'=>$estado->nome_estado, 'sigla'=>$estado->sigla);
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){

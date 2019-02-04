@@ -37,18 +37,18 @@ class UsuarioControle extends ControlaModelos
             $UsuarioRepositorio = new UsuarioRepositorio();
             $Usuario = new Usuario();
 
-            
-            $imagem = pathinfo($_FILES['imagemUsuario']['name']);
-            $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
-            $url = $nomeImagem .'.' . $imagem['extension'];
+            if(isset($_FILES['imagemUsuario'])){
+              $imagem = pathinfo($_FILES['imagemUsuario']['name']);
+              $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
+              $url = $nomeImagem .'.' . $imagem['extension'];
+            }
             
             $Usuario->nome = $_POST['nomeUsuario'];
             $Usuario->email = $_POST['emailUsuario'];
             $Usuario->senha = md5($_POST['password']);
             $Usuario->apelido = $_POST['apelidoUsuario'];
-            $Usuario->sexo = $_POST['sexo'];     
-            $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $url :null;
-           
+            $Usuario->sexo = ($_POST['sexo'] == 'feminino')? 'f' :'m';     
+            $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $url :URL_USUARIO. '/user.png';
             $UsuarioRepositorio->adicionaUsuario($Usuario);
               if(isset($_FILES['imagemUsuario'])){
                 UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);

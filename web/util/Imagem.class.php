@@ -230,7 +230,7 @@ class Imagem
                 }
             break;
             case self::TP_PNG:
-                if(imagepng($img_temp, $file_name)) {
+                if(imagepng($this->imagem, $file_name)) {
                     return true;
                 } else {
                     echo("Erro ao salvar imagem png na classe Imagem do sistema");
