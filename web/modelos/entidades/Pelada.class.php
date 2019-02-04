@@ -52,6 +52,7 @@ class Pelada{
                 $this->fkPeladeiroAdm = $ObjDados->fk_peladeiro;
                 $this->dataCriacao = $ObjDados->data_criacao;
                 $this->horario = $ObjDados->horario;
+                $this->status = $ObjDados->status;
 
             } catch(Exception $ex){
               echo ('Erro ao instanciar classe Pelada id $idPelada. '. $ex->getMessage());

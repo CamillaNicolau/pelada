@@ -115,7 +115,7 @@ function buscarPeladeiro(idLancamento,idPelada) {
                 if((retorno.html).length > 0){
                     $.each(retorno.html,function(i,v){
                         $('#peladeiro-pagamento').append('<tr><td class="col-md-2">'+v.nome+'</td>'+
-                            '<td><button onclick="infoPelada()" title="Informações da pelada" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"><i class="fas fa-info-circle"></i></ button></td>'+
+                            '<td><button onclick="infoPagamento('+v.id+')" title="Informações de pagamento da pelada" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"><i class="fas fa-info-circle"></i></ button></td>'+
                             '</tr></tbody>');    
                     });
                 }else{
@@ -171,6 +171,32 @@ function removerLancamento(idLancamento) {
                 alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
             } else {
                 alertaFnc("Erro", retorno.mensagem,null, true, "error");
+            }
+        }
+    });   
+}
+
+function infoPagamento(idPeladeiro) {
+    $.ajax({    
+        type: 'POST',
+        url: 'financeiro',
+        data: 'acao=info_pagamento&id_peladeiro='+idPeladeiro,
+        dataType:'json',
+        beforeSend: function() {
+           
+        },
+        success: function(retorno) {
+            if (retorno.sucesso) {
+                $('#modal-pagamento').html('');
+                if (retorno.sucesso == true) {
+                    $.each(retorno.html,function(i,v){
+                      $('#modal-pagamento').append('<div class="modal-header"><h4 class="modal-title">'+v.nome+'</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>'+
+                        '<div class="modal-body"><p><strong>Descrição: </strong>'+v.descricao+'</p>'+
+                        '<hr><p><strong>Duração: </strong>'+v.duracao+'</p>'+
+                        '<p><strong>Quantidade de jogadores: </strong>'+v.jogadores+'</p>'+
+                        '<p><strong>Status da Pelada: </strong>'+v.status+'</p></div>');
+                    });
+                }
             }
         }
     });   

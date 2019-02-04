@@ -32,12 +32,9 @@ class FinanceiroControle extends ControlaModelos
                 $Financeiro->valorPelada = (float)$_POST['valorTotal'];
                 $Financeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
-                if(!$FinanceiroRepositorio->adicionaLancamento($Financeiro)){
-	              exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar')));
-	            }else{
-	            	\Doctrine::commit();
-                	exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
-                }    
+                $FinanceiroRepositorio->adicionaLancamento($Financeiro);
+                \Doctrine::commit();
+                exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));   
             } catch (Erro $E) {
               \Doctrine::rollBack();
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar')));
