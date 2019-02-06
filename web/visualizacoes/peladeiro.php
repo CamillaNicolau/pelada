@@ -1,4 +1,4 @@
-<div class="col-lg-10 box h-100 pl-4">
+<div class="col-lg-10 box h-100  no-padding">
     <div class="box-header">
        <h2 class="box-title py-2 px-4 text-light"><strong>PELADEIRO</strong></h2>
     </div>
@@ -51,8 +51,8 @@
                 </div>
                 <div class="form-group">
                   <label for="radioParticipacao">Participação</label>
-                  <input type="radio" name="participacao" id="mensalista" value="mensalista">Mensalista</label>
-                  <input type="radio" name="participacao" id="diarista" value="diarista">Diarista</label>
+                  <input type="radio" name="participacao" id="mensalista" value="1">Mensalista</label>
+                  <input type="radio" name="participacao" id="diarista" value="0">Diarista</label>
                 </div>
                 <input name="id_peladeiro" value="" id="id_peladeiro" type="hidden" />
                 <input name="acao" value="adicionar" id="acao" type="hidden" />
@@ -75,7 +75,7 @@
     </div> 
     <span class="busca-peladeiro" style="display: none">
         <h2 class="box-title"><strong>ENCONTRE O PELADEIRO</strong></h2>
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-info" role="alert">
             <strong>Olá,</strong> informe um email para encontrar o peladeiro.
         </div>
         <input type="search" id="busca" name="busca">

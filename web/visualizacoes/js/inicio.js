@@ -12,6 +12,9 @@ function atualizarListaPelada(status_pelada) {
         url: 'inicio',
         data: 'acao=lista_pelada&status='+status_pelada,
         dataType: 'json',
+        beforeSend: function() {
+            alertaFnc("Aguarde", "Carregando...", 250, false, null);
+        },
         success: function(retorno) {
             if (retorno.sucesso == true) {
                 $('#listaPelada').html('');

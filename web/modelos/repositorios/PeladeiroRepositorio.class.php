@@ -143,4 +143,54 @@ class PeladeiroRepositorio extends Peladeiro {
         }
        return true;
     }
+    
+    /**
+     * insere o registro no banco de dados .
+     *
+     */
+    public function inserirGrupoPeladeiro($peladeiro,$parceiro) {
+        
+        try {
+            $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder(); 
+            $QueryBuilder
+                ->insert('parceiro')
+                ->setValue('fk_peladeiro', ':fk_peladeiro')
+                ->setValue('fk_parceiro', ':fk_parceiro')
+                ->setParameter(':fk_peladeiro', $peladeiro, \PDO::PARAM_INT)
+                ->setParameter(':fk_parceiro', $parceiro, \PDO::PARAM_INT)
+                ->execute()
+            ;  
+        } catch (\Exception $e26811) {
+            echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
+        }
+        return true;
+    }
+    
+    public static function buscarGrupoPeladeiro(array $condicoes = [], $order = false, $inicio = null, $limite = null) {
+        
+        $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
+        
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->select('u.id_usuario','u.nome','u.email')
+                ->from('parceiro','p')
+                ->join('p','usuario','u','p.fk_peladeiro = u.id_usuario')
+            ;
+            if ($where != '') {
+                $QueryBuilder->where($where);
+            }
+            
+            if (isset($inicio)) {
+                $QueryBuilder->setFirstResult($inicio);
+            }
+            if (isset($limite)) {
+                $QueryBuilder->setMaxResults($limite);
+            }
+            return $QueryBuilder->execute()->fetchAll();
+        }
+        catch (\Exception $j) {
+            echo ("Erro ao buscar peladeiro". $j->getMessage());
+        }
+    }
 }

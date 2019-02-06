@@ -19,27 +19,21 @@
     </head>
     <body>
         <div class="container container-fluid h-100 mw-100">
-            <div class="row justify-content-center pr-3">
+            <div class="row justify-content-center">
                     <!--<img src="./visualizacoes/imagens/logo.jpg" alt="futebol">;-->
-                    <nav id="navbar-fixed" class="col-lg-2 bg-primary sticky-top d-flex align-items-start navbar navbar-dark">
-                        <div class="form-group" style="text-align: center" >
-                            <label>
-                                <input type="file"name="imagemUsuario" class="custom-file-input ">
-                                <div id="imagem-perfil-menu">  
-                                </div>
-                            </label>
-                        </div>
-                        <ul class="nav navbar-nav text-light w-100">
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="inicio"><i class="fas fa-home"></i></i> Inicio</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="#"><i class="far fa-calendar"></i> Partida</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1"  href="financeiro"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="#"><i class="fas fa-file-alt"></i>  Relatório</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="perfil"><i class="fas fa-user"></i>  Meus dados</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block p-1" href="logout"><i class="fas fa-sign-out-alt"></i>  sair</a></li>
+                    <nav id="navbar-fixed" class="col-lg-2 d-flex flex-column justify-content-start pl-0 sticky-top bg-primary navbar navbar-dark">  
+                        <div id="imagem-perfil-menu" class="pl-3 mx-auto my-3" ></div>
+                        <ul class="nav navbar-nav text-light w-100 my-2">
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="inicio"><i class="fas fa-home"></i></i> Inicio</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="#"><i class="far fa-calendar"></i> Partida</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="financeiro"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="#"><i class="fas fa-file-alt"></i>  Relatório</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="perfil"><i class="fas fa-user"></i>  Meus dados</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="logout"><i class="fas fa-sign-out-alt"></i>  sair</a></li>
                         </ul>
-                        <div class="w-100 d-flex flex-column flex-nowrap justify-content-center align-items-center text-light align-self-end">
+                        <div class="w-100 d-flex flex-column flex-nowrap justify-content-center align-items-center text-light mt-auto">
                             <div class="col-xs-3">
                              © 2018 Mais pelada
                             </div>

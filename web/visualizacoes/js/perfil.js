@@ -44,7 +44,7 @@ function montaPerfil(){
     },
     success: function(retorno) {
       if (retorno.imagemUsuario !== '' && retorno.imagemUsuario !== null) {
-          $("#imagem-perfil").html('<img src="' + retorno.imagemUsuario + '" class="rounded-circle" alt="Imagem"/>');
+          $("#imagem-perfil").html('<img src="' + retorno.imagemUsuario + '" class="rounded-circle mw-100" alt="Imagem"/>');
       } else {
           $("#imagem-perfil").html('');
       }

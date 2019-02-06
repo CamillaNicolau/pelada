@@ -30,7 +30,6 @@ class PeladeiroControle extends ControlaModelos
                     }
                 }
 
-
                 \Doctrine::beginTransaction();
 
                 $time = $_POST['time'];
@@ -65,6 +64,7 @@ class PeladeiroControle extends ControlaModelos
                 if(isset($_FILES['imagemUsuario'])){
                     UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
                 }
+                $PeladeiroRepositorio->inserirGrupoPeladeiro($Peladeiro->idPeladeiro, $_SESSION['id_usuario_logado']);
                 \Doctrine::commit();
                 exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
                
@@ -168,7 +168,7 @@ class PeladeiroControle extends ControlaModelos
             case 'lista_peladeiro':
                 try{
                     $html = [];
-                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['fk_criador ='.$_SESSION['id_usuario_logado']]);
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['p.fk_parceiro ='.$_SESSION['id_usuario_logado']]);
                     foreach($ListaPeladeiro as $peladeiro) {
                         $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
                     }
@@ -205,7 +205,7 @@ class PeladeiroControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email LIKE "%'.$_POST['email'].'%" and fk_criador<>'.$_SESSION['id_usuario_logado']]);
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['u.email LIKE "%'.$_POST['email'].'%" and p.fk_parceiro<>'.$_SESSION['id_usuario_logado']]);
                     if(count($ListaPeladeiro) > 0){
                         foreach($ListaPeladeiro as $peladeiro) {
                             $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
@@ -216,6 +216,22 @@ class PeladeiroControle extends ControlaModelos
                     }
                 }catch(Erro $E){
                     exit(json_encode(['sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar o peladeiro."]));
+                }
+            break;
+            
+            case 'adicionar_peladeiro':
+                try{
+                    $parceiro = $_SESSION['id_usuario_logado'];
+                    $peladeiro = $_POST['id_peladeiro'];
+                    \Doctrine::beginTransaction();
+                    $Dados = new PeladeiroRepositorio();
+                    $Dados->inserirGrupoPeladeiro($peladeiro, $parceiro);
+                    \Doctrine::commit();
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
+
+                } catch (Erro $E) {
+                  \Doctrine::rollBack();
+                  exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao adicionar peladeladeiro a lista')));
                 }
             break;
         }   

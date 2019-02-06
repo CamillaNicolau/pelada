@@ -145,6 +145,20 @@ class FinanceiroControle extends ControlaModelos
                   exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar lista de peladeiro.")));
                 }
             break;
+            
+            case 'info_pagamento':
+                try{
+                    $html = [];
+                    $dadosPagamento = FinanceiroRepositorio::buscarLancamento(['u.id_usuario='.$_POST['id_peladeiro']]);
+                    foreach ($dadosPagamento as $pagamento){
+                        $html[] = array('diaria'=>$pagamento->diaria,'mensalidade'=>$pagamento->mensalidade,'status'=>$pagamento->participacao);
+                    }
+                    exit(json_encode(array('sucesso'=>true,'html'=>$html)));
+                }catch(Erro $E){
+                  exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar os dados.")));
+                }
+            break;
+        
             case 'adicionar_lancamento':
                 try{
 

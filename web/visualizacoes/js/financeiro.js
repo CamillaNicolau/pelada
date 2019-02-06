@@ -115,7 +115,7 @@ function buscarPeladeiro(idLancamento,idPelada) {
                 if((retorno.html).length > 0){
                     $.each(retorno.html,function(i,v){
                         $('#peladeiro-pagamento').append('<tr><td class="col-md-2">'+v.nome+'</td>'+
-                            '<td><button onclick="infoPagamento('+v.id+')" title="Informações de pagamento da pelada" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal"><i class="fas fa-info-circle"></i></ button></td>'+
+                            '<td><button onclick="infoPagamento('+v.id+')" title="Informações de pagamento da pelada" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalPagamento"><i class="fas fa-info-circle"></i></ button></td>'+
                             '</tr></tbody>');    
                     });
                 }else{
@@ -188,14 +188,28 @@ function infoPagamento(idPeladeiro) {
         success: function(retorno) {
             if (retorno.sucesso) {
                 $('#modal-pagamento').html('');
+                var valor;
+                var status;
                 if (retorno.sucesso == true) {
                     $.each(retorno.html,function(i,v){
-                      $('#modal-pagamento').append('<div class="modal-header"><h4 class="modal-title">'+v.nome+'</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>'+
-                        '<div class="modal-body"><p><strong>Descrição: </strong>'+v.descricao+'</p>'+
-                        '<hr><p><strong>Duração: </strong>'+v.duracao+'</p>'+
-                        '<p><strong>Quantidade de jogadores: </strong>'+v.jogadores+'</p>'+
-                        '<p><strong>Status da Pelada: </strong>'+v.status+'</p></div>');
+                        if(v.status == "1"){
+                           valor = v.mensalidade;
+                           status = "Mensalista";
+                        } else{
+                            valor = v.diaria;
+                            status = "Diárista";
+                        }
+                        
+                      $('#modal-pagamento').append('<div class="modal-header"><h4 class="modal-title">Pagamento</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>'+
+                        '<div class="modal-body"><p><div class="form-group"><input type="radio" name="pagamento" id="pagamento-total" value="'+valor+'"> '+valor+' '+
+                        '<input type="radio" name="pagamento" id="pagamento-parcial" value="outro"><input type="text" name="valor" class="form-control" id="valor-parcial"></p></div>'+
+                        '<hr><p><strong>Status: </strong>'+status+'</p>'+
+                        '</div>');
+                        
                     });
+                    if($('#pagamento-total').prop("checked")){
+                           $('#valor-parcial').attr('disabled',true);
+                        }
                 }
             }
         }

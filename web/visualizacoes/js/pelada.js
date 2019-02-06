@@ -94,6 +94,9 @@ function atualizarListaPelada() {
         url: 'pelada',
         data: 'acao=lista_pelada',
         dataType: 'json',
+        beforeSend: function() {
+            alertaFnc("Aguarde", "Carregando...", 250, false, null);
+        },
         success: function(retorno) {
             $('#listaPelada').html('');
             if (retorno.sucesso == true) {
@@ -130,13 +133,15 @@ function buscarPeladeiro(id_pelada){
         url: 'pelada',
         data: 'acao=buscar_peladeiro&id_pelada='+id_pelada,
         dataType: 'json',
+        beforeSend: function() {
+            alertaFnc("Aguarde", "Carregando...", 250, false, null);
+        },
         success: function(retorno) {
             $('#adicionar-peladeiro').html('');
             $('#id-pelada').html('');
             if (retorno.sucesso == true) {
-                 var disable;
+                var disable;
                 $.each(retorno.html,function(i,v){
-
                     if(v.idCad){
                         disable = 'disabled="disable"';
                     }else{
@@ -146,8 +151,6 @@ function buscarPeladeiro(id_pelada){
                         '<td class="col-md-2">'+v.email+'</td>'+
                         '<td><button onclick="removerPeladeiroPelada('+v.id+','+retorno.id_pelada+')" class="btn btn-danger btn-xs"> <i class="fas fa-trash"></i></ button></td>'+
                         '</tr></tbody>');
-
-                    
                 });
                 $('#id-pelada').append('<input name="pelada" value="'+retorno.id_pelada+'" id="pelada" type="hidden" />');
             }
@@ -160,10 +163,9 @@ function resetarFormulario(){
     $("#form_cadastro_pelada")[0].reset();
     $("#cadastroPelada").slideUp(function() {
        $('.tabela-pelada').show();
-     });
-     $('.busca-pelada').hide();
-     $('.adicionar-peladeiro').hide();
-     
+    }); 
+    $('.busca-pelada').hide();
+    $('.adicionar-peladeiro').hide();
     $(".botoes").show(); 
 }
 
@@ -176,12 +178,10 @@ function encontrarPelada() {
         data: 'acao=buscar_pelada&cidade='+cidade,
         dataType: 'json',
         beforeSend: function() {
-           
+            alertaFnc("Aguarde", "Buscando informações...", 250, false, null);
         }, 
         success: function(retorno) {
-
             $('#pelada').html('');
-            
             if (retorno.sucesso == true) {
                 $.each(retorno.html,function(i,v){
                   $('#pelada').append('<p><h3><strong>'+v.nome+'</strong>'+
@@ -244,7 +244,6 @@ function editarPelada(id_pelada,id_localizacao){
             $(".botoes").hide();
             $(".tabela-pelada").hide();
             $("#cadastroPelada").fadeIn('normal');
-            atualizarListaPelada();
         }
     });
 }
@@ -296,7 +295,7 @@ function infoPelada(idPelada) {
         data: 'acao=info_pelada&id_pelada='+idPelada,
         dataType:'json',
         beforeSend: function() {
-           
+           alertaFnc("Aguarde", "Buscando informações...", 250, false, null);
         },
         success: function(retorno) {
             if (retorno.sucesso) {
@@ -323,7 +322,7 @@ function candidataPelada(idPelada) {
         data: 'acao=enviar_solicitacao&id_pelada='+idPelada,
         dataType:'json',
         beforeSend: function() {
-            alertaFnc("Aguarde", "Enviando solicitação...", null, false, null);
+            alertaFnc("Aguarde", "Enviando solicitação...", 250, false, null);
         },
         success: function(retorno) {
             if (retorno.sucesso) {

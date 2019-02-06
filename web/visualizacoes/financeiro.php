@@ -1,4 +1,4 @@
-<div class="col-lg-10 box h-100 pl-4">
+<div class="col-lg-10 box h-100 no-padding">
     <div class="box-header">
         <h2 class="box-title py-2 px-4 text-light"><strong>FINANCEIRO</strong></h2>
     </div>
@@ -39,7 +39,7 @@
                 <tr>
                   <th scope="col">Pelada</th>
                   <th scope="col">Valor total</th>
-                  <th colspan="4" scope="col" style="text-align: center;">Ação</th>
+                  <th colspan="3" scope="col" style="text-align: center;">Ação</th>
                 </tr>
             </thead>
             <tbody id="listaLancamento">
@@ -61,8 +61,15 @@
                 </tbody>     
             </table>
         </div>
+        <div class="modal fade" id="modalPagamento" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content" id="modal-pagamento">
+                </div>
+            </div>
+        </div>
         <button type="button" class="btn btn-lg btn-danger btn-default" id="botao-cancelar-lancamento">Cancelar</button>
     </span>
+     
     <div class="botoes">
         <button type="button" class="btn btn-lg btn-success btn-default" id ="botao-cadastrar">Cadastrar Lançamento</button>
     </div>

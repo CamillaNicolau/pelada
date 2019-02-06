@@ -1,4 +1,4 @@
-<div class="col-lg-10 box h-100 pl-4">
+<div class="col-lg-10 box h-100  no-padding">
     <div class="box-header">
         <h2 class="box-title py-2 px-4 text-light"><strong>MINHA PELADA</strong></h2>
     </div>
@@ -122,7 +122,7 @@
     </div>
     <span class="busca-pelada" style="display: none">
         <h2 class="box-title"><strong>ENCONTRE A SUA PELADA</strong></h2>
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-info" role="alert">
             <strong>Olá!</strong> Aqui você encontra todas as peladas disponivéis de acordo com a cidade informada.
         </div>
         <input type="search" id="busca" name="busca" placeholder="Informe a cidade">
@@ -134,7 +134,7 @@
     <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_adicionar_peladeiro" id="form_adicionar_peladeiro" >
         <span class="adicionar-peladeiro" style="display: none;">
             <h2 class="box-title"><strong>ADICIONE PELADEIRO</strong></h2>
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-info" role="alert">
                 <strong>Olá!</strong> Aqui você pode adicionar peladeiros a sua pelada.
             </div>
             <div class="table-responsive col-md-12 tabela-adiciona-peladeiro">
