@@ -1,6 +1,6 @@
-<div class="col-lg-10 box h-100  no-padding">
+<div class="col-lg-10 box h-100 no-padding bg-secondary">
     <div class="box-header">
-       <h2 class="box-title py-2 px-4 text-light"><strong>PELADEIRO</strong></h2>
+       <h2 class="box-title py-2 px-4 py-2 px-4 text-dark shadow"><strong>PELADEIRO</strong></h2>
     </div>
     <div id="cadastroPeladeiro" style="display: none">
         <form class="form-horizontal mx-auto d-block" action="peladeiro" method="post" name="form_cadastra_peladeiro" id="form_cadastra_peladeiro" >

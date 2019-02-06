@@ -1,6 +1,6 @@
-<div class="col-lg-10 box h-100 no-padding">
+<div class="col-lg-10 box h-100 no-padding bg-secondary">
     <div class="box-header">
-        <h2 class="box-title py-2 px-4 text-light"><strong>FINANCEIRO</strong></h2>
+        <h2 class="box-title py-2 px-4 text-dark shadow"><strong>FINANCEIRO</strong></h2>
     </div>
     <div id="lancamentoPelada" style="display: none">
 	    <form class="form-horizontal mx-auto d-block" action="financeiro" method="post" name="form_lancamento" id="form_lancamento">

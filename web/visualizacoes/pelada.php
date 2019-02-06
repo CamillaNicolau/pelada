@@ -1,6 +1,6 @@
-<div class="col-lg-10 box h-100  no-padding">
+<div class="col-lg-10 box h-100 no-padding bg-secondary">
     <div class="box-header">
-        <h2 class="box-title py-2 px-4 text-light"><strong>MINHA PELADA</strong></h2>
+        <h2 class="box-title py-2 px-4 py-2 px-4 text-dark shadow"><strong>MINHA PELADA</strong></h2>
     </div>
     <div id="cadastroPelada" style="display: none">
         <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_cadastro_pelada" id="form_cadastro_pelada" >
@@ -55,7 +55,7 @@
                         </label>
                     </div>
                 </div>
-                <h2 class="box-title"><strong>INFORMAÇÕES DA QUADRA</strong></h2>
+                <h2 class="box-subtitle"><strong>INFORMAÇÕES DA QUADRA</strong></h2>
                 <div class="form-group">
                     <label for="textLocalizacao" class="control-label">Nome da quadra</label>
                     <input id="nomeQuadra" name="nomeQuadra" class="form-control" required="" type="text">
@@ -121,7 +121,7 @@
         </table>
     </div>
     <span class="busca-pelada" style="display: none">
-        <h2 class="box-title"><strong>ENCONTRE A SUA PELADA</strong></h2>
+        <h2 class="box-subtitle"><strong>Encontre a sua pelada</strong></h2>
         <div class="alert alert-info" role="alert">
             <strong>Olá!</strong> Aqui você encontra todas as peladas disponivéis de acordo com a cidade informada.
         </div>
@@ -133,7 +133,7 @@
     </span>
     <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_adicionar_peladeiro" id="form_adicionar_peladeiro" >
         <span class="adicionar-peladeiro" style="display: none;">
-            <h2 class="box-title"><strong>ADICIONE PELADEIRO</strong></h2>
+            <h2 class="box-subtitle"><strong>ADICIONE PELADEIRO</strong></h2>
             <div class="alert alert-info" role="alert">
                 <strong>Olá!</strong> Aqui você pode adicionar peladeiros a sua pelada.
             </div>
@@ -151,6 +151,7 @@
                     </tbody>     
                 </table>
             </div>
+            <div id="dados-peladeiro"></div>
             <div id="id-pelada"></div>
             <button type="submit" class="btn btn-success btn-default" name="acao" value="adicionar_peladeiro" id ="botao-adicionar">Adicionar</button>
             <button type="button" class="btn btn-danger btn-default" id ="cancelar-peladeiro">Cancelar</button>

@@ -231,7 +231,7 @@ class PeladaControle extends ControlaModelos
               
                     $id_pelada = $Pelada->idPelada;
                     $html = [];
-                    $ListaPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['fk_criador ='.$_SESSION['id_usuario_logado']]);
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['p.fk_parceiro ='.$_SESSION['id_usuario_logado']]);
                     foreach($ListaPeladeiro as $peladeiro) {
                         $buscaPelada = PeladaRepositorio::buscaGeralPelada(['p.fk_peladeiro ='.$peladeiro->id_usuario.' and p.fk_pelada = '.$_POST['id_pelada']]);
 
@@ -264,7 +264,15 @@ class PeladaControle extends ControlaModelos
           
                 $Pelada->idPelada = $_POST['pelada'];
 
+
+ //                $buscaPeladaPeladeiro = PeladaRepositorio::buscaGeralPelada(['p.fk_pelada='.$Pelada->idPelada]);
+ //                if(count($buscaPeladaPeladeiro) > $Pelada->qtJogadores){
+ //                    exit(json_encode(array('sucesso'=>false,'mensagem'=>'Número de peladeiros acima do permitido')));
+ //                }
+ // var_dump(count($buscaPeladaPeladeiro));
+ //                exit();
                 $peladeirosPost = $_REQUEST['peladeiro'];
+
                 if ($peladeirosPost) {
                     foreach ($peladeirosPost as $valores) {
 
@@ -287,6 +295,8 @@ class PeladaControle extends ControlaModelos
                             $novaData = date("d/m/Y", strtotime($pelada->data_pelada));
                             $horarioNovo = date("H:i", strtotime($pelada->horario));
                         }
+                        $token = md5($valores);
+
                         $destinatarios = $email;
                         
                         $assuntoFormulario = 'Convocação - Mais Pelada';
@@ -295,7 +305,7 @@ class PeladaControle extends ControlaModelos
                             '%nome_site%' =>TITULO,
                             '%nome%' =>$nome,
                             '%formulario_titulo%' => $assuntoFormulario,
-                            '%url_raiz_site%' => URL_RAIZ_SITE,
+                            '%url_raiz_site%' => URL_RAIZ_SITE.'/senha&token'.$token,
                             '%data_hora%' => date('d/m/Y H:i:s'),
                             '%senha%' => $senha,
                             '%data%' => $novaData,
@@ -358,7 +368,7 @@ class PeladaControle extends ControlaModelos
                         $nomeUsuario = $usuario->apelido ? $usuario->apelido : $usuario->nome;
                         $emailUsuario = $usuario->email;
                     }
-
+                    
                     $destinatarios = $emailCriador;
                     $assuntoFormulario = 'Novo peladeiro  - Mais Pelada';
 

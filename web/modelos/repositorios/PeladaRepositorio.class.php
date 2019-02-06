@@ -194,8 +194,7 @@ class PeladaRepositorio extends Pelada {
      *
      * @return bool
      */
-    public function salvarPeladeiroPelada(Pelada $Pelada)
-    {
+    public function salvarPeladeiroPelada(Pelada $Pelada){
 
         try {
             foreach ($Pelada->peladeiros as $chave=>$valor) {
@@ -205,8 +204,10 @@ class PeladaRepositorio extends Pelada {
                     ->insert('pelada_peladeiro')
                     ->setValue('fk_peladeiro', ':fk_peladeiro')
                     ->setValue('fk_pelada', ':fk_pelada')
+                    ->setValue('token', ':token')
                     ->setParameter(':fk_pelada', $Pelada->idPelada, \PDO::PARAM_INT)
                     ->setParameter(':fk_peladeiro', $chave, \PDO::PARAM_INT)
+                    ->setParameter(':token', md5($chave))
                     ->execute()
                 ;
 
