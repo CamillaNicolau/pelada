@@ -50,7 +50,6 @@
                 </div>
                 <input name="acao" value="atualizar" id="acao_usuario" type="hidden" />
                 <button type="submit" class="btn btn-primary default" id ="botao-salvar">Salvar</button>
-                <button type="button" class="btn btn-danger default" id ="botao-desativar">Desativar</button>
             </form>   
         </div>
     </div>

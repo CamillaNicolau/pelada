@@ -232,6 +232,8 @@ class PeladaControle extends ControlaModelos
                     $id_pelada = $Pelada->idPelada;
                     $html = [];
                     $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['p.fk_parceiro ='.$_SESSION['id_usuario_logado']]);
+                    $ListaPeladaPeladeiro = PeladaRepositorio::buscaGeralPelada(['p.fk_pelada = '.$_POST['id_pelada']]);
+
                     foreach($ListaPeladeiro as $peladeiro) {
                         $buscaPelada = PeladaRepositorio::buscaGeralPelada(['p.fk_peladeiro ='.$peladeiro->id_usuario.' and p.fk_pelada = '.$_POST['id_pelada']]);
 
@@ -242,11 +244,13 @@ class PeladaControle extends ControlaModelos
                                 if($peladeiroPelada->fk_peladeiro == $peladeiroPelada->id_usuario){
                                     $idCad= $peladeiroPelada->fk_peladeiro ;
                                 }
+                                $qt_jogadores = $peladeiroPelada->qt_jogadores;
+                                $qt_peladeiros_adiconado = count($buscaPelada);
                             }
                         }else{
                             $idCad = false;
                         }        
-                        $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome,'email'=>$peladeiro->email, 'idCad'=>$idCad);
+                        $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome,'email'=>$peladeiro->email, 'idCad'=>$idCad,'qt_jogadores'=>$ListaPeladaPeladeiro[0]->qt_jogadores,'qt_peladeiros_adiconado'=>count($ListaPeladaPeladeiro));
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html,'id_pelada'=>$id_pelada)));
                 }catch(Erro $E){
@@ -263,14 +267,6 @@ class PeladaControle extends ControlaModelos
                 $Pelada = new Pelada($_POST['pelada']);
           
                 $Pelada->idPelada = $_POST['pelada'];
-
-
- //                $buscaPeladaPeladeiro = PeladaRepositorio::buscaGeralPelada(['p.fk_pelada='.$Pelada->idPelada]);
- //                if(count($buscaPeladaPeladeiro) > $Pelada->qtJogadores){
- //                    exit(json_encode(array('sucesso'=>false,'mensagem'=>'Número de peladeiros acima do permitido')));
- //                }
- // var_dump(count($buscaPeladaPeladeiro));
- //                exit();
                 $peladeirosPost = $_REQUEST['peladeiro'];
 
                 if ($peladeirosPost) {

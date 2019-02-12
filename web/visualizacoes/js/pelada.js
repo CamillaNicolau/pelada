@@ -141,16 +141,33 @@ function buscarPeladeiro(id_pelada){
             $('#id-pelada').html('');
             if (retorno.sucesso == true) {
                 var disable;
+                var checar;
                 $.each(retorno.html,function(i,v){
                     if(v.idCad){
                         disable = 'disabled="disable"';
+                        checar = 'checked="checked"';
                     }else{
                         disable = "";
+                        checar = "";
                     }
-                    $('#adicionar-peladeiro').append('<tr><td class="col-md-2"><input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'" '+disable+'>  '+v.nome+'</td>'+
+
+                    $('#adicionar-peladeiro').append('<tr><td class="col-md-2"><input type="checkbox" aria-label="Chebox para permitir input text" name="peladeiro[]" value="'+v.id+'" '+disable+' '+checar+'>  '+v.nome+'</td>'+
                         '<td class="col-md-2">'+v.email+'</td>'+
                         '<td><button onclick="removerPeladeiroPelada('+v.id+','+retorno.id_pelada+')" class="btn btn-danger btn-xs"> <i class="fas fa-trash"></i></ button></td>'+
                         '</tr></tbody>');
+                    $('input[type=checkbox]').on('change', function () {
+                        var total = $('input[type=checkbox]:checked').length;
+                        if(total == v.qt_jogadores){  
+                            alertaFnc("Atenção", 'Você atingiu o número máximo de peladeiros determinado na pelada', null, true, "warning");
+                        }
+                        if(total > v.qt_jogadores){
+                            alertaFnc("Opa", 'Voce ultrapassou o limite de peladeiros.<br>Remova ou desmarque peladeiros', null, true, "error");
+                            $('#botao-adicionar').attr('disabled',true);
+                        } else {
+                            $('#botao-adicionar').attr('disabled',false);
+
+                        }
+                    });
                 });
                 $('#id-pelada').append('<input name="pelada" value="'+retorno.id_pelada+'" id="pelada" type="hidden" />');
             }

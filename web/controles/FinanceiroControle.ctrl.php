@@ -138,7 +138,7 @@ class FinanceiroControle extends ControlaModelos
                     $html = [];
                     $buscaPeladaPeladeiro = PeladaRepositorio::buscaGeralPelada(['p.fk_pelada = '.$_POST['id_pelada'].' and p.confirmacao = 1']);
                     foreach($buscaPeladaPeladeiro as $peladaPeladeiro) {
-                        $html[] =  array('id'=>$peladaPeladeiro->fk_peladeiro,'nome'=>$peladaPeladeiro->nome) ;
+                        $html[] =  array('id'=>$peladaPeladeiro->fk_peladeiro,'nome'=>$peladaPeladeiro->nome,'status'=>$peladaPeladeiro->status_pagamento) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -151,7 +151,7 @@ class FinanceiroControle extends ControlaModelos
                     $html = [];
                     $dadosPagamento = FinanceiroRepositorio::buscarLancamento(['u.id_usuario='.$_POST['id_peladeiro']]);
                     foreach ($dadosPagamento as $pagamento){
-                        $html[] = array('diaria'=>$pagamento->diaria,'mensalidade'=>$pagamento->mensalidade,'status'=>$pagamento->participacao);
+                        $html[] = array('id'=>$pagamento->id_lancamento,'diaria'=>$pagamento->diaria,'mensalidade'=>$pagamento->mensalidade,'status'=>$pagamento->participacao);
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -161,8 +161,47 @@ class FinanceiroControle extends ControlaModelos
         
             case 'adicionar_lancamento':
                 try{
+                    $lacamentos = [];
+                    $FinanceiroRepositorio = new FinanceiroRepositorio();
+                    $buscarLancamentoPeladeiro = FinanceiroRepositorio::dadosLancamento(['fk_peladeiro='. $_POST['id_peladeiro']]);
+                    \Doctrine::beginTransaction();
+                    if(count($buscarLancamentoPeladeiro) > 0){
+                        if($buscarLancamentoPeladeiro[0]->status_pagamento == "Débito"){
+                            $lacamentos['fp'] = $buscarLancamentoPeladeiro[0]->id_financeiro_peladeiro;
+                            $lacamentos['valor_pago'] = $_POST['valorPagamento'];
+                            if($_POST['valorPagamento'] < $_POST['pagamentoReal']){
+                                $lacamentos['status'] = 'Débito';
+                            } else if($_POST['valorPagamento'] > $_POST['pagamentoReal']){
+                                $lacamentos['status'] = 'Crédito';
+                            } else{
+                                $lacamentos['status'] = 'Zerado';
+                            }
+                        }
+                        $FinanceiroRepositorio->atualizarPeladeiroPagamento($lacamentos);
+                        \Doctrine::commit();
+                        exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados atualizados com sucessos')));   
+                    }
+                    \Doctrine::beginTransaction();
 
-                }catch(Erro $E){
+                    
+                    $lacamentos['peladeiro'] = $_POST['id_peladeiro'];
+                    $lacamentos['financeiro'] = $_POST['id_financeiro'];
+                    $lacamentos['valor_pago'] = $_POST['valorPagamento'];
+                    if($_POST['valorPagamento'] < $_POST['pagamentoReal']){
+                        $lacamentos['status'] = 'Débito';
+                    } else if($_POST['valorPagamento'] > $_POST['pagamentoReal']){
+                        $lacamentos['status'] = 'Crédito';
+                    } else{
+                        $lacamentos['status'] = 'Zerado';
+                    }
+
+                    
+                    $FinanceiroRepositorio->salvarPeladeiroPagamento($lacamentos);
+                    \Doctrine::commit();
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));   
+                } catch (Erro $E) {
+                  \Doctrine::rollBack();
+                  exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar')));
                 }
             break;
         }

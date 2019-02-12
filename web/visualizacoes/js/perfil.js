@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-  $('#botao-desativar').bind('click',desativarUsuario);
   $('#form_editar_usuario').ajaxForm({ 
     dataType:  'json',
     beforeSend: validaForm,
@@ -68,21 +67,7 @@ function montaPerfil(){
   });
 }
 
-function desativarUsuario(){
-    $.ajax({
-    type: 'POST',
-    url: 'perfil',
-    data: 'acao=desativar',
-    dataType: 'json',
-    beforeSend: function() {
-        alertaFnc("Aguarde", "Você está prestes a desativar sua conta, você tem CERTEZA que deseja continuar?", null, true, null);
-    },
-    success: function(retorno) {
 
-       window.location.assign('logout');
-    }
-  });
-}
 function verificaForcaSenha(senha) {
   var forca = 0
   if (senha.length < 8) {

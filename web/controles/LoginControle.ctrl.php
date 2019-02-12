@@ -16,12 +16,16 @@ class LoginControle extends ControlaModelos
             case 'logar':
                 try{
                     $buscaUsuario = UsuarioRepositorio::buscarUsuario(['email = "'.$_POST['email'].'" and ativo ='.true]);
-                    foreach($buscaUsuario as $usuario){
-                        $nome = $usuario->nome;
-                        $email = $usuario->email;
-                        $senha = $usuario->senha;
-                        $id = $usuario->id_usuario;
-                        $ativo = $usuario->ativo;
+                    if(count($buscaUsuario)>0){
+                        foreach($buscaUsuario as $usuario){
+                            $nome = $usuario->nome;
+                            $email = $usuario->email;
+                            $senha = $usuario->senha;
+                            $id = $usuario->id_usuario;
+                            $ativo = $usuario->ativo;
+                        }
+                    }else {
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Usuario não encontrado.')));
                     }
 
                     $_POST['id'] = $id;

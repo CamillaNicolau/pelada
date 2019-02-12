@@ -167,6 +167,7 @@ class PeladaRepositorio extends Pelada {
                 ->join('l','cidade','c','l.fk_cidade = c.id_cidade')
                 ->join('p','usuario','u','pe.fk_peladeiro = u.id_usuario')
                 ->join('c','estado','e','c.fk_estado = e.id_estado')
+                ->join('u','financeiro_peladeiro','fp','u.id_usuario = fp.fk_peladeiro')
             ;
             if ($where != '') {
                 $QueryBuilder->where($where);

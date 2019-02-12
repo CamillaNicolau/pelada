@@ -145,9 +145,8 @@ class FinanceiroRepositorio extends Financeiro {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->select('*')
-                ->from('financeiro' ,'f')
-                ->join('f','pelada','p','f.fk_pelada = p.id_pelada')
-                ->join('f','usuario','u','f.fk_peladeiro = u.id_usuario')
+                ->from('financeiro_peladeiro')
+               
             ;
             if ($where != '') {
                 $QueryBuilder->where($where);
@@ -165,5 +164,49 @@ class FinanceiroRepositorio extends Financeiro {
             echo ("Erro ao buscar Lançamentos Financeiros". $j->getMessage());
         }
     }
+    /**
+     * Salva os pagamentos dos peladeiros.
+     *
+     * @return bool
+     */
+    public function salvarPeladeiroPagamento($lancamento){
 
+      try {
+        $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+        $QueryBuilder
+            ->insert('financeiro_peladeiro')
+            ->setValue('fk_peladeiro', ':fk_peladeiro')
+            ->setValue('fk_financeiro', ':fk_financeiro')
+            ->setValue('valor_pago', ':valor_pago')
+            ->setValue('status_pagamento', ':status_pagamento')
+            ->setParameter(':fk_peladeiro', $lancamento['peladeiro'], \PDO::PARAM_INT)
+            ->setParameter(':fk_financeiro', $lancamento['financeiro'], \PDO::PARAM_INT)
+            ->setParameter(':valor_pago',$lancamento['valor_pago'])
+            ->setParameter(':status_pagamento', $lancamento['status'])
+            ->execute()
+        ;
+      } catch (\Exception $e26811) {
+          echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
+      }
+      return true;
+    }
+
+    public function atualizarPeladeiroPagamento($lancamento){
+      try {
+        $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+        $QueryBuilder
+            ->update('financeiro_peladeiro')
+            ->set('valor_pago', ':valor_pago')
+            ->set('status_pagamento', ':status_pagamento')
+            ->setParameter(':valor_pago',$lancamento['valor_pago'])
+            ->setParameter(':status_pagamento', $lancamento['status'])
+            ->where('id_financeiro_peladeiro = :id_financeiro_peladeiro')
+            ->setParameter(':id_financeiro_peladeiro', $lancamento['fp'])
+            ->execute()
+            ;
+      } catch (\Exception $e26811) {
+          echo('Erro ao atualizar na classe '.__CLASS__.': '.$e26811->getMessage());
+      }
+      return true;
+    }
 }
