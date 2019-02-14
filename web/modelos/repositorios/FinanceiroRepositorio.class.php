@@ -71,6 +71,7 @@ class FinanceiroRepositorio extends Financeiro {
             if (isset($limite)) {
                 $QueryBuilder->setMaxResults($limite);
             }
+            // var_dump($QueryBuilder->getSQL());
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {
@@ -207,5 +208,33 @@ class FinanceiroRepositorio extends Financeiro {
           echo('Erro ao atualizar na classe '.__CLASS__.': '.$e26811->getMessage());
       }
       return true;
+    }
+    public static function buscarPeladeiroInfoConfirmado(array $condicoes = []){
+      $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
+        
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->select('*')
+                ->from('usuario','u')
+                ->join('u','pelada_peladeiro','pe','pe.fk_peladeiro = u.id_usuario')
+                ->join('pe','pelada','p','p.id_pelada = pe.fk_pelada')
+                ->join('p','financeiro','f','f.fk_pelada = p.id_pelada')
+            ;
+            if ($where != '') {
+                $QueryBuilder->where($where);
+            }
+            
+            if (isset($inicio)) {
+                $QueryBuilder->setFirstResult($inicio);
+            }
+            if (isset($limite)) {
+                $QueryBuilder->setMaxResults($limite);
+            }
+            return $QueryBuilder->execute()->fetchAll();
+        }
+        catch (\Exception $j) {
+            echo ("Erro ao buscar Peladeiros". $j->getMessage());
+        }
     }
 }

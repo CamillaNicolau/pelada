@@ -197,7 +197,7 @@ function infoPagamento(idPeladeiro) {
                 var status;
                 if (retorno.sucesso == true) {
                     $.each(retorno.html,function(i,v){
-                        if(v.status == "1"){
+                        if(v.status == "mensalista"){
                            valor = v.mensalidade;
                            status = "Mensalista";
                         } else{

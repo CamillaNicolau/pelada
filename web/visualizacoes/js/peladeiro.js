@@ -149,7 +149,7 @@ function editarPeladeiro(idPeladeiro){
             $("#emailPeladeiro").val(retorno.email);
             $("#telPeladeiro").val(retorno.telefone);
             $("#dataNascimento").val(retorno.data_nascimento);
-            if(retorno.participacao == "0"){
+            if(retorno.participacao == "diarista"){
               $("#diarista").prop('checked',true);
               $("#diarista").val(retorno.participacao);
             }else {

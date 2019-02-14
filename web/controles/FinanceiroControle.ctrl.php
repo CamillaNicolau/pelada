@@ -135,15 +135,17 @@ class FinanceiroControle extends ControlaModelos
 
             case 'buscar_peladeiro':
                 try{
+                    
+                    $buscaPeladaPeladeiro = FinanceiroRepositorio::buscarPeladeiroInfoConfirmado(['pe.fk_pelada = '.$_POST['id_pelada'].' and pe.confirmacao = 1']);
                     $html = [];
-                    $buscaPeladaPeladeiro = PeladaRepositorio::buscaGeralPelada(['p.fk_pelada = '.$_POST['id_pelada'].' and p.confirmacao = 1']);
                     foreach($buscaPeladaPeladeiro as $peladaPeladeiro) {
+
                                   if(isset($pagamento->participacao)){
                            $status =  $pagamento->participacao;
                         } else{
                             $status ="";
                         }
-                        $html[] =  array('id'=>$peladaPeladeiro->fk_peladeiro,'nome'=>$peladaPeladeiro->nome,'status'=>$status) ;
+                        $html[] =  array('id'=>$peladaPeladeiro->id_usuario,'nome'=>$peladaPeladeiro->nome,'status'=>$status) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -154,10 +156,13 @@ class FinanceiroControle extends ControlaModelos
             case 'info_pagamento':
                 try{
                     $html = [];
-                    $dadosPagamento = FinanceiroRepositorio::buscarLancamento(['u.id_usuario='.$_POST['id_peladeiro']]);
-                    foreach ($dadosPagamento as $pagamento){
-                        $html[] = array('id'=>$pagamento->id_lancamento,'diaria'=>$pagamento->diaria,'mensalidade'=>$pagamento->mensalidade,'status'=>$pagamento->participacao);
+                    $dadosPagamento = FinanceiroRepositorio::buscarPeladeiroInfoConfirmado(['pe.confirmacao = 1 and u.id_usuario='.$_POST['id_peladeiro']]);
+                     for($i=0;$i<count($dadosPagamento);$i++){
+                        
+                         $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao);
+
                     }
+               
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
                   exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar os dados.")));

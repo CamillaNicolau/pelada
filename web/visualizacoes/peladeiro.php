@@ -51,8 +51,8 @@
                 </div>
                 <div class="form-group">
                   <label for="radioParticipacao">Participação</label>
-                  <input type="radio" name="participacao" id="mensalista" value="1">Mensalista</label>
-                  <input type="radio" name="participacao" id="diarista" value="0">Diarista</label>
+                  <input type="radio" name="participacao" id="mensalista" value="mensalista">Mensalista</label>
+                  <input type="radio" name="participacao" id="diarista" value="diarista">Diarista</label>
                 </div>
                 <input name="id_peladeiro" value="" id="id_peladeiro" type="hidden" />
                 <input name="acao" value="adicionar" id="acao" type="hidden" />

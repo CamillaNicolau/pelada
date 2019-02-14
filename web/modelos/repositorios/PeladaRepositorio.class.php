@@ -180,6 +180,7 @@ class PeladaRepositorio extends Pelada {
             if(isset($limite)) {
                 $QueryBuilder->setMaxResults($limite);
             }
+            var_dump($QueryBuilder->getSQL());
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {
