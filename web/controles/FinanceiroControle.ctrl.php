@@ -138,7 +138,12 @@ class FinanceiroControle extends ControlaModelos
                     $html = [];
                     $buscaPeladaPeladeiro = PeladaRepositorio::buscaGeralPelada(['p.fk_pelada = '.$_POST['id_pelada'].' and p.confirmacao = 1']);
                     foreach($buscaPeladaPeladeiro as $peladaPeladeiro) {
-                        $html[] =  array('id'=>$peladaPeladeiro->fk_peladeiro,'nome'=>$peladaPeladeiro->nome,'status'=>$peladaPeladeiro->status_pagamento) ;
+                                  if(isset($pagamento->participacao)){
+                           $status =  $pagamento->participacao;
+                        } else{
+                            $status ="";
+                        }
+                        $html[] =  array('id'=>$peladaPeladeiro->fk_peladeiro,'nome'=>$peladaPeladeiro->nome,'status'=>$status) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -180,7 +185,7 @@ class FinanceiroControle extends ControlaModelos
                         $FinanceiroRepositorio->atualizarPeladeiroPagamento($lacamentos);
                         \Doctrine::commit();
                         exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados atualizados com sucessos')));   
-                    }
+                    }else{
                     \Doctrine::beginTransaction();
 
                     
@@ -195,10 +200,11 @@ class FinanceiroControle extends ControlaModelos
                         $lacamentos['status'] = 'Zerado';
                     }
 
-                    
                     $FinanceiroRepositorio->salvarPeladeiroPagamento($lacamentos);
                     \Doctrine::commit();
-                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));   
+                   
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));  
+                     }
                 } catch (Erro $E) {
                   \Doctrine::rollBack();
                   exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar')));

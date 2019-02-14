@@ -232,8 +232,8 @@ class PeladaControle extends ControlaModelos
                     $id_pelada = $Pelada->idPelada;
                     $html = [];
                     $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['p.fk_parceiro ='.$_SESSION['id_usuario_logado']]);
+                  
                     $ListaPeladaPeladeiro = PeladaRepositorio::buscaGeralPelada(['p.fk_pelada = '.$_POST['id_pelada']]);
-
                     foreach($ListaPeladeiro as $peladeiro) {
                         $buscaPelada = PeladaRepositorio::buscaGeralPelada(['p.fk_peladeiro ='.$peladeiro->id_usuario.' and p.fk_pelada = '.$_POST['id_pelada']]);
 

@@ -188,7 +188,6 @@ class FinanceiroRepositorio extends Financeiro {
       } catch (\Exception $e26811) {
           echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
       }
-      return true;
     }
 
     public function atualizarPeladeiroPagamento($lancamento){

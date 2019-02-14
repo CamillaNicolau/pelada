@@ -117,7 +117,7 @@ function buscarPeladeiro(idLancamento,idPelada) {
                         $('#peladeiro-pagamento').append('<tr><td class="col-md-2">'+v.nome+'</td>'+
                             '<td><button onclick="infoPagamento('+v.id+')" title="Informações de pagamento da pelada" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalPagamento" id="info-pagamento"><i class="fas fa-info-circle"></i></ button></td>'+
                             '</tr></tbody>');
-                        if(v.status != "Débito"){
+                        if(v.status != "" && v.status != "Débito"){
                             $('#info-pagamento').attr('disabled',true);
                         } 
                     });
