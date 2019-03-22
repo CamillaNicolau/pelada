@@ -115,7 +115,7 @@ class PeladeiroControle extends ControlaModelos
                 \Doctrine::beginTransaction();
 
                 $buscarPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email = "'.$_POST['emailPeladeiro'].'" and ativo ='.true]);
-         
+
                 $time = $_POST['time'];
                 $posicao =  $_POST['posicao'];
 
@@ -134,7 +134,7 @@ class PeladeiroControle extends ControlaModelos
                 $Peladeiro->telefone = $_POST['telPeladeiro'];
                 $Peladeiro->data_nascimento = $_POST['dataNascimento'];
                 $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url :$Peladeiro->url_imagem;
-                $Peladeiro->participacao = $_POST['participacao'];
+                $Peladeiro->participacao = $_POST['participacao'] ? $_POST['participacao'] : 'mensalista';
                 $Peladeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
                 if(isset($_FILES['imagemUsuario'])){
@@ -205,7 +205,7 @@ class PeladeiroControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['u.email LIKE "%'.$_POST['email'].'%" and p.fk_parceiro<>'.$_SESSION['id_usuario_logado']]);
+                    $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['NOT EXISTS(SELECT u.id_usuario, u.nome, u.email FROM parceiro p INNER JOIN usuario u ON p.fk_peladeiro = u.id_usuario WHERE p.fk_parceiro ='.$_SESSION['id_usuario_logado'].') and u.email LIKE "%'.$_POST['email'].'%" and p.fk_parceiro<>'.$_SESSION['id_usuario_logado']]);
                     if(count($ListaPeladeiro) > 0){
                         foreach($ListaPeladeiro as $peladeiro) {
                             $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;

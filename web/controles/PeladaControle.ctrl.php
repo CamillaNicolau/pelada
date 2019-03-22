@@ -301,7 +301,7 @@ class PeladaControle extends ControlaModelos
                             '%nome_site%' =>TITULO,
                             '%nome%' =>$nome,
                             '%formulario_titulo%' => $assuntoFormulario,
-                            '%url_raiz_site%' => URL_RAIZ_SITE.'/senha&token'.$token,
+                            '%url_raiz_site%' => URL_RAIZ_SITE.'/senha&token='.$token,
                             '%data_hora%' => date('d/m/Y H:i:s'),
                             '%senha%' => $senha,
                             '%data%' => $novaData,

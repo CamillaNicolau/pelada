@@ -139,13 +139,17 @@ class FinanceiroControle extends ControlaModelos
                     $buscaPeladaPeladeiro = FinanceiroRepositorio::buscarPeladeiroInfoConfirmado(['pe.fk_pelada = '.$_POST['id_pelada'].' and pe.confirmacao = 1']);
                     $html = [];
                     foreach($buscaPeladaPeladeiro as $peladaPeladeiro) {
-
-                                  if(isset($pagamento->participacao)){
-                           $status =  $pagamento->participacao;
-                        } else{
-                            $status ="";
+                        $buscaLancamentoPeladeiro = FinanceiroRepositorio::buscarPeladeiroLancamento(['fp.fk_peladeiro = '.$peladaPeladeiro->id_usuario]);
+                        if(count($buscaLancamentoPeladeiro) > 0){
+                            foreach ($buscaLancamentoPeladeiro as $lacamentoPeladeiro) {
+                                $status  =$lacamentoPeladeiro->status_pagamento;
+                                $html[] =  array('id'=>$peladaPeladeiro->id_usuario,'nome'=>$peladaPeladeiro->nome,'status'=>$status) ;
+                            }
+                        } else {
+                            $html[] =  array('id'=>$peladaPeladeiro->id_usuario,'nome'=>$peladaPeladeiro->nome,'status'=>"") ;
                         }
-                        $html[] =  array('id'=>$peladaPeladeiro->id_usuario,'nome'=>$peladaPeladeiro->nome,'status'=>$status) ;
+
+                        
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -157,11 +161,19 @@ class FinanceiroControle extends ControlaModelos
                 try{
                     $html = [];
                     $dadosPagamento = FinanceiroRepositorio::buscarPeladeiroInfoConfirmado(['pe.confirmacao = 1 and u.id_usuario='.$_POST['id_peladeiro']]);
-                     for($i=0;$i<count($dadosPagamento);$i++){
-                        
-                         $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao);
-
+                    for($i=0;$i<count($dadosPagamento);$i++){
+                        $buscaLancamentoPeladeiro = FinanceiroRepositorio::buscarPeladeiroLancamento(['fp.fk_peladeiro = '.$dadosPagamento[$i]->id_usuario]);
+                        if(count($buscaLancamentoPeladeiro) > 0){
+                            foreach ($buscaLancamentoPeladeiro as $lacamentoPeladeiro) {
+                                $valor_pago  =$lacamentoPeladeiro->valor_pago;
+                                $id_lancamento_peladeiro = $lacamentoPeladeiro->id_financeiro_peladeiro;
+                                $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao,'pagamento'=>$valor_pago,'lancamento_peladeiro'=>$id_lancamento_peladeiro);
+                            }
+                        } else {
+                            $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao,'pagamento'=>'0','lancamento_peladeiro'=>"");
+                        }
                     }
+
                
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -173,30 +185,12 @@ class FinanceiroControle extends ControlaModelos
                 try{
                     $lacamentos = [];
                     $FinanceiroRepositorio = new FinanceiroRepositorio();
-                    $buscarLancamentoPeladeiro = FinanceiroRepositorio::dadosLancamento(['fk_peladeiro='. $_POST['id_peladeiro']]);
-                    \Doctrine::beginTransaction();
-                    if(count($buscarLancamentoPeladeiro) > 0){
-                        if($buscarLancamentoPeladeiro[0]->status_pagamento == "Débito"){
-                            $lacamentos['fp'] = $buscarLancamentoPeladeiro[0]->id_financeiro_peladeiro;
-                            $lacamentos['valor_pago'] = $_POST['valorPagamento'];
-                            if($_POST['valorPagamento'] < $_POST['pagamentoReal']){
-                                $lacamentos['status'] = 'Débito';
-                            } else if($_POST['valorPagamento'] > $_POST['pagamentoReal']){
-                                $lacamentos['status'] = 'Crédito';
-                            } else{
-                                $lacamentos['status'] = 'Zerado';
-                            }
-                        }
-                        $FinanceiroRepositorio->atualizarPeladeiroPagamento($lacamentos);
-                        \Doctrine::commit();
-                        exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados atualizados com sucessos')));   
-                    }else{
+                    
                     \Doctrine::beginTransaction();
 
-                    
-                    $lacamentos['peladeiro'] = $_POST['id_peladeiro'];
-                    $lacamentos['financeiro'] = $_POST['id_financeiro'];
-                    $lacamentos['valor_pago'] = $_POST['valorPagamento'];
+                    $lacamentos['peladeiro'] = (int)$_POST['id_peladeiro'];
+                    $lacamentos['financeiro'] = (int)$_POST['id_financeiro'];
+                    $lacamentos['valor_pago'] = (float)$_POST['valorPagamento'];
                     if($_POST['valorPagamento'] < $_POST['pagamentoReal']){
                         $lacamentos['status'] = 'Débito';
                     } else if($_POST['valorPagamento'] > $_POST['pagamentoReal']){
@@ -208,9 +202,49 @@ class FinanceiroControle extends ControlaModelos
                     $FinanceiroRepositorio->salvarPeladeiroPagamento($lacamentos);
                     \Doctrine::commit();
                    
-                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));  
-                     }
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));   
                 } catch (Erro $E) {
+                  \Doctrine::rollBack();
+                  exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar')));
+                }
+            break;
+
+            case 'atualiza_lancamento':
+                try{
+                    $lacamentos = [];
+                    $FinanceiroRepositorio = new FinanceiroRepositorio();
+                    $buscarLancamentoPeladeiro = FinanceiroRepositorio::dadosLancamento(['fp.fk_peladeiro='. $_POST['id_peladeiro']]);
+                    \Doctrine::beginTransaction();
+
+                    $lacamentos['fp'] = $buscarLancamentoPeladeiro[0]->id_financeiro_peladeiro;
+                    $lacamentos['valor_pago'] = $_POST['valorPagamento'];
+
+                    switch ($buscarLancamentoPeladeiro[0]->participacao) {
+                        case 'mensalista':
+                            if($lacamentos['valor_pago'] < $buscarLancamentoPeladeiro[0]->mensalidade){
+                                $lacamentos['status'] = 'Débito';
+                            } else if($lacamentos['valor_pago'] > $buscarLancamentoPeladeiro[0]->mensalidade){
+                                $lacamentos['status'] = 'Crédito';
+                            } else{
+                                $lacamentos['status'] = 'Zerado';
+                            }
+                            break;
+                        case 'diarista':
+                            if($_POST['valor_pago'] < $buscarLancamentoPeladeiro[0]->diaria){
+                                $lacamentos['status'] = 'Débito';
+                            } else if($lacamentos['valor_pago'] > $buscarLancamentoPeladeiro[0]->diaria){
+                                $lacamentos['status'] = 'Crédito';
+                            } else{
+                                $lacamentos['status'] = 'Zerado';
+                            }
+                            break;
+                    }
+                    
+                    $FinanceiroRepositorio->atualizarPeladeiroPagamento($lacamentos);
+                    \Doctrine::commit();
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados atualizados com sucessos')));   
+
+                }catch (Erro $E) {
                   \Doctrine::rollBack();
                   exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar')));
                 }

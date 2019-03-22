@@ -12,11 +12,13 @@ class SenhaControle extends ControlaModelos
     public function tratarAcoes(){
       
         if(isset($_REQUEST['acao']));
+         var_dump($_GET);
+                      
         switch ($_REQUEST['acao']){
              case 'cadastra_senha':
                 try{
-                    var_dump($_GET);
-                    exit();
+                  var_dump($_GET);
+                            exit();
 
                     if ($_POST['password'] != $_POST['passwordConfirm']) {
                         exit(json_encode(array('sucesso'=>false,'mensagem'=>'As senhas não conferem!')));
@@ -25,8 +27,7 @@ class SenhaControle extends ControlaModelos
                     $buscaUsuario = PeladaRepositorio::buscaGeralPelada(['p.token = "'.$_GET['token'].'" and u.ativo ='.true]);
                     if(count($buscarUsuario)>0){
                         foreach ($buscarUsuario as $usuario) {
-                            var_dump($usuario);
-                            exit();
+                           
                         }
                         // \Doctrine::beginTransaction();
                         // $UsuarioRepositorio = new UsuarioRepositorio();
