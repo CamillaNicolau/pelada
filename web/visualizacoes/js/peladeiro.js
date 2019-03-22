@@ -128,7 +128,7 @@ function encontrarPeladeiro() {
                     });
                 } 
             }else { 
-              alertaFnc("Atenção", retorno.mensagem, null, true, "warning");
+              alertaFnc("Atenção", retorno.mensagem, 250, false, "warning");
             }
         }
     }); 
