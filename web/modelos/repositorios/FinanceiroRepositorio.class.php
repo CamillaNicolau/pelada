@@ -71,7 +71,6 @@ class FinanceiroRepositorio extends Financeiro {
             if (isset($limite)) {
                 $QueryBuilder->setMaxResults($limite);
             }
-            // var_dump($QueryBuilder->getSQL());
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {
@@ -146,7 +145,9 @@ class FinanceiroRepositorio extends Financeiro {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->select('*')
-                ->from('financeiro_peladeiro')
+                ->from('financeiro_peladeiro','fp')
+                ->join('fp','financeiro','f','f.id_lancamento = fp.fk_financeiro')
+                ->join('fp','usuario','u','fp.fk_peladeiro = u.id_usuario')
                
             ;
             if ($where != '') {
@@ -180,12 +181,14 @@ class FinanceiroRepositorio extends Financeiro {
             ->setValue('fk_financeiro', ':fk_financeiro')
             ->setValue('valor_pago', ':valor_pago')
             ->setValue('status_pagamento', ':status_pagamento')
-            ->setParameter(':fk_peladeiro', $lancamento['peladeiro'], \PDO::PARAM_INT)
-            ->setParameter(':fk_financeiro', $lancamento['financeiro'], \PDO::PARAM_INT)
+            ->setParameter(':fk_peladeiro', $lancamento['peladeiro'])
+            ->setParameter(':fk_financeiro', $lancamento['financeiro'])
             ->setParameter(':valor_pago',$lancamento['valor_pago'])
             ->setParameter(':status_pagamento', $lancamento['status'])
+            ->setParameter(':data_criacao ', date("Y-m-d H:i:s"))
             ->execute()
         ;
+        return $QueryBuilder->getSQL();
       } catch (\Exception $e26811) {
           echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
       }
@@ -204,6 +207,7 @@ class FinanceiroRepositorio extends Financeiro {
             ->setParameter(':id_financeiro_peladeiro', $lancamento['fp'])
             ->execute()
             ;
+
       } catch (\Exception $e26811) {
           echo('Erro ao atualizar na classe '.__CLASS__.': '.$e26811->getMessage());
       }
@@ -233,8 +237,40 @@ class FinanceiroRepositorio extends Financeiro {
             }
             return $QueryBuilder->execute()->fetchAll();
         }
+
         catch (\Exception $j) {
             echo ("Erro ao buscar Peladeiros". $j->getMessage());
         }
     }
+
+    public static function buscarPeladeiroLancamento(array $condicoes = []){
+      $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
+        
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->select('*')
+                ->from('usuario','u')
+                ->join('u','financeiro_peladeiro','fp','fp.fk_peladeiro = u.id_usuario')
+            ;
+            if ($where != '') {
+                $QueryBuilder->where($where);
+            }
+            
+            if (isset($inicio)) {
+                $QueryBuilder->setFirstResult($inicio);
+            }
+            if (isset($limite)) {
+                $QueryBuilder->setMaxResults($limite);
+            }
+            return $QueryBuilder->execute()->fetchAll();
+        }
+
+        catch (\Exception $j) {
+            echo ("Erro ao buscar Peladeiros". $j->getMessage());
+        }
+    }
+    
 }
+
+

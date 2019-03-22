@@ -84,39 +84,40 @@ class Usuario {
         switch (true)
         {
          case filter_var($idUsuario, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]):
-          try
-          {
-              $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
-              $QueryBuilder
-                  ->select('*')
-                  ->from('usuario')
-                  ->where('id_usuario = ?')
-                  ->setParameter(0, $idUsuario, \PDO::PARAM_INT)
-              ;
-              $ObjDados = $QueryBuilder->execute()->fetch();
-              if (!$ObjDados)
-                  throw new Excecao("Registro de id ". $idUsuario . " não encontrado no banco de dados.");
+                try
+                {
+                    $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+                    $QueryBuilder
+                        ->select('*')
+                        ->from('usuario')
+                        ->where('id_usuario = ?')
+                        ->setParameter(0, $idUsuario, \PDO::PARAM_INT)
+                        ;
+                    $ObjDados = $QueryBuilder->execute()->fetch();
+                    if (!$ObjDados){
+                        throw new Excecao("Registro de id ". $idUsuario . " não encontrado no banco de dados.");
+                    }
 
-              $this->idUsuario = $ObjDados->id_usuario;
-              $this->email = $ObjDados->email;
-              $this->senha = $ObjDados->senha;
-              $this->nome = $ObjDados->nome;
-              $this->apelido = $ObjDados->apelido;
-              $this->sexo = $ObjDados->sexo;
-              $this->dataCriacao = $ObjDados->data_criacao;
-              $this->ativo = $ObjDados->ativo;
-              $this->urlImagem = $ObjDados->url_imagem;
-         } catch(Exception $ex){
-           echo ('Erro ao instanciar classe Usuario id $idUsuario. '. $ex->getMessage());
-          }
+                    $this->idUsuario = $ObjDados->id_usuario;
+                    $this->email = $ObjDados->email;
+                    $this->senha = $ObjDados->senha;
+                    $this->nome = $ObjDados->nome;
+                    $this->apelido = $ObjDados->apelido;
+                    $this->sexo = $ObjDados->sexo;
+                    $this->dataCriacao = $ObjDados->data_criacao;
+                    $this->ativo = $ObjDados->ativo;
+                    $this->urlImagem = $ObjDados->url_imagem;
+                } catch(Exception $ex){
+                   echo ('Erro ao instanciar classe Usuario id $idUsuario. '. $ex->getMessage());
+                }
             break;
-          case (is_null($idUsuario)):
-            $this->ativo = true;
-            $this->dataCriacao = date("Y-m-d H:i:s");
+            case (is_null($idUsuario)):
+                $this->ativo = true;
+                $this->dataCriacao = date("Y-m-d H:i:s");
             break;
-           default:
-            echo ('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idUsuario.' do tipo '.gettype($idUsuario));
-   break;
+            default:
+                echo ('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idUsuario.' do tipo '.gettype($idUsuario));
+            break;
         }
     }
     
