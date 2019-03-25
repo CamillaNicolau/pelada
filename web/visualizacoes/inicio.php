@@ -1,4 +1,4 @@
-<div class="col-lg-10 h-100 no-padding bg-secondary">
+<div class="col-lg-10 h-100 flex-grow-1 mw-100 no-padding bg-secondary">
     <div class="box-header">
         <h2 class="box-title py-2 px-4 text-dark shadow"><strong>MINHAS PELADAS</strong></h2>
         <h3 class="subtitle">Bem vindo(a), <?php echo $_SESSION['nome_usuario_logado'];?></h3>

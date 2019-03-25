@@ -21,8 +21,11 @@
         <div class="container container-fluid h-100 mw-100">
             <div class="row justify-content-center">
                     <!--<img src="./visualizacoes/imagens/logo.jpg" alt="futebol">;-->
-                    <nav id="navbar-fixed" class="col-lg-2 d-flex flex-column justify-content-start pl-0 sticky-top bg-primary navbar navbar-dark">  
-                        <div id="imagem-perfil-menu" class="pl-3 mx-auto my-3" ></div>
+                    <nav id="navbar-fixed" class="navbar navbar-dark col-lg-2 d-flex flex-column-nowrap justify-content-start pl-1 sticky-top bg-primary ">  
+                        <button class="navbar-toggler mb-4" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div id="imagem-perfil-menu" class="pl-2 ml-auto mt-1 mb-3" ></div>
                         <ul class="nav navbar-nav text-light w-100 my-2">
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="inicio"><i class="fas fa-home"></i></i> Inicio</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
@@ -33,7 +36,7 @@
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="perfil"><i class="fas fa-user"></i>  Meus dados</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="logout"><i class="fas fa-sign-out-alt"></i>  sair</a></li>
                         </ul>
-                        <div class="w-100 d-flex flex-column flex-nowrap justify-content-center align-items-center text-light mt-auto">
+                        <div class="footer-navbar w-100 d-flex flex-column flex-nowrap justify-content-center align-items-center text-light mt-auto ml-auto">
                             <div class="col-xs-3">
                              © 2018 Mais pelada
                             </div>

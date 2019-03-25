@@ -1,7 +1,11 @@
 $(document).ready(function() {
   montaImagem();
 
+  $('.navbar-toggler-icon').click(function(){
+    $(this).closest('#navbar-fixed').toggleClass('collapsed-navbar');
+  });
 });
+
 function montaImagem(){
   $.ajax({
     type: 'POST',
