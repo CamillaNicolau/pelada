@@ -49,7 +49,7 @@ class Pelada{
                 $this->sorteio = $ObjDados->sorteio;
                 $this->dataPartida = $ObjDados->data_pelada;
                 $this->localizacao = $ObjDados->fk_localizacao;
-                $this->fkPeladeiroAdm = $ObjDados->fk_peladeiro;
+                $this->fkPeladeiroAdm = $ObjDados->fk_criador;
                 $this->dataCriacao = $ObjDados->data_criacao;
                 $this->horario = $ObjDados->horario;
                 $this->status = $ObjDados->status;

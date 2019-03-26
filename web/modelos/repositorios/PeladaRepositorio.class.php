@@ -23,7 +23,7 @@ class PeladaRepositorio extends Pelada {
                 ->setValue('sorteio', ':sorteio')
                 ->setValue('data_pelada ', ':data_pelada ')
                 ->setValue('fk_localizacao',':fk_localizacao')
-                ->setValue('fk_peladeiro',':fk_peladeiro')
+                ->setValue('fk_criador',':fk_criador')
                 ->setValue('horario', ':horario')
                 ->setValue('data_criacao',':data_criacao')
                 ->setValue('status',':status')
@@ -34,7 +34,7 @@ class PeladaRepositorio extends Pelada {
                 ->setParameter(':sorteio', $Pelada->sorteio)
                 ->setParameter(':data_pelada',$Pelada->dataPartida)
                 ->setParameter(':fk_localizacao', $Pelada->localizacao)
-                ->setParameter(':fk_peladeiro', $Pelada->fkPeladeiroAdm)
+                ->setParameter(':fk_criador', $Pelada->fkPeladeiroAdm)
                 ->setParameter(':horario', $Pelada->horario)
                 ->setParameter(':data_criacao',$Pelada->dataCriacao)
                 ->setParameter(':status',$Pelada->status)
@@ -65,7 +65,7 @@ class PeladaRepositorio extends Pelada {
                 ->set('sorteio', ':sorteio')
                 ->set('data_pelada ', ':data_pelada ')
                 ->set('fk_localizacao',':fk_localizacao')
-                ->set('fk_peladeiro',':fk_peladeiro')
+                ->set('fk_criador',':fk_criador')
                 ->set('horario',':horario')
                 ->set('data_criacao',':data_criacao')
                 ->set('status',':status')
@@ -76,7 +76,7 @@ class PeladaRepositorio extends Pelada {
                 ->setParameter(':sorteio', $Pelada->sorteio)
                 ->setParameter(':data_pelada',$Pelada->dataPartida)
                 ->setParameter(':fk_localizacao', $Pelada->localizacao)
-                ->setParameter(':fk_peladeiro', $Pelada->fkPeladeiroAdm)
+                ->setParameter(':fk_criador', $Pelada->fkPeladeiroAdm)
                 ->setParameter(':horario',$Pelada->horario)
                 ->setParameter(':data_criacao',$Pelada->dataCriacao)
                 ->setParameter(':status',$Pelada->status)
@@ -134,10 +134,10 @@ class PeladaRepositorio extends Pelada {
                 ->from('pelada','p')
                 ->join('p','localizacao_pelada','l','p.fk_localizacao = l.id_localizacao_pelada')
                 ->join('l','cidade','c','l.fk_cidade = c.id_cidade')
-                ->join('p','usuario','u','p.fk_peladeiro = u.id_usuario')
+                ->join('p','usuario','u','p.fk_criador = u.id_usuario')
                 ->join('c','estado','e','c.fk_estado = e.id_estado')
             ;
-            ;
+            
             if ($where != '') {
                 $QueryBuilder->where($where);
             }
@@ -148,6 +148,7 @@ class PeladaRepositorio extends Pelada {
             if (isset($limite)) {
                 $QueryBuilder->setMaxResults($limite);
             }
+           // var_dump($QueryBuilder->getSQL());
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {
@@ -165,7 +166,7 @@ class PeladaRepositorio extends Pelada {
                 ->join('p','pelada','pe','p.fk_pelada = pe.id_pelada')
                 ->join('p','localizacao_pelada','l','pe.fk_localizacao = l.id_localizacao_pelada')
                 ->join('l','cidade','c','l.fk_cidade = c.id_cidade')
-                ->join('p','usuario','u','pe.fk_peladeiro = u.id_usuario')
+                ->join('p','usuario','u','pe.fk_criador = u.id_usuario')
                 ->join('c','estado','e','c.fk_estado = e.id_estado')
             ;
             if ($where != '') {
@@ -180,6 +181,7 @@ class PeladaRepositorio extends Pelada {
             if(isset($limite)) {
                 $QueryBuilder->setMaxResults($limite);
             }
+          //  var_dump($QueryBuilder->getSQL());
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {

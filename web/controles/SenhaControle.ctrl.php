@@ -12,31 +12,36 @@ class SenhaControle extends ControlaModelos
     public function tratarAcoes(){
       
         if(isset($_REQUEST['acao']));
-         var_dump($_GET);
+        
                       
         switch ($_REQUEST['acao']){
              case 'cadastra_senha':
                 try{
-                  var_dump($_GET);
-                            exit();
 
                     if ($_POST['password'] != $_POST['passwordConfirm']) {
                         exit(json_encode(array('sucesso'=>false,'mensagem'=>'As senhas não conferem!')));
                     }
+                    $tokenUrl = explode('=',$_SERVER['HTTP_REFERER']);
 
-                    $buscaUsuario = PeladaRepositorio::buscaGeralPelada(['p.token = "'.$_GET['token'].'" and u.ativo ='.true]);
-                    if(count($buscarUsuario)>0){
-                        foreach ($buscarUsuario as $usuario) {
-                           
+                    \Doctrine::beginTransaction();
+
+                    $user = PeladaRepositorio::buscaGeralPelada(['p.token = "'.$tokenUrl[1].'" ']);
+                    if(count($user)>0){
+                        foreach ($user as $usuario) {
+                            $id = $usuario->fk_peladeiro;
+                            $expira  = $usuario->data_atual;
                         }
-                        // \Doctrine::beginTransaction();
-                        // $UsuarioRepositorio = new UsuarioRepositorio();
-                        // $Usuario = new Usuario();
 
-                        // $Usuario->senha = md5($_POST['password']);
-                        // $UsuarioRepositorio->atualizarUsuario($Usuario,false);
-                        // \Doctrine::commit();
-                        // exit(json_encode(array('sucesso'=>true,'mensagem'=>'Senha cadastrada com sucesso')));
+                        if($expira < date('Y-m-d H:i')){
+                            \Doctrine::rollBack();
+                            exit(json_encode(array('sucesso'=>false, 'mensagem'=>'Token expirado')));
+                        }
+                        $UsuarioRepositorio = new UsuarioRepositorio();
+                        $senha = md5($_POST['password']);
+
+                        $UsuarioRepositorio->adicionarSenha($id,$senha);
+                        \Doctrine::commit();
+                        exit(json_encode(array('sucesso'=>true,'mensagem'=>'Senha cadastrada com sucesso')));
                     }else{
                         \Doctrine::rollBack();
                         exit(json_encode(array('sucesso'=>false, 'mensagem'=>'Usuário não cadastrado no sistema, caso queira se cadastrar acesse  <a href="usuario">Cadastro</a>')));

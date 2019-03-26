@@ -127,6 +127,29 @@ class UsuarioRepositorio extends Usuario {
             throw new Excecao('Erro ao desativar Usuario '. $j->getMessage());
         }
     }
+    
+    /**
+     * Salva as informações aramazenadas nos atributos do objeto no banco de dados.
+     *
+     * @access public
+     * @return string
+     */
+    public function adicionarSenha($idUsuario, $senha)
+    {
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->update('usuario')
+                ->set('senha', ':senha')
+                ->setParameter(':senha', $senha)
+                ->where('id_usuario = :id_usuario')
+                ->setParameter(':id_usuario', $idUsuario)
+                ->execute();
+            
+        } catch (\Exception $j) {
+            echo("Um erro ocorreu ao salvar a confirmação da pelada no banco de dados - " . $j->getMessage());
+        }
+    }
    
     
 }

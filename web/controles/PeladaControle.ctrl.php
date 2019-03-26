@@ -165,7 +165,7 @@ class PeladaControle extends ControlaModelos
                 try{
 
                     $html = [];
-                    $ListaPelada = PeladaRepositorio::buscarPelada(['p.fk_peladeiro ='.$_SESSION['id_usuario_logado']]);
+                    $ListaPelada = PeladaRepositorio::buscarPelada(['p.fk_criador ='.$_SESSION['id_usuario_logado']]);
                     foreach($ListaPelada as $pelada) {
                         $DataPelada = $pelada->data_pelada;
                         $novaData = date("d/m/Y", strtotime($DataPelada));
@@ -208,7 +208,7 @@ class PeladaControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    $EncontrarPelada= PeladaRepositorio::buscarPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%" and fk_peladeiro<>'.$_SESSION['id_usuario_logado'].' and data_pelada > now()']);
+                    $EncontrarPelada= PeladaRepositorio::buscarPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%" and p.fk_criador<>'.$_SESSION['id_usuario_logado'].' and data_pelada > now()']);
                     if(count($EncontrarPelada) > 0){
                         foreach($EncontrarPelada as $pelada) {
                             $novaData = date("d/m/Y", strtotime($pelada->data_pelada));
