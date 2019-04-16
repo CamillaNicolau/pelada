@@ -18,7 +18,7 @@ class NotificacaoControle extends ControlaModelos
             case 'lista_notificacao':
                 try{
                     
-                    $ListaNotificacao = PeladaRepositorio::buscarNotificacao([]);
+                    $ListaNotificacao = PeladaRepositorio::buscarNotificacao(['p.fk_criador='.$_SESSION['id_usuario_logado']]);
                     $html = [];                   
                     
                     foreach($ListaNotificacao as $notificacao) {
