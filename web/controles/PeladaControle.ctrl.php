@@ -387,11 +387,15 @@ class PeladaControle extends ControlaModelos
                     $Email->ativar_html = true;
                     $Email->remetente = $nomeUsuario;
 
-                    if(!$Email->enviar()){
-                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao notificar')));
-                    } else{
-                        $PeladaRepositorio->salvarCandidatoPelada($_POST['id_pelada'], $id_candidato);
-                        exit(json_encode(array('sucesso'=>true,'mensagem'=>'Solicitação enviada.')));
+                    if($PeladaRepositorio->salvarCandidatoPelada($_POST['id_pelada'], $id_candidato)){
+                         
+                        if(!$Email->enviar()){
+                            \Doctrine::rollBack();
+                            exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao notificar')));
+                        } else{
+                            \Doctrine::commit();
+                            exit(json_encode(array('sucesso'=>true,'mensagem'=>'Solicitação enviada.')));
+                        }
                     }
                 } catch (Exception $ex) {
                     exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro')));
