@@ -60,13 +60,6 @@ class Usuario {
     protected $dataCriacao;
 
     /**
-     * Data em que foi realizado a última visita do usuário ao sistema.
-     *
-     * @var datetime
-     */
-    protected $ultVisita;
-
-    /**
      * estado do usuário no sistema, sendo ele ativo ou desativado.
      *
      * @var bool

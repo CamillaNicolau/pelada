@@ -113,12 +113,18 @@ function buscarPeladeiro(idLancamento,idPelada) {
         success: function(retorno) {
             if (retorno.sucesso) {
                 $('#peladeiro-pagamento').html('');
+                var observacao;
                 if((retorno.html).length > 0){
                     $.each(retorno.html,function(i,v){
+                        if(v.observacao){
+                           observacao = v.observacao;
+                        } else{
+                            observacao = "";
+                        }
                         $('#peladeiro-pagamento').append('<tr><td class="col-md-2">'+v.nome+'</td>'+
-                            '<td><button onclick="infoPagamento('+v.id+')" title="Informações de pagamento do peladeiro" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalPagamento" id="info-pagamento"><i class="fas fa-info-circle"></i></ button></td>'+
-                            '</tr></tbody>');
-                        if(v.status == "Zerado" || v.status == "Crédito"){
+                            '<td class="col-md-2"><button onclick="infoPagamento('+v.id+')" title="Informações de pagamento do peladeiro" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalPagamento" id="info-pagamento"><i class="fas fa-info-circle"></i></ button></td>'+
+                            '<td class="col-md-2">'+observacao+'</td></tr></tbody>');
+                        if(v.status == "Zerado"){
                             $('#info-pagamento').attr('disabled',true);
                         } 
                     });
@@ -210,33 +216,30 @@ function infoPagamento(idPeladeiro) {
                         if(v.lancamento_peladeiro){
                             $('#modal-pagamento').append('<div class="modal-header"><h4 class="modal-title">Pagamento</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>'+
                             '<div class="modal-body"><p><div class="form-group"><input type="radio" name="pagamento" id="pagamento-total" value="'+valor+'"> R$ '+valor+' '+
-                            '<input type="radio" name="pagamento" id="pagamento-parcial" value="outro"> Outro valor<input type="text" name="valor" class="form-control" id="valor-parcial"></p></div>'+
-                            '<hr><p><strong>Status: </strong>'+status+'</p><p><strong>Débito: </strong>R$ '+debito+'</p><button onclick="atualizaPagamento('+idPeladeiro+','+v.lancamento_peladeiro+')" class="btn btn-primary btn-default" id ="botao-pagamento">Atualizar pagamento</button>'+
+                            '<p><label>Observação:</label><textarea class="form-control" rows="3" id="observacao">'+v.observacao+'</textarea></p></div>'+
+                            '<hr><p><strong>Status: </strong>'+status+'</p><button onclick="atualizaPagamento('+idPeladeiro+','+v.lancamento_peladeiro+')" class="btn btn-primary btn-default" id ="botao-pagamento">Atualizar pagamento</button>'+
                             '</div>');
                         } else {
                             $('#modal-pagamento').append('<div class="modal-header"><h4 class="modal-title">Pagamento</h4><button type="button" class="close" data-dismiss="modal">&times;</button></div>'+
                             '<div class="modal-body"><p><div class="form-group"><input type="radio" name="pagamento" id="pagamento-total" value="'+valor+'"> R$ '+valor+' '+
-                            '<input type="radio" name="pagamento" id="pagamento-parcial" value="outro"> Outro valor<input type="text" name="valor" class="form-control" id="valor-parcial"></p></div>'+
+                            '<p><label>Observação:</label><textarea class="form-control" rows="3" id="observacao"> </textarea></p></div>'+
                             '<hr><p><strong>Status: </strong>'+status+'</p><button onclick="lancaPagamento('+idPeladeiro+','+v.id+')" class="btn btn-primary btn-default" id ="botao-pagamento">Lançar pagamento</button>'+
                             '</div>');
                         }
-                        
-                        $('#valor-parcial').hide();
+                        if(v.pagamento!="0.00"){
+                            $('input[type=radio]').attr('disabled',true);
+                        }
                         $('input[type=radio]').on('change', function () {
-                            var pagamento = $('input[type=radio]:checked').val();
-                            if(pagamento == 'outro'){
-                                $('#valor-parcial').slideDown();
-
+                            var vlp = $('input[type=radio]:checked').val();
+                            if(vlp !="undefined"){
+                                valorPagamento = vlp;
                             } else{
-                                $('#valor-parcial').slideUp();
-                                valorPagamento = $('#pagamento-total').val();
-                                $('#valor-parcial').val('');
+                                valorPagamento = "";
                             }
-                            
-                        });
-                                          
-                    });
-                   
+                                
+                            });
+
+                    });  
                 } 
             }
         }
@@ -269,13 +272,11 @@ function caixaPelada(idLancamento) {
 }
 
 function lancaPagamento(idPeladeiro,idFinanceiro) {
-   var valor = $('#valor-parcial').val();
-   var pagamento =  valor ? valor : valorPagamento;
-
+   var observacao = $('#observacao').val();
     $.ajax({    
         type: 'POST',
         url: 'financeiro',
-        data: 'acao=adicionar_lancamento&id_peladeiro='+idPeladeiro+'&valorPagamento='+pagamento+'&id_financeiro='+idFinanceiro+'&pagamentoReal='+valorPagamento,
+        data: 'acao=adicionar_lancamento&id_peladeiro='+idPeladeiro+'&valorPagamento='+valorPagamento+'&id_financeiro='+idFinanceiro+'&observacao='+observacao,
         dataType:'json',
         beforeSend: function() {
             alertaFnc("Aguarde", "Lançando pagamento...", null, false, null);
@@ -292,13 +293,12 @@ function lancaPagamento(idPeladeiro,idFinanceiro) {
 }
 
 function atualizaPagamento(idPeladeiro,idLancamento) {
-   var valor = $('#valor-parcial').val();
-   var pagamento =  valor ? valor : valorPagamento;
+   var observacao = $('#observacao').val();
 
     $.ajax({    
         type: 'POST',
         url: 'financeiro',
-        data: 'acao=atualiza_lancamento&id_peladeiro='+idPeladeiro+'&valorPagamento='+pagamento+'&id_lancamento='+idLancamento,
+        data: 'acao=atualiza_lancamento&id_peladeiro='+idPeladeiro+'&valorPagamento='+valorPagamento+'&id_lancamento='+idLancamento+'&observacao='+observacao,
         dataType:'json',
         beforeSend: function() {
             alertaFnc("Aguarde", "Atuaizando pagamento...", null, false, null);

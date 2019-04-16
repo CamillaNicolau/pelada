@@ -11,51 +11,58 @@ class UsuarioControle extends ControlaModelos
 {
     public function tratarAcoes(){
       
-    if(isset($_REQUEST['acao']));
-    switch ($_REQUEST['acao'])
-    {
-        case 'adicionar':
-        try
-        {    
-            if ($_POST['password'] != $_POST['passwordConfirm']) {
-              exit(json_encode(array('sucesso'=>false,'mensagem'=>'As senhas não conferem!')));
-            }
-          
-            if(isset($_FILES['imagemUsuario'])) {
-                $msg_erro = false;
-                if ($_FILES['imagemUsuario']['size'] > TAMANHO_IMAGEM) {
-                    exit(json_encode(["sucesso" => false,"mensagem" => "Imagem muito grande! O tamanho permitido é de " . UsuarioModelo::verificaTamanhoImagem(TAMANHO_IMAGEM) . "<br />"]));
+        if(isset($_REQUEST['acao']));
+        switch ($_REQUEST['acao'])
+        {
+            case 'adicionar':
+            try
+            {    
+                if ($_POST['password'] != $_POST['passwordConfirm']) {
+                  exit(json_encode(array('sucesso'=>false,'mensagem'=>'As senhas não conferem!')));
                 }
-           
-                if ($msg_erro) {
-                    exit(json_encode(["sucesso" => false, "mensagem" => implode("<br>", $msg_erro)]));
+
+                if(isset($_FILES['imagemUsuario'])) {
+                    $msg_erro = false;
+                    if ($_FILES['imagemUsuario']['size'] > TAMANHO_IMAGEM) {
+                        exit(json_encode(["sucesso" => false,"mensagem" => "Imagem muito grande! O tamanho permitido é de " . UsuarioModelo::verificaTamanhoImagem(TAMANHO_IMAGEM) . "<br />"]));
+                    }
+
+                    if ($msg_erro) {
+                        exit(json_encode(["sucesso" => false, "mensagem" => implode("<br>", $msg_erro)]));
+                    }
                 }
-            }
-          
-            \Doctrine::beginTransaction();
+                $UsuarioRepositorio = new UsuarioRepositorio();
+                $Usuario = new Usuario();
+                $verificaEmail = $UsuarioRepositorio::buscarUsuario(['email = "'.$_POST['emailUsuario'].'" ']);
+                if(count($verificaEmail)>0){
+                    exit(json_encode(["sucesso" => false,"mensagem" => "Usuário já está cadastrado, favor nformar um e-mail diferente"]));
+                } else{
+                
+                    \Doctrine::beginTransaction();
 
-            $UsuarioRepositorio = new UsuarioRepositorio();
-            $Usuario = new Usuario();
+                    if(isset($_FILES['imagemUsuario'])){
+                      $imagem = pathinfo($_FILES['imagemUsuario']['name']);
+                      $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
+                      $url = $nomeImagem .'.' . $imagem['extension'];
+                    }
 
-            if(isset($_FILES['imagemUsuario'])){
-              $imagem = pathinfo($_FILES['imagemUsuario']['name']);
-              $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
-              $url = $nomeImagem .'.' . $imagem['extension'];
-            }
-            
-            $Usuario->nome = $_POST['nomeUsuario'];
-            $Usuario->email = $_POST['emailUsuario'];
-            $Usuario->senha = md5($_POST['password']);
-            $Usuario->apelido = $_POST['apelidoUsuario'];
-            $Usuario->sexo = ($_POST['sexo'] == 'feminino')? 'f' :'m';     
-            $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $url :URL_USUARIO. '/user.png';
-            $UsuarioRepositorio->adicionaUsuario($Usuario);
-              if(isset($_FILES['imagemUsuario'])){
-                UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
-              }
-            \Doctrine::commit();
-              exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
-              
+                    $Usuario->nome = $_POST['nomeUsuario'];
+                    $Usuario->email = $_POST['emailUsuario'];
+                    $Usuario->senha = md5($_POST['password']);
+                    $Usuario->apelido = $_POST['apelidoUsuario'];
+                    $Usuario->sexo = ($_POST['sexo'] == 'feminino')? 'f' :'m';     
+                    $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $url : URL_USUARIO. '/user.png';
+                    if($UsuarioRepositorio->adicionaUsuario($Usuario)){
+                        if(isset($_FILES['imagemUsuario'])){
+                            UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
+                        }
+                        $UsuarioRepositorio->adicionarParceiro((int)$Usuario->idUsuario, (int)$Usuario->idUsuario);
+                        \Doctrine::commit();
+                        exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
+                    } else{
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar usuáriozz')));
+                    }
+                }
             } catch (Erro $E) {
               \Doctrine::rollBack();
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar usuário')));

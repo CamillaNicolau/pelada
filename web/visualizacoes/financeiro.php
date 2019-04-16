@@ -54,6 +54,7 @@
                     <tr>
                       <th scope="col">Nome</th>
                       <th scope="col">Info Pagamento</th>
+                      <th scope="col">Observação</th>
                     </tr>
                 </thead>
                 <tbody id="peladeiro-pagamento">

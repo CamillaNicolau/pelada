@@ -353,16 +353,19 @@ class PeladaControle extends ControlaModelos
 
             case 'enviar_solicitacao':
                 try {
+                    \Doctrine::beginTransaction();
+                    $PeladaRepositorio = new PeladaRepositorio();
                     $dadosPelada = PeladaRepositorio::buscarPelada(['id_pelada ='.$_POST['id_pelada']]);
                     foreach ($dadosPelada as $pelada){
                         $emailCriador = $pelada->email;
                         $nomeCriador = $pelada->apelido ? $pelada->apelido : $pelada->nome;
-                        $nomePelada = $pelada->nome_pelada;   
+                        $nomePelada = $pelada->nome_pelada;
                     }
                     $dadosUsuario = PeladeiroRepositorio::buscarPeladeiro(['id_usuario ='.$_SESSION['id_usuario_logado'].' and ativo ='.true]);
                     foreach ($dadosUsuario as $usuario){
                         $nomeUsuario = $usuario->apelido ? $usuario->apelido : $usuario->nome;
                         $emailUsuario = $usuario->email;
+                        $id_candidato = $usuario->id_usuario;
                     }
                     
                     $destinatarios = $emailCriador;
@@ -387,6 +390,7 @@ class PeladaControle extends ControlaModelos
                     if(!$Email->enviar()){
                         exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao notificar')));
                     } else{
+                        $PeladaRepositorio->salvarCandidatoPelada($_POST['id_pelada'], $id_candidato);
                         exit(json_encode(array('sucesso'=>true,'mensagem'=>'Solicitação enviada.')));
                     }
                 } catch (Exception $ex) {

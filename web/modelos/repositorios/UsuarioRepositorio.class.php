@@ -39,9 +39,9 @@ class UsuarioRepositorio extends Usuario {
            echo("Método adicionaUsuario() utilizado em objeto que já é instância de usuário válido.");
         } 
         try {
-          $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
+            $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();  
             $QueryBuilder
-               ->insert('usuario')
+                ->insert('usuario')
                 ->setValue('nome', ':nome')
                 ->setValue('email', ':email')
                 ->setValue('apelido', ':apelido')
@@ -59,11 +59,13 @@ class UsuarioRepositorio extends Usuario {
                 ->setParameter(':ativo', $Usuario->ativo)
                 ->setParameter(':data_criacao',$Usuario->dataCriacao)
                 ->execute()
-            ;  
+            ;
+
           $Usuario->idUsuario = $QueryBuilder->getConnection()->lastInsertId();
+          
           return $Usuario->idUsuario;
         } catch (Exception $ex) {
-            echo("'Erro ao adicionar Usuario");
+            echo("Erro ao adicionar Usuario");
         }   
     }
   
@@ -151,5 +153,27 @@ class UsuarioRepositorio extends Usuario {
         }
     }
    
+    /**
+     * Salva as informações aramazenadas nos atributos do objeto no banco de dados.
+     *
+     * @access public
+     * @return string
+     */
+    public function adicionarParceiro($idUsuario, $idParceiro)
+    {
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->insert('parceiro')
+                ->setValue('fk_peladeiro', ':fk_peladeiro')
+                ->setValue('fk_parceiro', ':fk_parceiro')
+                ->setParameter(':fk_peladeiro', $idUsuario)
+                ->setParameter(':fk_parceiro', $idParceiro)
+                ->execute();
+            
+        } catch (\Exception $j) {
+            echo("Um erro ocorreu ao salvar a confirmação da pelada no banco de dados - " . $j->getMessage());
+        }
+    }
     
 }

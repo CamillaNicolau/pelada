@@ -142,8 +142,9 @@ class FinanceiroControle extends ControlaModelos
                         $buscaLancamentoPeladeiro = FinanceiroRepositorio::buscarPeladeiroLancamento(['fp.fk_peladeiro = '.$peladaPeladeiro->id_usuario]);
                         if(count($buscaLancamentoPeladeiro) > 0){
                             foreach ($buscaLancamentoPeladeiro as $lacamentoPeladeiro) {
-                                $status  =$lacamentoPeladeiro->status_pagamento;
-                                $html[] =  array('id'=>$peladaPeladeiro->id_usuario,'nome'=>$peladaPeladeiro->nome,'status'=>$status) ;
+                                $status = $lacamentoPeladeiro->status_pagamento;
+                                $observacao = $lacamentoPeladeiro->observacao;
+                                $html[] =  array('id'=>$peladaPeladeiro->id_usuario,'nome'=>$peladaPeladeiro->nome,'status'=>$status,'observacao'=>$observacao) ;
                             }
                         } else {
                             $html[] =  array('id'=>$peladaPeladeiro->id_usuario,'nome'=>$peladaPeladeiro->nome,'status'=>"") ;
@@ -165,7 +166,10 @@ class FinanceiroControle extends ControlaModelos
                             foreach ($buscaLancamentoPeladeiro as $lacamentoPeladeiro) {
                                 $valor_pago  =$lacamentoPeladeiro->valor_pago;
                                 $id_lancamento_peladeiro = $lacamentoPeladeiro->id_financeiro_peladeiro;
-                                $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao,'pagamento'=>$valor_pago,'lancamento_peladeiro'=>$id_lancamento_peladeiro);
+                                $observacao = $lacamentoPeladeiro->observacao;
+                                $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao,
+                                    'pagamento'=>$valor_pago,'lancamento_peladeiro'=>$id_lancamento_peladeiro,
+                                    'observacao'=>$observacao);
                             }
                         } else {
                             $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao,'pagamento'=>'0','lancamento_peladeiro'=>"");
@@ -187,14 +191,13 @@ class FinanceiroControle extends ControlaModelos
                     $lacamentos['peladeiro'] = (int)$_POST['id_peladeiro'];
                     $lacamentos['financeiro'] = (int)$_POST['id_financeiro'];
                     $lacamentos['valor_pago'] = (float)$_POST['valorPagamento'];
-                    if($_POST['valorPagamento'] < $_POST['pagamentoReal']){
-                        $lacamentos['status'] = 'Débito';
-                    } else if($_POST['valorPagamento'] > $_POST['pagamentoReal']){
-                        $lacamentos['status'] = 'Crédito';
-                    } else{
+                    if($lacamentos['valor_pago']){
                         $lacamentos['status'] = 'Zerado';
+                    } else{
+                        $lacamentos['status'] = 'Débito';
                     }
-
+                    $lacamentos['observacao'] = $_POST['observacao'];
+                    
                     $FinanceiroRepositorio->salvarPeladeiroPagamento($lacamentos);
                     \Doctrine::commit();
                    
@@ -213,29 +216,20 @@ class FinanceiroControle extends ControlaModelos
                     \Doctrine::beginTransaction();
 
                     $lacamentos['fp'] = $buscarLancamentoPeladeiro[0]->id_financeiro_peladeiro;
-                    $lacamentos['valor_pago'] = $_POST['valorPagamento'];
-
-                    switch ($buscarLancamentoPeladeiro[0]->participacao) {
-                        case 'mensalista':
-                            if($lacamentos['valor_pago'] < $buscarLancamentoPeladeiro[0]->mensalidade){
-                                $lacamentos['status'] = 'Débito';
-                            } else if($lacamentos['valor_pago'] > $buscarLancamentoPeladeiro[0]->mensalidade){
-                                $lacamentos['status'] = 'Crédito';
-                            } else{
-                                $lacamentos['status'] = 'Zerado';
-                            }
-                            break;
-                        case 'diarista':
-                            if($_POST['valor_pago'] < $buscarLancamentoPeladeiro[0]->diaria){
-                                $lacamentos['status'] = 'Débito';
-                            } else if($lacamentos['valor_pago'] > $buscarLancamentoPeladeiro[0]->diaria){
-                                $lacamentos['status'] = 'Crédito';
-                            } else{
-                                $lacamentos['status'] = 'Zerado';
-                            }
-                        break;
+                  
+                    if($buscarLancamentoPeladeiro[0]->valor_pago != "0.00"){
+                        $lacamentos['status'] = 'Zerado';
+                        $lacamentos['valor_pago'] = $buscarLancamentoPeladeiro[0]->valor_pago;
+                    } else{
+                        $lacamentos['valor_pago'] = $_POST['valorPagamento'];
+                        if($lacamentos['valor_pago'] != "undefined"){
+                            $lacamentos['status'] = 'Zerado';
+                        } else{
+                            $lacamentos['status'] = 'Débito';
+                        }
                     }
                     
+                    $lacamentos['observacao'] = $_POST['observacao'];
                     $FinanceiroRepositorio->atualizarPeladeiroPagamento($lacamentos);
                     \Doctrine::commit();
                     exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados atualizados com sucessos')));   
