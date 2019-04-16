@@ -21,7 +21,7 @@
         <div class="container container-fluid h-100 mw-100">
             <div class="row justify-content-center">
                     <!--<img src="./visualizacoes/imagens/logo.jpg" alt="futebol">;-->
-                    <nav id="navbar-fixed" class="navbar navbar-dark col-lg-2 d-flex flex-column-nowrap justify-content-start pl-1 sticky-top bg-primary ">  
+                    <nav id="navbar-fixed" class="navbar navbar-dark col d-flex flex-column-nowrap justify-content-start pl-1 sticky-top bg-primary ">  
                         <button class="navbar-toggler mb-4" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
                         </button>

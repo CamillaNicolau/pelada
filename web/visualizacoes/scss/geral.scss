@@ -28,9 +28,19 @@ html, body, #navbar-fixed{
         box-shadow: 0 0 6px 3px rgba(0,0,0,.3);
         background: linear-gradient(to right, darken($primary, 5)  0px, darken($primary, 5) 40px, #017240 40px);
         max-height: 100vh;
-        overflow: auto;
+        max-width: 235px;
+        min-width: 180px;
+        overflow-y: auto;
+        overflow-x: hidden; 
         transition: all .3s linear;
         // border-left: 40px solid darken($primary, 5);
+
+        @media only screen and (max-width: 610px){
+            &{
+                position: fixed!important;
+                left: 0%; 
+            }
+        }
 
         .navbar-toggler{
             width: 30px;
@@ -72,11 +82,13 @@ html, body, #navbar-fixed{
 
         .footer-navbar{
             max-width: calc(100% - 40px);
+            min-width: 175px;
         }
     }
 
     .collapsed-navbar{
-        max-width: 50px; 
+        max-width: 45px!important; 
+        min-width: 1px!important;
         overflow-x: hidden!important;
         align-items: flex-start!important;
 
@@ -93,15 +105,29 @@ html, body, #navbar-fixed{
 
 /* #endregion FIM MENU PRINCIPAL*/
 
-.box-header{
-    h2{
-        background: $white; 
+/* #region CONTEUDO */
+
+    .container-content{
+        flex-grow: 1;
+        max-width: 100%;
+
+        @media only screen and (max-width: 610px){
+            &{
+                padding-left: 45px!important;
+            }
+        }
     }
-}
 
-.no-padding{
-    padding-left: 0%!important;
-    padding-right: 0%!important;
-}
+    .box-header{
+        h2{
+            background: $white; 
+        }
+    }
 
+    // .no-padding{
+    //     padding-left: 0%!important;
+    //     padding-right: 0%!important;
+    // }
+
+/* #endregion FIM CONTEUDO*/
 
