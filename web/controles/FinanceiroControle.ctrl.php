@@ -147,9 +147,7 @@ class FinanceiroControle extends ControlaModelos
                             }
                         } else {
                             $html[] =  array('id'=>$peladaPeladeiro->id_usuario,'nome'=>$peladaPeladeiro->nome,'status'=>"") ;
-                        }
-
-                        
+                        }  
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
@@ -173,8 +171,6 @@ class FinanceiroControle extends ControlaModelos
                             $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao,'pagamento'=>'0','lancamento_peladeiro'=>"");
                         }
                     }
-
-               
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){
                   exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar os dados.")));
@@ -237,7 +233,7 @@ class FinanceiroControle extends ControlaModelos
                             } else{
                                 $lacamentos['status'] = 'Zerado';
                             }
-                            break;
+                        break;
                     }
                     
                     $FinanceiroRepositorio->atualizarPeladeiroPagamento($lacamentos);
@@ -247,6 +243,30 @@ class FinanceiroControle extends ControlaModelos
                 }catch (Erro $E) {
                   \Doctrine::rollBack();
                   exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar')));
+                }
+            break;
+
+            case 'fluxo_pagamento':
+                try{
+                    $html = [];
+
+                        $buscaFluxoCaixa = FinanceiroRepositorio::dadosLancamento(['f.id_lancamento = '.$_POST['id_lancamento']]);
+                        var_dump($buscaFluxoCaixa);
+                    //     if(count($buscaLancamentoPeladeiro) > 0){
+                    //         foreach ($buscaLancamentoPeladeiro as $lacamentoPeladeiro) {
+                    //             $valor_pago  =$lacamentoPeladeiro->valor_pago;
+                    //             $id_lancamento_peladeiro = $lacamentoPeladeiro->id_financeiro_peladeiro;
+                    //             $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao,'pagamento'=>$valor_pago,'lancamento_peladeiro'=>$id_lancamento_peladeiro);
+                    //         }
+                    //     } else {
+                    //         $html[] = array('id'=>$dadosPagamento[$i]->id_lancamento,'diaria'=>$dadosPagamento[$i]->diaria,'mensalidade'=>$dadosPagamento[$i]->mensalidade,'status'=>$dadosPagamento[$i]->participacao,'pagamento'=>'0','lancamento_peladeiro'=>"");
+                    //     }
+                    // }
+
+               
+                    exit(json_encode(array('sucesso'=>true,'html'=>$html)));
+                }catch(Erro $E){
+                  exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar os dados.")));
                 }
             break;
         }
