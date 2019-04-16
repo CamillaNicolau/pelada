@@ -69,7 +69,20 @@
         </div>
         <button type="button" class="btn btn-lg btn-danger btn-default" id="botao-cancelar-lancamento">Cancelar</button>
     </span>
-     
+    <span class="caixa-pelada" style="display: none">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                  <th scope="col">Peladeiro</th>
+                  <th scope="col">Participação</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Data Pagamento</th>
+                </tr>
+            </thead>
+            <tbody id="fluxo-pagamento-pelada">
+            
+            </tbody>
+        </table>
     <div class="botoes">
         <button type="button" class="btn btn-lg btn-success btn-default" id ="botao-cadastrar">Cadastrar Lançamento</button>
     </div>
