@@ -181,7 +181,7 @@ class PeladaRepositorio extends Pelada {
             if(isset($limite)) {
                 $QueryBuilder->setMaxResults($limite);
             }
-          //  var_dump($QueryBuilder->getSQL());
+            // var_dump($QueryBuilder->getSQL());
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {
@@ -290,35 +290,5 @@ class PeladaRepositorio extends Pelada {
             echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
         }
         return true;
-    }
-    
-    public static function buscarNotificacao(array $condicoes = [], $order = false, $inicio = null, $limite = null) {
-        
-        $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
-        
-        try {
-            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
-            $QueryBuilder
-                ->select('*')
-                ->from('pelada_candidato','pc')
-                ->join('pc','pelada','p','pc.fk_pelada = p.id_pelada')
-                ->join('p','usuario','u','pc.fk_candidato = u.id_usuario')
-            ;
-            
-            if ($where != '') {
-                $QueryBuilder->where($where);
-            }
-            
-            if (isset($inicio)) {
-                $QueryBuilder->setFirstResult($inicio);
-            }
-            if (isset($limite)) {
-                $QueryBuilder->setMaxResults($limite);
-            }
-            return $QueryBuilder->execute()->fetchAll();
-        }
-        catch (\Exception $j) {
-            echo ("Erro ao buscar notificação". $j->getMessage());
-        }
-    }
+    } 
 }
