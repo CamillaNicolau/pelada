@@ -232,16 +232,16 @@ class PeladaControle extends ControlaModelos
                     $id_pelada = $Pelada->idPelada;
                     $html = [];
                     $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['p.fk_parceiro ='.$_SESSION['id_usuario_logado']]);
-                  
-                    $ListaPeladaPeladeiro = PeladaRepositorio::buscaGeralPelada(['p.fk_pelada = '.$_POST['id_pelada']]);
+                    $ListaPeladaPeladeiro = PeladaRepositorio::buscarPelada(['p.id_pelada = '.$_POST['id_pelada']]);
+                
                     foreach($ListaPeladeiro as $peladeiro) {
                         $buscaPelada = PeladaRepositorio::buscaGeralPelada(['p.fk_peladeiro ='.$peladeiro->id_usuario.' and p.fk_pelada = '.$_POST['id_pelada']]);
 
                         if(count($buscaPelada)>0){
 
                             foreach ($buscaPelada as $peladeiroPelada) {
-
-                                if($peladeiroPelada->fk_peladeiro == $peladeiroPelada->id_usuario){
+                
+                                if($peladeiroPelada->fk_peladeiro == $peladeiro->id_usuario){
                                     $idCad= $peladeiroPelada->fk_peladeiro ;
                                 }
                                 $qt_jogadores = $peladeiroPelada->qt_jogadores;
@@ -249,7 +249,7 @@ class PeladaControle extends ControlaModelos
                             }
                         }else{
                             $idCad = false;
-                        }        
+                        }     
                         $html[] =  array('id'=>$peladeiro->id_usuario,'nome'=>$peladeiro->nome,'email'=>$peladeiro->email, 'idCad'=>$idCad,'qt_jogadores'=>$ListaPeladaPeladeiro[0]->qt_jogadores,'qt_peladeiros_adiconado'=>count($ListaPeladaPeladeiro));
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html,'id_pelada'=>$id_pelada)));
