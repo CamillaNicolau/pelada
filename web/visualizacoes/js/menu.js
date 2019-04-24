@@ -1,5 +1,6 @@
 $(document).ready(function() {
   montaImagem();
+    contarNotificacao();
 
   $('.navbar-toggler-icon').click(function(){
     $(this).closest('#navbar-fixed').toggleClass('collapsed-navbar');
@@ -24,3 +25,27 @@ function montaImagem(){
   });
 }
 
+function contarNotificacao(){
+    $.ajax({
+        type: 'POST',
+        url: 'notificacao',
+        data: 'acao=conta_notificacao',
+        dataType: 'json',
+        beforeSend: function() {
+        },
+        success: function(retorno) {
+            if (retorno.sucesso == true) {
+                $('.badge').html('');
+                if((retorno.html).length > 0){
+                    $.each(retorno.html,function(i,v){
+                      if(v.total > 0){
+                        $('.badge').append(v.total);
+
+                      }
+                        
+                    });
+                } 
+            }
+        }
+    }); 
+}

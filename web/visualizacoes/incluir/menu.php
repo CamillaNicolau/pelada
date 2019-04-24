@@ -25,9 +25,9 @@
                         <button class="navbar-toggler mb-4" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
                         </button>
-                        <a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="notificacao"><i class="far fa-bell"></i></a>
                         <div id="imagem-perfil-menu" class="pl-2 ml-auto mt-1 mb-3" ></div>
                         <ul class="nav navbar-nav text-light w-100 my-2">
+                          <li class="nav-item"><a class="nav-link" href="notificacao"><i class="far fa-bell"><span class="badge badge-danger"></span></i></a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="inicio"><i class="fas fa-home"></i></i> Inicio</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
