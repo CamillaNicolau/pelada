@@ -30,6 +30,7 @@ require PATH_RAIZ . "/modelos/repositorios/EstadoRepositorio.class.php";
 require PATH_RAIZ . "/modelos/repositorios/CidadeRepositorio.class.php";
 require PATH_RAIZ . "/modelos/repositorios/LocalizacaoRepositorio.class.php";
 require PATH_RAIZ . "/modelos/repositorios/FinanceiroRepositorio.class.php";
+require PATH_RAIZ . "/modelos/repositorios/NotificacaoRepositorio.class.php";
 require PATH_RAIZ . "/modelos/servicos/UsuarioModelo.class.php";
 require PATH_RAIZ . "/modelos/servicos/EsqueciMinhaSenhaModelo.class.php";
 require PATH_RAIZ . "/modelos/servicos/HomeModelo.class.php";
