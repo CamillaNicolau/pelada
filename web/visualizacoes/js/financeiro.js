@@ -64,7 +64,6 @@ function atualizarListaLancamento() {
                     $.each(retorno.html,function(i,v){
                       $('#listaLancamento').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-2">'+v.total+'</td>'+
                         '<td><button onclick="buscarPeladeiro('+v.id+','+v.pelada+')" title="Peladeiro confirmado" class="btn btn-info btn-xs" id="adiciona-lancamento"><i class="fas fa-user-check"></i></button></td>'+
-                        '<td><button onclick="caixaPelada('+v.id+')" title="Caixa da pelada" class="btn btn-info btn-xs" id="caixa-lancamento"><i class="fas fa-dollar-sign"></i></button></td>'+
                         '<td><button onclick="editarLancamento('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
                         '<td><button onclick="removerLancamento('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td>'+
                         '</tr></tbody>');
@@ -235,9 +234,8 @@ function infoPagamento(idPeladeiro) {
                                 valorPagamento = vlp;
                             } else{
                                 valorPagamento = "";
-                            }
-                                
-                            });
+                            }     
+                        });
 
                     });  
                 } 
@@ -246,30 +244,6 @@ function infoPagamento(idPeladeiro) {
     });   
 }
 
-function caixaPelada(idLancamento) {
-    $.ajax({
-        type: 'POST',
-        url: 'financeiro',
-        data: 'acao=fluxo_pagamento&id_lancamento='+idLancamento,
-        dataType: 'json',
-        success: function(retorno) {
-            $('#fluxo-pagamento-pelada').html('');
-            if (retorno.sucesso == true) {
-                // if((retorno.html).length > 0){
-                    $('.tabela-lancamento').show();
-                    // $.each(retorno.html,function(i,v){
-                      $('#fluxo-pagamento-pelada').append('<tr><td class="col-md-2"></td><td class="col-md-2"></td>'+
-                        '<td class="col-md-2"></td><td class="col-md-2"></td>'+
-                        '</tr></tbody>');
-                    // });
-                // } else{
-                //     $('#fluxo-pagamento-pelada').show();
-                //     $('#fluxo-pagamento-pelada').append('<div class="alert alert-info" role="alert"><strong>Olá!</strong> Você não possui nenhuma lançamento</div>');
-                // }
-            }
-        }
-    }); 
-}
 
 function lancaPagamento(idPeladeiro,idFinanceiro) {
    var observacao = $('#observacao').val();
@@ -283,8 +257,8 @@ function lancaPagamento(idPeladeiro,idFinanceiro) {
         },
         success: function(retorno) {
             if (retorno.sucesso) {
-                atualizarListaLancamento();
                 alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
+                window.location = 'financeiro';
             } else {
                 alertaFnc("Erro", retorno.mensagem,null, true, "error");
             }
@@ -301,7 +275,7 @@ function atualizaPagamento(idPeladeiro,idLancamento) {
         data: 'acao=atualiza_lancamento&id_peladeiro='+idPeladeiro+'&valorPagamento='+valorPagamento+'&id_lancamento='+idLancamento+'&observacao='+observacao,
         dataType:'json',
         beforeSend: function() {
-            alertaFnc("Aguarde", "Atuaizando pagamento...", null, false, null);
+            alertaFnc("Aguarde", "Atualizando pagamento...", null, false, null);
         },
         success: function(retorno) {
             if (retorno.sucesso) {

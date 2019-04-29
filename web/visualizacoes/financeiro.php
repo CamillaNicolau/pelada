@@ -39,7 +39,7 @@
                 <tr>
                   <th scope="col">Pelada</th>
                   <th scope="col">Valor total</th>
-                  <th colspan="3" scope="col" style="text-align: center;">Ação</th>
+                  <th colspan="2" scope="col" style="text-align: center;">Ação</th>
                 </tr>
             </thead>
             <tbody id="listaLancamento">
