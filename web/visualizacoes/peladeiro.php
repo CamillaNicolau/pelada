@@ -21,38 +21,50 @@
                     <label for="textNome" class="control-label">Nome</label>
                     <input id="nomePeladeiro" name="nomePeladeiro" class="form-control" placeholder="Digite seu Nome" required="" type="text">
                 </div>
-                <div class="form-group">
-                    <label for="inputEmail" class="control-label">Email</label>
-                    <input id="emailPeladeiro" name="emailPeladeiro" class="form-control" placeholder="Digite seu E-mail" required="" type="email">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="inputEmail" class="control-label">Email</label>
+                            <input id="emailPeladeiro" name="emailPeladeiro" class="form-control" placeholder="Digite seu E-mail" required="" type="email">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="textTelefone" class="control-label">Telefone</label>
+                            <input id="telPeladeiro" name="telPeladeiro" class="form-control" placeholder="(xx)xxxxx-xxxx" type="tel">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="inputPData" class="control-label">Data Nascimento</label>
+                            <input type="date" name="dataNascimento" class="form-control" id="dataNascimento" required="" placeholder="">
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="form-group">
-                        <label for="textTelefone" class="control-label">Telefone</label>
-                        <input id="telPeladeiro" name="telPeladeiro" class="form-control" placeholder="(xx)xxxxx-xxxx" type="tel">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectPosicao">Posição</label>
+                            <select class="form-control" id="posicao" name="posicao">
+                                <option value="" selected>Selecione</option> 
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPData" class="control-label">Data Nascimento</label>
-                        <input type="date" name="dataNascimento" class="form-control" id="dataNascimento" required="" placeholder="">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <label for="selectPosicao">Posição</label>
-                        <select class="form-control" id="posicao" name="posicao">
-                            <option value="" selected>Selecione</option> 
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="selectTime">Time</label>
-                        <select class="form-control" id="time" name="time">
-                            <option value="" selected>Selecione</option> 
-                        </select>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="selectTime">Time</label>
+                            <select class="form-control" id="time" name="time">
+                                <option value="" selected>Selecione</option> 
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                  <label for="radioParticipacao">Participação</label>
-                  <input type="radio" name="participacao" id="mensalista" value="mensalista">Mensalista</label>
-                  <input type="radio" name="participacao" id="diarista" value="diarista">Diarista</label>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="radioParticipacao">Participação</label><br>
+                        <input type="radio" name="participacao" id="mensalista" value="mensalista">Mensalista</label>
+                        <input type="radio" name="participacao" id="diarista" value="diarista">Diarista</label>
+                    </div>
                 </div>
                 <input name="id_peladeiro" value="" id="id_peladeiro" type="hidden" />
                 <input name="acao" value="adicionar" id="acao" type="hidden" />

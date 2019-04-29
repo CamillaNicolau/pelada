@@ -95,7 +95,7 @@ function atualizarListaPelada() {
         data: 'acao=lista_pelada',
         dataType: 'json',
         beforeSend: function() {
-            alertaFnc("Aguarde", "Carregando...", 250, false, null);
+            alertaFnc("Aguarde", "Carregando...", 350, false, null);
         },
         success: function(retorno) {
             $('#listaPelada').html('');

@@ -18,7 +18,7 @@ class NotificacaoControle extends ControlaModelos
             case 'lista_notificacao':
                 try{
                     
-                    $ListaNotificacao = NotificacaoRepositorio::buscarNotificacao(['p.fk_criador='.$_SESSION['id_usuario_logado'].' and data_solicitacao  BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()'], true);
+                    $ListaNotificacao = NotificacaoRepositorio::buscarNotificacao(['p.fk_criador='.$_SESSION['id_usuario_logado'].' and data_solicitacao  BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW() and visualizada = 0'], true);
                     $html = [];                   
                     
                     foreach($ListaNotificacao as $notificacao) {
