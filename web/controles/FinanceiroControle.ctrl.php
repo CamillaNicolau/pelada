@@ -109,7 +109,7 @@ class FinanceiroControle extends ControlaModelos
                 try{
 
                     $html = [];
-                    $ListaPelada = PeladaRepositorio::buscarPelada(['p.fk_peladeiro ='.$_SESSION['id_usuario_logado'].' and status <> "encerrada"']);
+                    $ListaPelada = PeladaRepositorio::buscarPelada(['p.fk_criador ='.$_SESSION['id_usuario_logado'].' and status <> "encerrada"']);
                     foreach($ListaPelada as $pelada) {
                         $html[] =  array('id'=>$pelada->id_pelada,'nome'=>$pelada->nome_pelada) ;
                     }
@@ -139,7 +139,7 @@ class FinanceiroControle extends ControlaModelos
                     $buscaPeladaPeladeiro = FinanceiroRepositorio::buscarPeladeiroInfoConfirmado(['pe.fk_pelada = '.$_POST['id_pelada'].' and pe.confirmacao = 1']);
                     $html = [];
                     foreach($buscaPeladaPeladeiro as $peladaPeladeiro) {
-                        $buscaLancamentoPeladeiro = FinanceiroRepositorio::buscarPeladeiroLancamento(['fp.fk_peladeiro = '.$peladaPeladeiro->id_usuario]);
+                        $buscaLancamentoPeladeiro = FinanceiroRepositorio::buscarPeladeiroLancamento(['fp.fk_peladeiro = '.$peladaPeladeiro->id_usuario.' and fp.fk_financeiro ='.$peladaPeladeiro->id_lancamento]);
                         if(count($buscaLancamentoPeladeiro) > 0){
                             foreach ($buscaLancamentoPeladeiro as $lacamentoPeladeiro) {
                                 $status = $lacamentoPeladeiro->status_pagamento;
@@ -159,9 +159,9 @@ class FinanceiroControle extends ControlaModelos
             case 'info_pagamento':
                 try{
                     $html = [];
-                    $dadosPagamento = FinanceiroRepositorio::buscarPeladeiroInfoConfirmado(['pe.confirmacao = 1 and u.id_usuario='.$_POST['id_peladeiro']]);
+                    $dadosPagamento = FinanceiroRepositorio::buscarPeladeiroInfoConfirmado(['pe.confirmacao = 1 and u.id_usuario='.$_POST['id_peladeiro'].' and f.id_lancamento='.$_POST['id_lancamento']]);
                     for($i=0;$i<count($dadosPagamento);$i++){
-                        $buscaLancamentoPeladeiro = FinanceiroRepositorio::buscarPeladeiroLancamento(['fp.fk_peladeiro = '.$dadosPagamento[$i]->id_usuario]);
+                        $buscaLancamentoPeladeiro = FinanceiroRepositorio::buscarPeladeiroLancamento(['fp.fk_peladeiro = '.$dadosPagamento[$i]->id_usuario.' and fp.fk_financeiro ='.$dadosPagamento[$i]->id_lancamento]);
                         if(count($buscaLancamentoPeladeiro) > 0){
                             foreach ($buscaLancamentoPeladeiro as $lacamentoPeladeiro) {
                                 $valor_pago  =$lacamentoPeladeiro->valor_pago;

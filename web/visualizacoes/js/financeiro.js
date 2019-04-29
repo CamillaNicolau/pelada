@@ -121,7 +121,7 @@ function buscarPeladeiro(idLancamento,idPelada) {
                             observacao = "";
                         }
                         $('#peladeiro-pagamento').append('<tr><td class="col-md-2">'+v.nome+'</td>'+
-                            '<td class="col-md-2"><button onclick="infoPagamento('+v.id+')" title="Informações de pagamento do peladeiro" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalPagamento" id="info-pagamento"><i class="fas fa-info-circle"></i></ button></td>'+
+                            '<td class="col-md-2"><button onclick="infoPagamento('+v.id+','+idLancamento+')" title="Informações de pagamento do peladeiro" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalPagamento" id="info-pagamento"><i class="fas fa-info-circle"></i></ button></td>'+
                             '<td class="col-md-2">'+observacao+'</td></tr></tbody>');
                         if(v.status == "Zerado"){
                             $('#info-pagamento').attr('disabled',true);
@@ -187,11 +187,11 @@ function removerLancamento(idLancamento) {
 }
 var valorPagamento;
 var statusPagento;
-function infoPagamento(idPeladeiro) {
+function infoPagamento(idPeladeiro,idLancamento) {
     $.ajax({    
         type: 'POST',
         url: 'financeiro',
-        data: 'acao=info_pagamento&id_peladeiro='+idPeladeiro,
+        data: 'acao=info_pagamento&id_peladeiro='+idPeladeiro+'&id_lancamento='+idLancamento,
         dataType:'json',
         beforeSend: function() {
            
@@ -225,7 +225,7 @@ function infoPagamento(idPeladeiro) {
                             '<hr><p><strong>Status: </strong>'+status+'</p><button onclick="lancaPagamento('+idPeladeiro+','+v.id+')" class="btn btn-primary btn-default" id ="botao-pagamento">Lançar pagamento</button>'+
                             '</div>');
                         }
-                        if(v.pagamento!="0.00"){
+                        if(v.pagamento!="0.00" && v.pagamento!="0"){
                             $('input[type=radio]').attr('disabled',true);
                         }
                         $('input[type=radio]').on('change', function () {
