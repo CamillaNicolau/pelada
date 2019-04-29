@@ -1,4 +1,4 @@
-<div class=" container-content col-lg-10 box h-100 no-padding bg-secondary">
+<div class=" container-content col h-100 flex-grow-1 mw-100 no-padding bg-secondary">
     <div class="box-header">
        <h2 class="box-title py-2 px-4 py-2 px-4 text-dark shadow"><strong>PELADEIRO</strong></h2>
     </div>

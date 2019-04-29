@@ -27,11 +27,11 @@
                         </button>
                         <div id="imagem-perfil-menu" class="pl-2 ml-auto mt-1 mb-3" ></div>
                         <ul class="nav navbar-nav text-light w-100 my-2">
-                          <li class="nav-item"><a class="nav-link" href="notificacao"><i class="far fa-bell"><span class="badge badge-danger"></span></i></a></li>
+                          <li class="nav-item"><a class="nav-link" id="contador-notificacao" href="notificacao"><i class="far fa-bell position-relative"><span class="badge badge-danger contador-notificacao"></span></i></a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="inicio"><i class="fas fa-home"></i></i> Inicio</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="#"><i class="far fa-calendar"></i> Partida</a></li>
+                         <!--  <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="#"><i class="far fa-calendar"></i> Partida</a></li> -->
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="financeiro"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="#"><i class="fas fa-file-alt"></i>  Relatório</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="perfil"><i class="fas fa-user"></i>  Meus dados</a></li>
@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="logo-rodape col-xs-3">
-                              <img src="./visualizacoes/imagens/cn_camilla_nicolau.png" alt="Mais pelada" width="150" height="50">
+                              <!-- <img src="./visualizacoes/imagens/cn_camilla_nicolau.png" alt="Mais pelada" width="150" height="50"> -->
                               <!--                     <img src="./visualizacoes/imagens/camilla.png" alt="">         -->
 
                             </div>
