@@ -73,7 +73,8 @@
             </fieldset>
         </form>
     </div>
-    <div class="table-responsive col-md-12 tabela-peladeiro">
+    <div id="peladeiro-listar" style="display: none"></div>
+    <div class="table-responsive col-md-12 tabela-peladeiro" style="display: none">
         <table class="table table-striped" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>

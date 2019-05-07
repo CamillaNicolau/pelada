@@ -26,7 +26,7 @@ if (!defined('BD_PERSISTENT')) {
 
 define('PATH_RAIZ' , dirname( __FILE__ ));
 # URL Raiz do Site.
-define('URL_RAIZ_SITE', 'http://maispelada.tempsite.ws');
+define('URL_RAIZ_SITE', 'http://localhost/maispelada.com.br/web');
 # Título principal do Sistema.
 define("TITULO", "Mais Pelada");
 
@@ -44,8 +44,7 @@ define("PATH_ARQUIVOS", PATH_RAIZ."/arquivo/");
 /*
  * Endereço SMTP levando em conta a url do cliente.
  */
-#if(!defined("SMTP_ATIVAR"))
-#    define("SMTP_ATIVAR", false);
+#    define("SMTP_ATIVAR", true);
 
 define("SMTP_HOST", "smtp.gmail.com");
 define("SMTP_AUTH", true);

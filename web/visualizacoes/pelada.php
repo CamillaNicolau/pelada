@@ -156,6 +156,8 @@
             <button type="submit" class="btn btn-success btn-default" name="acao" value="adicionar_peladeiro" id ="botao-adicionar">Adicionar</button>
             <button type="button" class="btn btn-danger btn-default" id ="cancelar-peladeiro">Cancelar</button>
         </span>
+        <div id="peladeiro-exibir" style="display: none">
+        </div>
     </form>
    
 

@@ -124,18 +124,14 @@ class PeladeiroRepositorio extends Peladeiro {
      *
      * @return bool Retorna true ao final da operação com sucesso
      */
-    public function deletarPeladeiro(Peladeiro $Peladeiro) {
-        
-        if (!$Peladeiro->idPeladeiro) {
-            echo('Tentativa de deletar do banco de dados um registro inexistente.');
-        }
-        
+    public function deletarPeladeiro($idPeladeiro) {
+      
         try {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
-                ->delete('usuario')
-                ->where('id_usuario = :id_usuario')
-                ->setParameter(':id_usuario', $Peladeiro->idPeladeiro)
+                ->delete('parceiro')
+                ->where('id_peladeiro_parceiro = :id_peladeiro_parceiro')
+                ->setParameter(':id_peladeiro_parceiro', $idPeladeiro)
                 ->execute()
             ; 
         } catch (\Exception $j) {
@@ -159,7 +155,9 @@ class PeladeiroRepositorio extends Peladeiro {
                 ->setParameter(':fk_peladeiro', $peladeiro, \PDO::PARAM_INT)
                 ->setParameter(':fk_parceiro', $parceiro, \PDO::PARAM_INT)
                 ->execute()
-            ;  
+            ;
+            $idParceiro = $QueryBuilder->getConnection()->lastInsertId();
+            return $idParceiro;
         } catch (\Exception $e26811) {
             echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
         }
@@ -173,7 +171,7 @@ class PeladeiroRepositorio extends Peladeiro {
         try {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
-                ->select('u.id_usuario','u.nome','u.email')
+                ->select('*')
                 ->from('parceiro','p')
                 ->join('p','usuario','u','p.fk_peladeiro = u.id_usuario')
             ;
@@ -187,7 +185,6 @@ class PeladeiroRepositorio extends Peladeiro {
             if (isset($limite)) {
                 $QueryBuilder->setMaxResults($limite);
             }
-            //var_dump($QueryBuilder->getSQL());
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {

@@ -43,14 +43,14 @@ class NotificacaoRepositorio {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->select('count(visualizada) as total')
-                ->from('pelada_candidato')
+                ->from('pelada_candidato','pc')
+                ->join('pc','pelada','p','pc.fk_pelada = p.id_pelada')
                
             ;
             
             if ($where != '') {
                 $QueryBuilder->where($where);
             }
-
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {
