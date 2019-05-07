@@ -22,7 +22,7 @@ class PerfilControle extends ControlaModelos
               $saida = array();
               
               $saida['idUsuario'] = $Usuario->idUsuario;
-              $saida['imagemUsuario'] = URL_USUARIO. '/'. UsuarioModelo::PREFIXO_MINIATURA . $Usuario->urlImagem; 
+              $saida['imagemUsuario'] = $Usuario->urlImagem; 
               $saida['nomeUsuario'] = $Usuario->nome;
               $saida['emailUsuario'] = $Usuario->email;
               $saida['apelidoUsuario'] = $Usuario->apelido;
