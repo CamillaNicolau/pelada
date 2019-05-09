@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>+Pelada</title>
-    <link rel="shortcut icon" href="./visualizacoes/imagens/favicon.png" />    
+    <link rel="shortcut icon" href="./visualizacoes/imagens/favicon.png" />
+    <link type="text/css" href="./visualizacoes/css/cabecalho.css" rel="stylesheet" /> 
     <link type="text/css" href="./visualizacoes/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link type="text/css" href="./visualizacoes/bootstrap/css/bootstrap-grid.min.css" rel="stylesheet" />
     <link type="text/css" href="./visualizacoes/bootstrap/css/bootstrap-reboot.min.css" rel="stylesheet" />

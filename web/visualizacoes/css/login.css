@@ -52,11 +52,7 @@ body {
  background: #096b09;
 }
 
- img{
-  width: 116px;
-  height: auto;
-  align: center;
-} 
+ 
 .footer {
     position: fixed;
     bottom: 0;
