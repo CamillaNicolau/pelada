@@ -51,6 +51,13 @@ class Usuario {
      * @var string
      */
     protected $sexo;
+    
+    /**
+     * Data de nascimento do usuário.
+     *
+     * @var date
+     */
+    private $data_nascimento;
    
     /**
      * Data em que foi criado o usuário.
@@ -99,6 +106,7 @@ class Usuario {
                     $this->sexo = $ObjDados->sexo;
                     $this->dataCriacao = $ObjDados->data_criacao;
                     $this->ativo = $ObjDados->ativo;
+                    $this->data_nascimento = $ObjDados->data_nascimento;
                     $this->urlImagem = $ObjDados->url_imagem;
                 } catch(Exception $ex){
                    echo ('Erro ao instanciar classe Usuario id $idUsuario. '. $ex->getMessage());
@@ -125,6 +133,7 @@ class Usuario {
             case "sexo":
             case "dataCriacao":
             case "ativo":
+            case "data_nascimento":
             case "urlImagem":
                 return $this->$atributo;
             break;
@@ -143,6 +152,7 @@ class Usuario {
             case "nome":
             case "apelido":
             case "sexo":
+            case "data_nascimento":
             case "urlImagem":
                 $this->$atributo = (($value || $value === 0 || $value === '0' )?$value:null);
                 break;
