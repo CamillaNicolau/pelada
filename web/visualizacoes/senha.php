@@ -3,6 +3,7 @@
         <div class="box-header">
             <h5 class="mb-0 te">Cadastrar Senha</h5>
         </div>
+    </div>
         <form class="form-horizontal mx-auto d-block py-3 col-12 bg-light" action="senha" method="post" name="form_cadastra_senha" id="form_cadastra_senha" >
             <div class="form-group col-sm-12 col-lg-6">
                 <label for="inputPassword" class="control-label">Informe a nova senha</label>
@@ -23,5 +24,4 @@
               <button type="submit" class="btn btn-lg btn-success btn-default" id ="botao-cadastrar">Cadastrar</button>
         </form>
         
-    </div>
 </div>
