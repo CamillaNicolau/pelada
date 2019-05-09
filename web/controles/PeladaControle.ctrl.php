@@ -292,7 +292,10 @@ class PeladaControle extends ControlaModelos
                             $horarioNovo = date("H:i", strtotime($pelada->horario));
                         }
                         $token = md5($valores);
-
+                        if(isset($senha)){
+                         
+                            $urlToken = URL_RAIZ_SITE.'/senha&token='.$token;
+                        } 
                         $destinatarios = $email;
                         
                         $assuntoFormulario = 'Convocação - Mais Pelada';
@@ -301,7 +304,7 @@ class PeladaControle extends ControlaModelos
                             '%nome_site%' =>TITULO,
                             '%nome%' =>$nome,
                             '%formulario_titulo%' => $assuntoFormulario,
-                            '%url_raiz_site%' => URL_RAIZ_SITE.'/senha&token='.$token,
+                            '%url_raiz_site%' => $urlToken ? $urlToken : URL_RAIZ_SITE,
                             '%data_hora%' => date('d/m/Y H:i:s'),
                             '%senha%' => $senha,
                             '%data%' => $novaData,
