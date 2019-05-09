@@ -2,6 +2,7 @@
     <div class="box-header">
         <h2 class="box-title py-2 px-4 py-2 px-4 text-dark shadow"><strong>MINHA PELADA</strong></h2>
     </div>
+    <div id="pelada-exibir" style="display: none"></div>
     <div id="cadastroPelada" style="display: none">
         <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_cadastro_pelada" id="form_cadastro_pelada" >
             <div class="box-header">
@@ -103,8 +104,7 @@
             </fieldset>
         </form>
     </div>
-    <div id="pelada-exibir" style="display: none">
-    </div>
+    <div id="pelada-exibir" style="display: none"></div>
     <div class="table-responsive col-md-12 tabela-pelada" style="display: none">
         <table class="table table-striped" cellspacing="0" cellpadding="0">
             <thead>

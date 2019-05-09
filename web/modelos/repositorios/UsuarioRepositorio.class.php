@@ -177,5 +177,26 @@ class UsuarioRepositorio extends Usuario {
             echo("Um erro ocorreu ao salvar a confirmação da pelada no banco de dados - " . $j->getMessage());
         }
     }
+
+    /**
+     * Deleta o registro no banco de dados .
+     *
+     * @return bool Retorna true ao final da operação com sucesso
+     */
+    public function deletarUsuario($idUsuario) {
+      
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->delete('usuario')
+                ->where('id_usuario = :id_usuario')
+                ->setParameter(':id_usuario', $idUsuario)
+                ->execute()
+            ; 
+        } catch (\Exception $j) {
+            echo("Um erro ocorreu ao remover usuariono banco de dados - " . $j->getMessage());
+        }
+       return true;
+    }
     
 }

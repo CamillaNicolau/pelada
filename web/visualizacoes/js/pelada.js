@@ -1,9 +1,11 @@
 $(document).ready(function() {
-
+          atualizarListaPelada();
     $("#botao-cadastrar").bind('click',function(){
         $('#cadastroPelada').slideDown();
         $(".botoes").hide();
-        $(".tabela-pelada").hide();
+        $('#pelada-exibir').hide();
+        $('.tabela-pelada').hide();
+        
     });
     $('#botao-cancelar').bind('click',resetarFormulario);
     
@@ -15,6 +17,7 @@ $(document).ready(function() {
     });
 
     $("#encontra-pelada").bind('click',function(){
+        $('#pelada-exibir').hide();
       encontrarPelada();
     });
     $("#cancelar-buscar").bind('click',function(){
@@ -45,7 +48,7 @@ $(document).ready(function() {
     });
     
    
-      atualizarListaPelada();
+
 });
 
 function validaForm(){
@@ -95,10 +98,11 @@ function atualizarListaPelada() {
         data: 'acao=lista_pelada',
         dataType: 'json',
         beforeSend: function() {
-            alertaFnc("Aguarde", "Carregando...", 350, false, null);
+            alertaFnc("Aguarde", "Carregando...", 150, false, null);
         },
         success: function(retorno) {
             $('#listaPelada').html('');
+            $('#pelada-exibir').html('');
             if (retorno.sucesso == true) {
                 if((retorno.html).length > 0){
                     $('.tabela-pelada').show();
@@ -115,6 +119,7 @@ function atualizarListaPelada() {
                         }
                     });
                 } else{
+
                     $('#pelada-exibir').show();
                     $('#pelada-exibir').append('<div class="alert alert-warning" role="alert"><strong>Olá!</strong> Você não possui nenhuma pelada</div>');
                 }
@@ -184,8 +189,7 @@ function buscarPeladeiro(id_pelada){
 function resetarFormulario(){
     $("#form_cadastro_pelada")[0].reset();
     $("#cadastroPelada").slideUp(function() {
-       $('.tabela-pelada').show();
-       $('#peladeiro-exibir').hide();
+       atualizarListaPelada();
     }); 
     $('.busca-pelada').hide();
     $('.adicionar-peladeiro').hide();
@@ -193,7 +197,7 @@ function resetarFormulario(){
 }
 
 function encontrarPelada() {
-    $('#pelada-exibir').hide();
+    
     var cidade  = $('#busca').val();
     $.ajax({
         type: 'POST',
@@ -202,6 +206,7 @@ function encontrarPelada() {
         dataType: 'json',
         beforeSend: function() {
             alertaFnc("Aguarde", "Buscando informações...", 250, false, null);
+
         }, 
         success: function(retorno) {
             $('#pelada').html('');

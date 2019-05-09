@@ -45,7 +45,7 @@ class PeladeiroControle extends ControlaModelos
                 if($_POST['imagemUsuario']){
                     $imagem = pathinfo($_FILES['imagemUsuario']['name']);
                     $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
-                    $url = $nomeImagem .'.' . $imagem['extension'];
+                    $url = URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . $nomeImagem .'.' . $imagem['extension'];
                 }
                 
                 $Peladeiro->setTime(new Time($time));
@@ -115,7 +115,7 @@ class PeladeiroControle extends ControlaModelos
                 
                 \Doctrine::beginTransaction();
 
-                $buscarPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email = "'.$_POST['emailPeladeiro'].'" and ativo ='.true]);
+                $buscarPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email = "millacnicolau@gmail.com" and ativo ='.true]);
 
                 $time = $_POST['time'];
                 $posicao =  $_POST['posicao'];
@@ -153,11 +153,24 @@ class PeladeiroControle extends ControlaModelos
             break;
             case 'remover_peladeiro':
                 try{
+
                     \Doctrine::beginTransaction();
                     $PeladeiroRepositorio = new PeladeiroRepositorio();
                     
-              
+
+                    $dadosPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['p.id_peladeiro_parceiro ='.$_POST['id_peladeiro']]);
+
+                    foreach ($dadosPeladeiro as $dados) {
+                        $criador = $dados->fk_criador;
+                        $id_usuario = $dados->id_usuario;
+                    }
                     $PeladeiroRepositorio->deletarPeladeiro($_POST['id_peladeiro']);
+                    if($_SESSION['id_usuario_logado'] == $criador){
+
+                        $UsuarioRepositorio = new UsuarioRepositorio();
+                        $UsuarioRepositorio->deletarUsuario($id_usuario);
+                    }
+
                     \Doctrine::commit();
                     exit(json_encode(array('sucesso'=>true,'mensagem'=>'Peladeiro removido com sucessos')));
                     

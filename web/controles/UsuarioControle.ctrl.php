@@ -43,7 +43,7 @@ class UsuarioControle extends ControlaModelos
                     if(isset($_FILES['imagemUsuario'])){
                       $imagem = pathinfo($_FILES['imagemUsuario']['name']);
                       $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
-                      $url = $nomeImagem .'.' . $imagem['extension'];
+                      $url = URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . $nomeImagem .'.' . $imagem['extension'];
                     }
 
                     $Usuario->nome = $_POST['nomeUsuario'];

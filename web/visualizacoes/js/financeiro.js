@@ -45,7 +45,7 @@ function tratarResultado (retorno) {
 function resetarFormulario(){
   $("#form_lancamento")[0].reset();
   $("#lancamentoPelada").slideUp(function() {
-    $('.tabela-lancamento').show();
+    atualizarListaLancamento();
   });
   $(".botoes").show();
 }
@@ -58,6 +58,7 @@ function atualizarListaLancamento() {
         dataType: 'json',
         success: function(retorno) {
             $('#listaLancamento').html('');
+            $('#lancamento-exibir').html('');
             if (retorno.sucesso == true) {
                 if((retorno.html).length > 0){
                     $('.tabela-lancamento').show();
@@ -70,7 +71,7 @@ function atualizarListaLancamento() {
                     });
                 } else{
                     $('#lancamento-exibir').show();
-                    $('#lancamento-exibir').append('<div class="alert alert-info" role="alert"><strong>Olá!</strong> Você não possui nenhuma lançamento</div>');
+                    $('#lancamento-exibir').append('<div class="alert alert-warning" role="alert"><strong>Olá!</strong> Você não possui nenhum lançamento</div>');
                 }
             }
         }
