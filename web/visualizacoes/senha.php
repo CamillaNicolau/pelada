@@ -4,8 +4,8 @@
             <h5 class="mb-0 te">Cadastrar Senha</h5>
         </div>
         <form class="form-horizontal mx-auto d-block py-3 col-12 bg-light" action="senha" method="post" name="form_cadastra_senha" id="form_cadastra_senha" >
-            <div class="form-group">
-                <label for="inputPassword" class="col-md-6 control-label">Informe a nova senha</label>
+            <div class="form-group col-sm-12 col-lg-6">
+                <label for="inputPassword" class="control-label">Informe a nova senha</label>
                 <div class="col-md-12">
                     <input type="password" name="password" class="form-control" id="password" placeholder="Digite sua Senha">
                     <div class="progress">
@@ -13,8 +13,8 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inputPassword" class="col-md-6 control-label">Confirme a senha</label>
+            <div class="form-group col-sm-12 col-lg-6">
+                <label for="inputPassword" class="control-label">Confirme a senha</label>
                 <div class="col-md-12">
                     <input type="password" name="passwordConfirm" class="form-control" id="passwordConfirm" placeholder="Confirme a senha">
                 </div>
