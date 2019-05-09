@@ -1,4 +1,4 @@
-<div id="login">
+<div id="login" class="col-sm-12 col-lg-4 m-auto border rounded shadow-lg py-4 bg-white text-center">
   <form class="form-signin" action="login" method="post" name="form_login" id="form_login" >
     <fieldset>
       <body class="text-center">
@@ -15,7 +15,7 @@
       </div>
      <input name="id" value="" id="id_usuario" type="hidden" />
      <input name="acao" value="logar" id="acao_logar" type="hidden" />
-     <button type="submit" class="btn btn-lg btn-success btn-block" id ="botao-entrar">Entrar</button>
+     <button type="submit" class="btn btn-m btn-success btn-block" id ="botao-entrar">Entrar</button>
     </fieldset>
   </form>
     <div class="box_link"><a href="esqueciMinhaSenha">Esqueci minha senha</a></div>

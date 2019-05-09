@@ -4,6 +4,7 @@ body {
 }
 
 body {
+  min-height: 540px;
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -52,8 +53,8 @@ body {
 }
 
  img{
-  width: 215px;
-  height: 100px;
+  width: 116px;
+  height: auto;
   align: center;
 } 
 .footer {

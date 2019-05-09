@@ -10,6 +10,8 @@ $secondary:     #f0f0f0;
 $tertiary:       $light-green;
 
 @import "../bootstrap/scss/bootstrap"; 
+
+@import url('https://fonts.googleapis.com/css?family=Roboto'); 
 /* #endregion Fim definições de tema Bootstrap*/
 
 html, body, #navbar-fixed{
@@ -130,4 +132,3 @@ html, body, #navbar-fixed{
     // }
 
 /* #endregion FIM CONTEUDO*/
-

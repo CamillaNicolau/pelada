@@ -10,7 +10,7 @@
                 <div class="form-group" style="text-align: center" >
                     <label>
                         <input type="file"name="imagemUsuario" class="custom-file-input ">
-                        <div id="imagem-perfil">  
+                        <div id="imagem-perfil" class="col-5 m-auto">  
                         </div>
                         <span class="custom-file-control" placeholder="Browser">Alterar</span>
                     </label>

@@ -12,8 +12,8 @@
     <link type="text/css" href="./visualizacoes/css/geral.min.css" rel="stylesheet" />
     <link type="text/css" href="./visualizacoes/css/<?php echo Inicio::getNomePaginaAtual(); ?>.css" rel="stylesheet" />
   </head>
-  <body>
-    <div class="container">
-      <div class="header">
-       <img src="./visualizacoes/imagens/logo.jpg" alt="futebol">
+  <body class="bg-secondary">
+    <div class="container py-5">
+      <div class="header mb-4">
+       <img class="h-auto mx-auto d-block" src="./visualizacoes/imagens/logo.png" alt="futebol">
       </div>
