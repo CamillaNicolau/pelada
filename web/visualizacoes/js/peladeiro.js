@@ -76,7 +76,7 @@ function atualizarListaPeladeiro() {
                 }else{
                     $('.tabela-peladeiro').hide();
                     $('#peladeiro-listar').show();
-                    $('#peladeiro-listar').prepend('<div class="alert alert-warning" role="alert"><strong>Olá!</strong> Você não possui nenhuma peladeiro.</div>');
+                    $('#peladeiro-listar').prepend('<div class="alert alert-warning" role="alert"><strong>Olá!</strong> Você não possui nenhum peladeiro.</div>');
                 }
             }
         }

@@ -52,7 +52,7 @@ class UsuarioControle extends ControlaModelos
                     $Usuario->apelido = $_POST['apelidoUsuario'];
                     $Usuario->sexo = ($_POST['sexo'] == 'feminino')? 'f' :'m';
                     $Usuario->data_nascimento = $_POST['dataNascimento'];
-                    $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $url : URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . 'default.jpg';
+                    $Usuario->urlImagem = isset($_FILES['imagemUsuario']['name']) ? $url : URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . 'default.jpeg';
                     if($UsuarioRepositorio->adicionaUsuario($Usuario)){
                         if(isset($_FILES['imagemUsuario'])){
                             UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);

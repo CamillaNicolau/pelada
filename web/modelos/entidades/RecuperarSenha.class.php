@@ -1,20 +1,33 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of RecuperarSenha
+ * Objeto que representa recuperação de senha de futebol cadastrados.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019
  */
 class RecuperarSenha {
 
+    /**
+     * Chave identificadora da senha .
+     *
+     * @var int
+     */
     private $idRecuperaSenha;
+
+    /**
+     * E-mail do usuário que solicitou a recuperação.
+     *
+     * @var string
+     */
     private $email;
+
+    /**
+     * E-mail do usuário que solicitou a recuperação.
+     *
+     * @var string
+     */
     private $token;
     private $ativo;
     private $dataCriacao;
@@ -29,7 +42,7 @@ class RecuperarSenha {
             $this->ativo = TRUE;
             $this->dataCriacao = date("Y-m-d H:i:s");
         } else{
-            echo ('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idPelada.' do tipo '.gettype($id));
+            echo ('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$id.' do tipo '.gettype($id));
         }
     }
     
@@ -56,7 +69,7 @@ class RecuperarSenha {
                 $this->$atributo = (($valor || $valor === 0 || $valor === '0' )?$valor:null);
             break;
             case "dataCriacao":
-                echo ("A data de criação é um atributo privado da classe Usuario.");
+                echo ("A data de criação é um atributo privado da classe Recuperar Senha.");
                 break;
             case "ativo":
                 echo ("O atributo ativo é privado.");

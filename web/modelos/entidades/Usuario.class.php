@@ -1,11 +1,11 @@
 <?php
 
 /**
- * To change this license header, choose License Headers in Project Properties.
+ * Objeto que representa o usuário do sistema de maneira geral.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
 
 class Usuario {
@@ -79,11 +79,16 @@ class Usuario {
     */
     private $urlImagem;
     
+    /**
+     * Instancia um usuário baseado em sua chave identificadora do banco de dados ou cria uma nova instância.
+     *
+     * @param int $idUsuario Chave identificadora de um usuário no banco de dados.
+     * @return void
+     */
     public function __construct($idUsuario = null) {
-
-        switch (true)
-        {
-         case filter_var($idUsuario, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]):
+        switch (true){
+         
+            case filter_var($idUsuario, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]):
                 try
                 {
                     $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
@@ -122,8 +127,13 @@ class Usuario {
         }
     }
     
-    public function __get($atributo) {
-        
+    /**
+     * Informa o dado do atributo solicitado ou dispara exceção caso atributo não exista.
+     *
+     * @param string $atributo Nome do atributo que deseja obter seu respectivo dado.
+     * @return mixed Retorna dado do atributo informado.
+     */
+    public function __get($atributo) {   
         switch ($atributo) {
             case "idUsuario":
             case "email":
@@ -142,10 +152,16 @@ class Usuario {
             break;
         }
     }
+
+    /**
+     * Atribui o dado ao objeto de acordo com o atributo informado ou dispara exceção caso atributo não exista.
+     *
+     * @param string $atributo Nome do atributo que receberá o valor desejado.
+     * @param mixed $value Dado que o atributo deve receber.
+     * @return void
+     */
     public function __set($atributo, $value) {
-        
-        switch ($atributo) {
-            
+        switch ($atributo) { 
             case "idUsuario":
             case "email":
             case "senha":
@@ -167,5 +183,4 @@ class Usuario {
             break;
         }
     }
-
 }

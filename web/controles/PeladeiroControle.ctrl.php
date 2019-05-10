@@ -54,7 +54,7 @@ class PeladeiroControle extends ControlaModelos
                 $Peladeiro->email = $_POST['emailPeladeiro'];
                 $Peladeiro->telefone = $_POST['telPeladeiro'];
                 $Peladeiro->data_nascimento = $_POST['dataNascimento'];
-                $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url : URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . '/default.jpg';
+                $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url : URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . 'default.jpeg';
 
                 $Peladeiro->participacao = $_POST['participacao'];
                 $Peladeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));

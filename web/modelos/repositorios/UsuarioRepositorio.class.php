@@ -1,20 +1,24 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Usuario
+ * Responsável pelos registros dos usuário no banco de dados.
  *
- * @author camilla
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019
  */
 class UsuarioRepositorio extends Usuario {
   
-  
-  
+    /**
+     * Realiza a listagem com os usuários registrados no banco de acordo com os parametros informados.
+     *
+     * @param array $condicoes Condições para a pesquisa ou um array vazio.
+     * @param string $order Parametro e o tipo de ordenação desejado. Exemplos: "id DESC", "nome ASC".
+     * @param int $inicio Parametro para determinar o registro inicial da listagem.
+     * @param int $limite Quantidade de registros para listagem.
+     * @return array Retorna um array com os usuários de acordo com os parametros informados.
+     * @fixme Método pode ser otimizado.
+     */
     public static function buscarUsuario(array $condicoes = [], $order = false, $inicio = null, $limite = null){
         $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
         try{
@@ -29,10 +33,15 @@ class UsuarioRepositorio extends Usuario {
             }
             return $QueryBuilder->execute()->fetchAll();
         }catch(Erro $E){
-          echo ('Erro'.$E);
+          echo ("Erro ao buscar usuário ". $E->getMessage());
         }
     }
     
+    /**
+     * Adiciona um novo usuário criando seu registro no banco de dados.
+     *
+     * @return int retorna id do usuario caso operação seja realizado com sucesso.
+     */
     public function adicionaUsuario(Usuario $Usuario) {
 
         if($Usuario->idUsuario){
@@ -63,11 +72,11 @@ class UsuarioRepositorio extends Usuario {
                 ->execute()
             ;
 
-          $Usuario->idUsuario = $QueryBuilder->getConnection()->lastInsertId();
+            $Usuario->idUsuario = $QueryBuilder->getConnection()->lastInsertId();
           
           return $Usuario->idUsuario;
         } catch (Exception $ex) {
-            echo("Erro ao adicionar Usuario");
+            echo("Erro ao adicionar Usuario" . $j->getMessage());
         }   
     }
   
@@ -106,31 +115,6 @@ class UsuarioRepositorio extends Usuario {
             echo("Um erro ocorreu ao salvar um conteudo do usuario no banco de dados - " . $j->getMessage());
         }
     }
-    /**
-     * Desativa o usuário no sistema.
-     *
-     * @return boolen
-     */
-    public static function desativar($id)
-    {
-        $Usuario = new Usuario($id);
-        $Usuario->ativo = false;
-        try
-        {
-            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
-            $QueryBuilder
-                ->update('usuario')
-                ->set('ativo', ':ativo')
-                ->setParameter(':ativo', 0, \PDO::PARAM_INT)
-                ->where('idUsuario = :idUsuario')
-                ->setParameter(':idUsuario', $id, \PDO::PARAM_INT)
-                ->execute()
-            ;
-            return true;
-        } catch (\Exception $j) {
-            throw new Excecao('Erro ao desativar Usuario '. $j->getMessage());
-        }
-    }
     
     /**
      * Salva as informações aramazenadas nos atributos do objeto no banco de dados.
@@ -149,9 +133,8 @@ class UsuarioRepositorio extends Usuario {
                 ->where('id_usuario = :id_usuario')
                 ->setParameter(':id_usuario', $idUsuario)
                 ->execute();
-            
         } catch (\Exception $j) {
-            echo("Um erro ocorreu ao salvar a confirmação da pelada no banco de dados - " . $j->getMessage());
+            echo("Um erro ocorreu ao cadastrar a senha do peladeiro no banco de dados - " . $j->getMessage());
         }
     }
    
@@ -172,9 +155,8 @@ class UsuarioRepositorio extends Usuario {
                 ->setParameter(':fk_peladeiro', $idUsuario)
                 ->setParameter(':fk_parceiro', $idParceiro)
                 ->execute();
-            
         } catch (\Exception $j) {
-            echo("Um erro ocorreu ao salvar a confirmação da pelada no banco de dados - " . $j->getMessage());
+            echo("Um erro ocorreu ao adicionar peladeiro ao parceiro no banco de dados - " . $j->getMessage());
         }
     }
 
@@ -184,7 +166,6 @@ class UsuarioRepositorio extends Usuario {
      * @return bool Retorna true ao final da operação com sucesso
      */
     public function deletarUsuario($idUsuario) {
-      
         try {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
@@ -194,9 +175,8 @@ class UsuarioRepositorio extends Usuario {
                 ->execute()
             ; 
         } catch (\Exception $j) {
-            echo("Um erro ocorreu ao remover usuariono banco de dados - " . $j->getMessage());
+            echo("Um erro ocorreu ao remover usuário no banco de dados - " . $j->getMessage());
         }
        return true;
-    }
-    
+    } 
 }

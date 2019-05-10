@@ -1,24 +1,44 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Cidade
+ * Objeto que representa as cidades do sistema.
  *
- * @author camil
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019
  */
 class Cidade {
-    //put your code here
+    
+    /**
+     * Chave identificadora da cidade no banco de dados.
+     *
+     * @var int
+     */
     private $idCidade;
+
+    /**
+     * Nome da cidade.
+     *
+     * @var string
+     */
     private $nome_cidade;
+
+    /**
+     * Objeto do estado ao qual pertence essa cidade.
+     *
+     * @var estado
+     */
     private $estado;
     
+    /**
+     * Instancia uma cidade de acordo com o código informado.
+     *
+     * @param int $idCidade Chave identificadora da cidade no banco de dados.
+     * @return void
+     */
     public function __construct($idCidade = null) {
         try{
+
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
                 ->select('*')
@@ -37,6 +57,13 @@ class Cidade {
             echo('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idCidade.' do tipo '.gettype($idCidade));
         }
     }
+
+    /**
+     * Informa o dado do atributo solicitado ou dispara exceção caso atributo não exista.
+     *
+     * @param string $atributo Nome do atributo que deseja obter seu respectivo dado.
+     * @return mixed Retorna dado do atributo informado.
+     */
     public function __get($atributo) {
         switch($atributo){
             case 'idCidade':
@@ -49,6 +76,14 @@ class Cidade {
             break;
         }
     }
+
+    /**
+     * Atribui o dado ao objeto de acordo com o atributo informado ou dispara exceção caso atributo não exista.
+     *
+     * @param string $atributo Nome do atributo que receberá o valor desejado.
+     * @param mixed $value Dado que o atributo deve receber.
+     * @return void
+     */
     public function __set($atributo,$value) {
         switch($atributo){
             case 'idCidade':
@@ -67,18 +102,16 @@ class Cidade {
      * @param Estado $Estado
      * @return void
      */
-    public function setEstado(Estado $Estado)
-    {
+    public function setEstado(Estado $Estado){
         $this->estado = $Estado->idEstado;
     }
 
     /**
-     * Requisita a estado
+     * Requisita o estado
      *
      * @return estado
      */
-    public function getEstado()
-    {
+    public function getEstado(){
         return new Estado($this->estado);
     }
 }
