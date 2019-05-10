@@ -295,12 +295,11 @@ class PeladaControle extends ControlaModelos
                         
                         if(isset($senha)){
                          
-                            $url = URL_RAIZ_SITE.'/senha&token='.$token;
-                        } else{
                             $url = URL_RAIZ_SITE;
+                        } else{
+                            $url = URL_RAIZ_SITE.'/senha&token='.$token;
                         }
-                        var_dump($url);
-                        exit();
+
                         $destinatarios = $email;
                         
                         $assuntoFormulario = 'Convocação - Mais Pelada';
