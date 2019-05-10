@@ -9,7 +9,7 @@
             </div>
         	<div class="form-group">
                 <label for="selectPelada">Pelada</label>
-                <select class="form-control" id="pelada" name="pelada">
+                <select class="form-control" id="pelada" name="pelada" required="">
                     <option value="" selected>Selecione a pelada</option> 
                 </select>
             </div>
