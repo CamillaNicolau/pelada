@@ -292,7 +292,7 @@ class PeladaControle extends ControlaModelos
                             $horarioNovo = date("H:i", strtotime($pelada->horario));
                         }
                         $token = md5($valores);
-                        var_dump($senha);
+                        var_dump(isset($senha));
                         exit();
                         if(isset($senha)){
                          
