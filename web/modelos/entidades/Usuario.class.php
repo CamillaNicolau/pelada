@@ -58,13 +58,6 @@ class Usuario {
      * @var date
      */
     private $data_nascimento;
-   
-    /**
-     * Data em que foi criado o usuário.
-     *
-     * @var datatime
-     */
-    protected $dataCriacao;
 
     /**
      * estado do usuário no sistema, sendo ele ativo ou desativado.
@@ -109,7 +102,6 @@ class Usuario {
                     $this->nome = $ObjDados->nome;
                     $this->apelido = $ObjDados->apelido;
                     $this->sexo = $ObjDados->sexo;
-                    $this->dataCriacao = $ObjDados->data_criacao;
                     $this->ativo = $ObjDados->ativo;
                     $this->data_nascimento = $ObjDados->data_nascimento;
                     $this->urlImagem = $ObjDados->url_imagem;
@@ -119,7 +111,6 @@ class Usuario {
             break;
             case (is_null($idUsuario)):
                 $this->ativo = true;
-                $this->dataCriacao = date("Y-m-d H:i:s");
             break;
             default:
                 echo ('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idUsuario.' do tipo '.gettype($idUsuario));
@@ -141,7 +132,6 @@ class Usuario {
             case "nome":
             case "apelido":
             case "sexo":
-            case "dataCriacao":
             case "ativo":
             case "data_nascimento":
             case "urlImagem":
@@ -171,9 +161,6 @@ class Usuario {
             case "data_nascimento":
             case "urlImagem":
                 $this->$atributo = (($value || $value === 0 || $value === '0' )?$value:null);
-                break;
-            case "dataCriacao":
-                echo ("A data de criação é um atributo privado da classe Usuario.");
                 break;
             case "ativo":
                 echo ("O atributo ativo é privado.");

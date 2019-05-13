@@ -208,7 +208,7 @@ class PeladaControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    if(isset($_POST['cidade']) || $_POST['cidade']!= ""){
+                    if(isset($_POST['cidade']) || $_POST['cidade']== ""){
                         exit(json_encode(['sucesso'=>false, "mensagem" => "Informe o nome da cidade."]));
                     }
                     $EncontrarPelada= PeladaRepositorio::buscarPelada(['nome_cidade LIKE "%'.$_POST['cidade'].'%" and p.fk_criador<>'.$_SESSION['id_usuario_logado'].' and data_pelada > now()']);

@@ -58,7 +58,6 @@ class UsuarioRepositorio extends Usuario {
                 ->setValue('sexo', ':sexo')
                 ->setValue('url_imagem',':url_imagem')
                 ->setValue('ativo',':ativo')
-                ->setValue('data_criacao',':data_criacao')
                 ->setValue('data_nascimento', ':data_nascimento')
                 ->setParameter(':nome', $Usuario->nome)
                 ->setParameter(':email', $Usuario->email)
@@ -67,7 +66,6 @@ class UsuarioRepositorio extends Usuario {
                 ->setParameter(':sexo', $Usuario->sexo)
                 ->setParameter(':url_imagem', $Usuario->urlImagem)
                 ->setParameter(':ativo', $Usuario->ativo)
-                ->setParameter(':data_criacao',$Usuario->dataCriacao)
                 ->setParameter(':data_nascimento', $Usuario->data_nascimento)
                 ->execute()
             ;
