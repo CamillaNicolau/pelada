@@ -187,7 +187,6 @@ class PeladaRepositorio extends Pelada {
         catch (\Exception $j) {
             echo ("Erro ao buscar localizacao". $j->getMessage());
         }
-
     }
 
     /**
@@ -290,5 +289,31 @@ class PeladaRepositorio extends Pelada {
             echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
         }
         return true;
-    } 
+    }
+    public static function buscaCandidato(array $condicoes = [], $order = null, $inicio = null, $limite = null){
+
+        $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
+       try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->select('*')
+                ->from('pelada_candidato')
+            ;
+            if ($where != '') {
+                $QueryBuilder->where($where);
+            }
+            
+            if (isset($inicio)) {
+                $QueryBuilder->setFirstResult($inicio);
+            }
+            if (isset($limite)) {
+                $QueryBuilder->setMaxResults($limite);
+            }
+            return $QueryBuilder->execute()->fetchAll();
+        }
+        catch (\Exception $j) {
+            echo ("Erro ao buscar candidato". $j->getMessage());
+        }
+        
+    }
 }

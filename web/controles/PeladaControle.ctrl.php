@@ -364,7 +364,12 @@ class PeladaControle extends ControlaModelos
             case 'enviar_solicitacao':
                 try {
                     \Doctrine::beginTransaction();
+
                     $PeladaRepositorio = new PeladaRepositorio();
+                    $buscarCandidato = PeladaRepositorio::buscaCandidato(['fk_pelada ='.$_POST['id_pelada'].' and fk_candidato='.$_SESSION['id_usuario_logado']]); 
+                    if(count($buscarCandidato) > 1){
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Você ja se candidatou a esta pelada')));
+                    }
                     $dadosPelada = PeladaRepositorio::buscarPelada(['id_pelada ='.$_POST['id_pelada']]);
                     foreach ($dadosPelada as $pelada){
                         $emailCriador = $pelada->email;

@@ -289,7 +289,7 @@ function removerPelada(idPelada) {
                 atualizarListaPelada();
                 alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
             } else {
-                alertaFnc("Erro", retorno.mensagem,null, true, "error");
+                alertaFnc("Atenção", retorno.mensagem,null, true, "error");
             }
         }
     });   
@@ -309,7 +309,7 @@ function removerPeladeiroPelada(idPeladeiro,idPelada) {
                 buscarPeladeiro(idPelada);
                 alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
             } else {
-                alertaFnc("Erro", retorno.mensagem,null, true, "error");
+                alertaFnc("Atenção", retorno.mensagem,null, true, "error");
             }
         }
     });   
@@ -356,7 +356,7 @@ function candidataPelada(idPelada) {
                 
                 alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
             } else {
-                alertaFnc("Erro", retorno.mensagem,null, true, "error");
+                alertaFnc("Atenção", retorno.mensagem,null, true, "warning");
             }
         }
     });   
