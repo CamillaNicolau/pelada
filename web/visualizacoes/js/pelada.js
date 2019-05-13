@@ -205,7 +205,6 @@ function encontrarPelada() {
         data: 'acao=buscar_pelada&cidade='+cidade,
         dataType: 'json',
         beforeSend: function() {
-            alertaFnc("Aguarde", "Buscando informações...", 250, false, null);
 
         }, 
         success: function(retorno) {
@@ -219,7 +218,7 @@ function encontrarPelada() {
                 });
             }else { 
                
-                alertaFnc("Atenção", retorno.mensagem, null, true, "warning");
+                alertaFnc("Atenção", retorno.mensagem, 2000, true, "warning");
             }
         }
     }); 

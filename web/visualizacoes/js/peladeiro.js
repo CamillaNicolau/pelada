@@ -124,7 +124,7 @@ function encontrarPeladeiro() {
         data: 'acao=buscar_peladeiro&email='+email,
         dataType: 'json',
         beforeSend: function() {
-          alertaFnc("Aguarde", "Buscando informações...", 250, false, null);
+          
         }, 
         success: function(retorno) {
             $('#peladeiro').html('');
@@ -138,7 +138,7 @@ function encontrarPeladeiro() {
                     });
                 } 
             }else { 
-              alertaFnc("Atenção", retorno.mensagem, 250, false, "warning");
+              alertaFnc("Atenção", retorno.mensagem, 2000, true, "warning");
             }
         }
     }); 
