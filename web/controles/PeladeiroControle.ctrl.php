@@ -220,7 +220,7 @@ class PeladeiroControle extends ControlaModelos
                 try{
                     
                     $html = [];
-                    if(isset($_POST['email']) || $_POST['email']== ""){
+                    if(!isset($_POST['email']) || $_POST['email']== ""){
                         exit(json_encode(['sucesso'=>false, "mensagem" => "Informe um e-mail."]));
                     }
                     $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['u.email LIKE "%'.$_POST['email'].'%" and p.fk_parceiro<>'.$_SESSION['id_usuario_logado']]);
