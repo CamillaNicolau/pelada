@@ -27,7 +27,7 @@
                         </button>
                         <div id="imagem-perfil-menu" class="pl-2 ml-auto mt-1 mb-3" ></div>
                         <ul class="nav navbar-nav text-light w-100 my-2">
-                          <li class="nav-item"><a class="nav-link" id="contador-notificacao" href="notificacao"><i class="far fa-bell position-relative"><span class="badge badge-danger contador-notificacao"></span></i></a></li>
+                          <li class="nav-item"><a class="nav-link" id="contador-notificacao" href="notificacao"><i class="far fa-bell position-relative"><span class="badge badge-danger contador-notificacao ml-0"></span></i></a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="inicio"><i class="fas fa-home"></i></i> Inicio</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="pelada"><i class="far fa-futbol"></i> Pelada</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>

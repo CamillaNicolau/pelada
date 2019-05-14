@@ -1,6 +1,12 @@
 $(document).ready(function() {
   montaImagem();
-    contarNotificacao();
+  contarNotificacao();
+
+  var screenSize = $(window).width();
+
+  if(screenSize < 768){
+    $('#navbar-fixed').addClass('collapsed-navbar');
+  }
 
   $('.navbar-toggler-icon').click(function(){
     $(this).closest('#navbar-fixed').toggleClass('collapsed-navbar');

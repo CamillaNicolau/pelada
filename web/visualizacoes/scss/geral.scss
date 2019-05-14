@@ -6,7 +6,7 @@ $yellow: #fcbd26;
 $red: #ed262d;
 
 $primary:       $green;
-$secondary:     #f0f0f0; 
+$secondary:     lighten($green, 75);  
 $tertiary:       $light-green;
 
 @import "../bootstrap/scss/bootstrap"; 
@@ -17,6 +17,10 @@ $tertiary:       $light-green;
 html, body, #navbar-fixed{
     height: 100%!important;
     min-height: 100vh;  
+}
+
+.container{
+    overflow: hidden;
 }
 
 /* #region MENU PRINCIPAL */
@@ -37,7 +41,7 @@ html, body, #navbar-fixed{
         transition: all .3s linear;
         // border-left: 40px solid darken($primary, 5);
 
-        @media only screen and (max-width: 610px){
+        @media only screen and (max-width: 767px){
             &{
                 position: fixed!important;
                 left: 0%; 
@@ -112,8 +116,10 @@ html, body, #navbar-fixed{
     .container-content{
         flex-grow: 1;
         max-width: 100%;
+        max-height: 100vh;
+        overflow-y: auto;
 
-        @media only screen and (max-width: 610px){
+        @media only screen and (max-width: 767px){
             &{
                 padding-left: 45px!important;
             }
@@ -124,11 +130,6 @@ html, body, #navbar-fixed{
         h2{
             background: $white; 
         }
-    }
-
-    // .no-padding{
-    //     padding-left: 0%!important;
-    //     padding-right: 0%!important;
-    // }
+    } 
 
 /* #endregion FIM CONTEUDO*/

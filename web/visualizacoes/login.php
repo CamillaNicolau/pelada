@@ -15,7 +15,7 @@
       </div>
      <input name="id" value="" id="id_usuario" type="hidden" />
      <input name="acao" value="logar" id="acao_logar" type="hidden" />
-     <button type="submit" class="btn btn-m btn-success btn-block" id ="botao-entrar">Entrar</button>
+     <button type="submit" class="btn btn-success btn-block" id ="botao-entrar">Entrar</button>
     </fieldset>
   </form>
     <div class="box_link"><a href="esqueciMinhaSenha">Esqueci minha senha</a></div>

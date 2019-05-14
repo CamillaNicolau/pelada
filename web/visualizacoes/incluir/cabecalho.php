@@ -13,6 +13,7 @@
     <link type="text/css" href="./visualizacoes/css/complemento.css" rel="stylesheet" />
     <link type="text/css" href="./visualizacoes/css/geral.min.css" rel="stylesheet" />
     <link type="text/css" href="./visualizacoes/css/<?php echo Inicio::getNomePaginaAtual(); ?>.css" rel="stylesheet" />
+    <link type="text/css" href="./visualizacoes/fontes/fontawesome-free-5.1.0-web/css/all.css" rel="stylesheet" />
   </head>
   <body class="bg-secondary">
     <div class="container py-5">

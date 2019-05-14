@@ -1,4 +1,4 @@
-<div class=" container-content col h-100 flex-grow-1 mw-100 no-padding bg-secondary">
+<div class=" container-content col flex-grow-1 mw-100 p-0 bg-secondary ">
     <div class="box-header">
         <h2 class="box-title py-2 px-4 text-dark shadow"><strong>MINHAS NOTIFICAÇÕES</strong></h2>
     </div>
