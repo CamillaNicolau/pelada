@@ -156,13 +156,16 @@ class PeladeiroControle extends ControlaModelos
 
                     \Doctrine::beginTransaction();
                     $PeladeiroRepositorio = new PeladeiroRepositorio();
-                    
 
                     $dadosPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['p.id_peladeiro_parceiro ='.$_POST['id_peladeiro']]);
 
                     foreach ($dadosPeladeiro as $dados) {
                         $criador = $dados->fk_criador;
                         $id_usuario = $dados->id_usuario;
+                    }
+                    $infoPeladeiros = PeladaRepositorio::buscaGeralPelada(['pe.fk_criador ='.$_SESSION['id_usuario_logado'].' and fk_peladeiro ='.$id_usuario.' and p.confirmacao = 1' ]);
+                    if(count($infoPeladeiros) > 0){
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Remova o peladeiro da pelada antes de remove-lo completamente')));
                     }
                     $PeladeiroRepositorio->deletarPeladeiro($_POST['id_peladeiro']);
                     if($_SESSION['id_usuario_logado'] == $criador){

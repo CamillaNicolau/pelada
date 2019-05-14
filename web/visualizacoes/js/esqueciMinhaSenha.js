@@ -1,5 +1,7 @@
 $(document).ready(function() {
-  
+  $('#botao-cancelar').on('click',function() {
+      history.back();
+  });
   $('#form_esqueci_senha').ajaxForm({ 
         dataType:  'json', 
         beforeSubmit: validaForm,

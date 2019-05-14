@@ -13,6 +13,7 @@
      </div>
     <input name="acao" value="recuperar_senha" id="acao_recuperar_senha" type="hidden" />
     <button type="submit" class="btn btn-success btn-default px-5" id ="botao-enviar">Enviar</button>
+    <button type="submit" class="btn btn-danger btn-default px-5" id ="botao-cancelar">Cancelar</button>
 </form>
   
 </div> 

@@ -32,7 +32,7 @@ class SenhaControle extends ControlaModelos
                             $expira  = $usuario->data_atual;
                         }
 
-                        if($expira < date('Y-m-d H:i')){
+                        if($expira < date('Y-m-d')){
                             \Doctrine::rollBack();
                             exit(json_encode(array('sucesso'=>false, 'mensagem'=>'Token expirado')));
                         }

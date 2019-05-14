@@ -287,9 +287,9 @@ function removerPelada(idPelada) {
         success: function(retorno) {
             if (retorno.sucesso) {
                 atualizarListaPelada();
-                alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
+                alertaFnc("Sucesso", retorno.mensagem,2000, true, "success");
             } else {
-                alertaFnc("Atenção", retorno.mensagem,null, true, "error");
+                alertaFnc("Atenção", retorno.mensagem,2000, true, "error");
             }
         }
     });   
@@ -353,10 +353,11 @@ function candidataPelada(idPelada) {
         },
         success: function(retorno) {
             if (retorno.sucesso) {
-                
-                alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
+                 atualizarListaPelada();
+                alertaFnc("Sucesso", retorno.mensagem,1500, true, "success");
+               
             } else {
-                alertaFnc("Atenção", retorno.mensagem,null, true, "warning");
+                alertaFnc("Atenção", retorno.mensagem, 2000, true, "warning");
             }
         }
     });   
