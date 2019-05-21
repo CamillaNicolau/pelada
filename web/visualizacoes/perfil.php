@@ -14,7 +14,7 @@
                         </div>
                         <span class="custom-file-control" placeholder="Browser">Alterar</span>
                     </label>
-		</div>
+	            </div>
                 <div class="form-group">
                     <label for="textNome" class="col-md-4 control-label">Nome</label>
                     <div class="col-md-12 ">
@@ -49,7 +49,9 @@
                     </div>
                 </div>
                 <input name="acao" value="atualizar" id="acao_usuario" type="hidden" />
-                <button type="submit" class="btn btn-primary default" id ="botao-salvar">Salvar</button>
+                <span class="pb-5 col-md-6">
+                    <button type="submit" class="btn btn-md btn-success m-s btn-default px-4" id ="botao-salvar">Salvar</button>
+                </span>
             </form>   
         </div>
     </div>

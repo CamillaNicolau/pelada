@@ -12,8 +12,8 @@
         <input id="email" name="email" class="form-control" placeholder="Digite seu E-mail" type="email" required autofocus>
      </div>
     <input name="acao" value="recuperar_senha" id="acao_recuperar_senha" type="hidden" />
-    <button type="submit" class="btn btn-success btn-default px-5" id ="botao-enviar">Enviar</button>
-    <button type="submit" class="btn btn-danger btn-default px-5" id ="botao-cancelar">Cancelar</button>
+    <button type="submit" class="btn btn-success mx-2 btn-default px-4" id ="botao-enviar">Enviar</button>
+    <button type="submit" class="btn btn-danger mx-2 btn-default px-4" id ="botao-cancelar">Cancelar</button>
 </form>
   
 </div> 

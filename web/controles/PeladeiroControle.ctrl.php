@@ -188,7 +188,7 @@ class PeladeiroControle extends ControlaModelos
                     $ListaPeladeiro = PeladeiroRepositorio::buscarGrupoPeladeiro(['p.fk_parceiro ='.$_SESSION['id_usuario_logado']]);
                     foreach($ListaPeladeiro as $peladeiro) {
 
-                        $html[] =  array('id'=>$peladeiro->id_peladeiro_parceiro,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
+                        $html[] =  array('id'=>$peladeiro->fk_peladeiro,'nome'=>$peladeiro->nome, 'email'=>$peladeiro->email) ;
                     }
                     exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                 }catch(Erro $E){

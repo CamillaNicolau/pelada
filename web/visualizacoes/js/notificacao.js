@@ -19,10 +19,10 @@ function atualizarListaNotificacao() {
                 if((retorno.html).length > 0){
                     $.each(retorno.html,function(i,v){
                         atencao = '<i class=" alert-warning fas fa-exclamation-circle"></i>';
-                        Htmlvisualizacao = '<button onclick="vizualizarPelada('+v.notificacao+')" class="btn btn-danger btn-sm m-l visualizacao" title=" Não visualizada">Visualizar <i class="far fa-eye"></i></button>';
+                        Htmlvisualizacao = '<button onclick="vizualizarPelada('+v.notificacao+')" class="btn btn-danger btn-sm mx-2 visualizacao" title=" Não visualizada">Ignorar <i class="far fa-eye-slash"></i></button>';
                     
                         $('#listaNotificacao').append('<span class="col-md-3"><div class=" h-100 card card-'+v.notificacao+'"><div class="card-body"><h6 class="card-subtitle mb-2 text-muted">'+atencao+' '+v.data+'</h6><p class="card-text">O peladeiro <b>'+v.nome+'</b>, solicita participar da pelada - <b>'+v.pelada+'</b>\n\
-                      </p><p>'+Htmlvisualizacao+' <button class="btn btn-success btn-sm" onclick="cadastroPeladeiro()" id="adiciona-peladeiro-'+v.id+'" title="Adicionar peladeiro">Adicionar peladeiro <i class="fas fa-user-plus"></i></button> </p></div></div></span>');
+                      </p><p>'+Htmlvisualizacao+' <button class="btn btn-success btn-sm mx-2" onclick="cadastroPeladeiro()" id="adiciona-peladeiro-'+v.id+'" title="Adicionar peladeiro">Adicionar <i class="fas fa-user-plus"></i></button> </p></div></div></span>');
                         if(v.status == 'encerrada'){
                             $('#adiciona-peladeiro-'+v.id).removeAttr("href").text('Pelada Encerrada').css('color','#b22222');
                         }

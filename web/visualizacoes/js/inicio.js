@@ -34,8 +34,8 @@ function atualizarListaPelada(status_pelada) {
                                                                     <b>Endereço: </b>'+''+v.rua+' - '+v.numero+', '+v.bairro+' , '+v.cidade+' - '+v.sigla+' <br>'+
                                                                     '<span class="status-'+v.id+'"></span>\n\
                                                                     <span class="botoes">\n\
-                                                                        <button type="submit" onclick="confirmarPelada('+v.id_peladeiro_pelada+',1)" class="btn btn-md btn-success m-s btn-default confirma-pelada-'+v.id_peladeiro_pelada+'" id="confirma-pelada">Confirmar</button>'+
-                                                                        '<button type="button" onclick="confirmarPelada('+v.id_peladeiro_pelada+',2)" class="btn btn-md btn-danger btn-default botao-cancelar-'+v.id_peladeiro_pelada+'" id="botao-cancelar">Desistir</button>\n\
+                                                                        <button type="submit" onclick="confirmarPelada('+v.id_peladeiro_pelada+',1)" class="btn btn-md mx-2 btn-success m-s btn-default confirma-pelada-'+v.id_peladeiro_pelada+'" id="confirma-pelada">Confirmar</button>'+
+                                                                        '<button type="button" onclick="confirmarPelada('+v.id_peladeiro_pelada+',2)" class="btn btn-md mx-2 btn-danger btn-default botao-cancelar-'+v.id_peladeiro_pelada+'" id="botao-cancelar">Desistir</button>\n\
                                                                     </span>\n\
                                                                 </h5>\n\
                                                             </div>\n\

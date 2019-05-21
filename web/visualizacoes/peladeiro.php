@@ -3,73 +3,72 @@
        <h2 class="box-title py-2 px-4 py-2 px-4 text-dark shadow"><strong>PELADEIRO</strong></h2>
     </div>
     <div id="cadastroPeladeiro" style="display: none">
-        <form class="form-horizontal mx-auto d-block" action="peladeiro" method="post" name="form_cadastra_peladeiro" id="form_cadastra_peladeiro" >
+        <form class="form-horizontal mx-auto d-block col-md-12" action="peladeiro" method="post" name="form_cadastra_peladeiro" id="form_cadastra_peladeiro" >
             <div class="box-header">
                 <h4 class="subtitle">Use os campos abaixo para cadastrar os peladeiros da sua pelada.</h4>
             </div>
             <br>
             <h3 class="box-title"><strong>INFORMAÇÕES DO PELADEIRO</strong></h3>
             <fieldset>
-                <span>
-                    <div class="imagem-perfil"></div>
-                </span>
-                <label class="custom-file">
-                  <input type="file" id="imagemUsuario" name="imagemUsuario" class="custom-file-input">
-                  <span class="custom-file-control" placeholder="Browser">Selecione uma imagem</span>
-                </label>
-                <div class="form-group">
-                    <label for="textNome" class="control-label">Nome</label>
-                    <input id="nomePeladeiro" name="nomePeladeiro" class="form-control" placeholder="Digite seu Nome" required="" type="text">
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="inputEmail" class="control-label">Email</label>
-                            <input id="emailPeladeiro" name="emailPeladeiro" class="form-control" placeholder="Digite seu E-mail" required="" type="email">
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12 col-lg-6 d-flex align-items-end">
+                        <span class="custom-file col-12">
+                          <input type="file" id="imagemUsuario" name="imagemUsuario" class="custom-file-input">
+                          <label class="custom-file-label" for="customFile">Selecione uma foto</label>
+                        </span>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="textTelefone" class="control-label">Telefone</label>
-                            <input id="telPeladeiro" name="telPeladeiro" class="form-control" placeholder="(xx)xxxxx-xxxx" type="tel">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="inputPData" class="control-label">Data Nascimento</label>
-                            <input type="date" name="dataNascimento" class="form-control" id="dataNascimento" required="" placeholder="">
-                        </div>
+                    <div class="form-group col-sm-12 col-lg-6">
+                        <label for="textNome" class="control-label">Nome</label>
+                        <input id="nomePeladeiro" name="nomePeladeiro" class="form-control" placeholder="Digite seu Nome" required="" type="text">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="selectPosicao">Posição</label>
-                            <select class="form-control" id="posicao" name="posicao">
-                                <option value="" selected>Selecione</option> 
-                            </select>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12 col-lg-6">
+                        <label for="inputEmail" class="control-label">Email</label>
+                        <input id="emailPeladeiro" name="emailPeladeiro" class="form-control" placeholder="Digite seu E-mail" required="" type="email">
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="selectTime">Time</label>
-                            <select class="form-control" id="time" name="time">
-                                <option value="" selected>Selecione</option> 
-                            </select>
+                    <div class="form-group col-sm-12 col-lg-6">
+                        <label for="textTelefone" class="control-label">Telefone</label>
+                        <input id="telPeladeiro" name="telPeladeiro" class="form-control" placeholder="(xx)xxxxx-xxxx" type="tel">
+                    </div>   
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-sm-12 col-lg-6">
+                        <label for="inputPData" class="control-label">Data Nascimento</label>
+                        <input type="date" name="dataNascimento" class="form-control" id="dataNascimento" required="" placeholder="">
+                    </div>
+                    <div class="form-group col-sm-12 col-lg-6 d-flex flex-column">
+                        <label for="radioParticipacao">Participação</label>
+                        <div class="btn-group" data-toggle="buttons"> 
+                            <label class="btn btn-secondary w-50" >
+                                <input type="radio" name="participacao" id="mensalista" value="mensalista">Mensalista
+                            </label>
+                            <label class="btn btn-secondary w-50" >
+                                <input type="radio" name="participacao" id="diarista" value="diarista">Diarista
+                            </label>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="radioParticipacao">Participação</label><br>
-                        <input type="radio" name="participacao" id="mensalista" value="mensalista">Mensalista</label>
-                        <input type="radio" name="participacao" id="diarista" value="diarista">Diarista</label>
+                <div class="form-row">
+                    <div class="form-group col-sm-12 col-lg-6">
+                        <label for="selectPosicao">Posição</label>
+                        <select class="custom-select" id="posicao" name="posicao">
+                            <option value="" selected>Selecione</option> 
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-12 col-lg-6">
+                        <label for="selectTime">Time</label>
+                        <select class="custom-select" id="time" name="time">
+                            <option value="" selected>Selecione</option> 
+                        </select>
                     </div>
                 </div>
                 <input name="id_peladeiro" value="" id="id_peladeiro" type="hidden" />
                 <input name="acao" value="adicionar" id="acao" type="hidden" />
-                <button type="submit" class="btn btn-lg btn-success btn-default" id ="botao-salvar">Salvar</button>
-                <button type="button" class="btn btn-lg btn-danger btn-default" id="botao-cancelar">Cancelar</button>
+                <span class="pb-5">
+                    <button type="submit" class="btn btn-lg btn-success btn-default" id ="botao-salvar">Salvar</button>
+                    <button type="button" class="btn btn-lg btn-danger btn-default" id="botao-cancelar">Cancelar</button>
+                </span>
             </fieldset>
         </form>
     </div>
@@ -110,8 +109,8 @@
         <br>
         <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button>
     </span>
-    <div class="botoes">
-        <button type="button" class="btn btn-success btn-default" id ="botao-cadastrar">Cadastrar</button>
-        <button type="button" class="btn btn-primary btn-default" id ="botao-busca-peladeiro">Encontrar peladeiro</button>
+    <div class="botoes pb-5 ">
+        <button type="button" class="btn btn-md mx-2 btn-success m-s btn-default px-4" id ="botao-cadastrar">Cadastrar</button>
+        <button type="button" class="btn btn-md mx-2 btn-info btn-default px-4" id ="botao-busca-peladeiro">Encontrar peladeiro</button>
     </div>
 </div>

@@ -4,11 +4,11 @@
     </div>
     <div id="pelada-exibir" style="display: none"></div>
     <div id="cadastroPelada" style="display: none">
-        <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_cadastro_pelada" id="form_cadastro_pelada" >
+        <form class="form-horizontal mx-auto d-block col-md-12" action="pelada" method="post" name="form_cadastro_pelada" id="form_cadastro_pelada" >
             <div class="box-header">
                 <h4 class="subtitle">Use os campos abaixo para cadastrar sua pelada.</h4>
             </div>
-            <fieldset>
+            <fieldset >
                 <div class="form-group">
                    <label for="textNome" class="control-label">Pelada:</label>
                    <input id="nomePelada" name="nomePelada" class="form-control" placeholder="Informe o nome da pelada" required="" type="text">
@@ -43,14 +43,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-1 control-label" for="radioSorteio">Sorteio</label>
-                    <div class="col-md-4"> 
-                        <label required="" class="radio-inline" for="radios-0" >
+                <div class="form-group col-sm-12 col-lg-6 d-flex flex-column">
+                    <label for="radioSorteio">Sorteio</label>
+                    <div class="btn-group" data-toggle="buttons"> 
+                        <label class="btn btn-secondary w-50" >
                             <input type="radio" name="sorteio" id="chegada" value="chegada" checked="checked">
                             Ordem de chegada
                         </label>
-                        <label required="" class="radio-inline" for="radios-1" >
+                        <label class="btn btn-secondary w-50">
                             <input type="radio" name="sorteio" id="semSorteio" value="semSorteio">
                             Sem sorteio
                         </label>
@@ -83,7 +83,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="selectEstado">Estado</label>
-                            <select class="form-control" id="estado" name="estado">
+                            <select class="custom-select" id="estado" name="estado">
                                 <option value="" selected>Selecione Estado</option> 
                             </select>
                         </div>
@@ -91,7 +91,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="selectCidade">Cidade</label>
-                            <select class="form-control" id="cidade" name="cidade">
+                            <select class="custom-select" id="cidade" name="cidade">
                             </select>
                         </div>
                     </div>   
@@ -99,8 +99,10 @@
                 <input name="id_pelada" value="" id="id_pelada" type="hidden" />
                 <input name="id_localizacao" value="" id="id_localizacao" type="hidden" />
                 <input name="acao" value="adicionar" id="acao" type="hidden" />
-                <button type="submit" class="btn btn-lg btn-success btn-default" id ="botao-salvar">Salvar</button>
-                <button type="button" class="btn btn-lg btn-danger btn-default" id="botao-cancelar">Cancelar</button>
+                <span class="pb-5">
+                    <button type="submit" class="btn btn-md mx-2 btn-success m-s btn-default px-4" id ="botao-salvar">Salvar</button>
+                    <button type="button" class="btn btn-md mx-2 btn-danger btn-default px-4" id="botao-cancelar">Cancelar</button>
+                </span>
             </fieldset>
         </form>
     </div>
@@ -168,9 +170,9 @@
         </div>
     </div>
 
-    <div class="botoes">
-        <button type="button" class="btn btn-lg btn-success btn-default" id ="botao-cadastrar">Cadastrar Pelada</button>
-        <button type="button" class="btn btn-lg btn-primary btn-default" id ="botao-busca-pelada">Encontrar pelada</button>
+    <div class="botoes pb-5 ">
+        <button type="button" class="btn btn-md mx-2 btn-success m-s btn-default px-4" id ="botao-cadastrar">Cadastrar Pelada</button>
+        <button type="button" class="btn btn-md mx-2 btn-info btn-default px-4" id ="botao-busca-pelada">Encontrar pelada</button>
 
     </div>
 </div>
