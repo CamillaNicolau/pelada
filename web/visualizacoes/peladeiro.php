@@ -85,13 +85,15 @@
             <tbody id="listaPeladeiro"></tbody>  
         </table>
     </div> 
-    <span class="busca-peladeiro" style="display: none">
-        <h2 class="box-title"><strong>ENCONTRE O PELADEIRO</strong></h2>
-        <div class="alert alert-info" role="alert">
+    <span class="busca-peladeiro col-md-12" style="display: none">
+        <h2 class="box-title py-2 px-4 py-2 px-4 text-dark shadow"><strong>ENCONTRE O PELADEIRO</strong></h2>
+        <div class="alert alert-info col-md-12" role="alert">
             <strong>Olá,</strong> informe um email para encontrar o peladeiro.
         </div>
-        <input type="search" id="busca" name="busca">
-        <button type="submit" id="encontra-peladeiro"><i class="fas fa-search"></i></button>
+        <div class="form-group col-sm-12 col-lg-4 d-flex align-items-end">
+            <input id="busca" name="busca" class="form-control" required="" type="search">
+            <button type="submit" id="encontra-peladeiro" class="btn "><i class="fas fa-search"></i></button>
+        </div>
         <div class="table-responsive col-md-12 tabela-inserir-peladeiro" style="display: none">
             <table class="table table-striped" cellspacing="0" cellpadding="0">
                 <thead>
@@ -107,7 +109,7 @@
             </table>
         </div>
         <br>
-        <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button>
+        <button id="cancelar-buscar" class="btn btn-md mx-2 btn-danger btn-default px-4">Cancelar</button>
     </span>
     <div class="botoes pb-5 ">
         <button type="button" class="btn btn-md mx-2 btn-success m-s btn-default px-4" id ="botao-cadastrar">Cadastrar</button>

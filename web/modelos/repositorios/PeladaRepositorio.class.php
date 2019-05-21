@@ -10,7 +10,7 @@ class PeladaRepositorio extends Pelada {
   public function adicionaPelada(Pelada $Pelada) {
 
         if($Pelada->idPelada){
-           echo("Método adicionaPelada() utilizado em objeto que já é instância de usuário válido.");
+           echo("Método adicionaPelada() utilizado em objeto que já é instância de uma pelada válido.");
         } 
         try {
             $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder(); 
