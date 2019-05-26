@@ -29,45 +29,47 @@ class PeladeiroControle extends ControlaModelos
                         exit(json_encode(["sucesso" => false, "mensagem" => implode("<br>", $msg_erro)]));
                     }
                 }
-
+                
                 \Doctrine::beginTransaction();
 
                 $time = $_POST['time'];
                 $posicao =  $_POST['posicao'];
-               
+
                 $PeladeiroRepositorio = new PeladeiroRepositorio();
                 $Peladeiro = new Peladeiro();
-
-                $buscarPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email = "'.$_POST['emailPeladeiro'].'" and ativo ='.true]);
-                if(count($buscarPeladeiro)>0){
-                    exit(json_encode(["sucesso" => false, "mensagem" => 'Usuário cadastrado no sistema']));
-                }
-                if($_POST['imagemUsuario']){
-                    $imagem = pathinfo($_FILES['imagemUsuario']['name']);
-                    $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
-                    $url = URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . $nomeImagem .'.' . $imagem['extension'];
-                }
                 
-                $Peladeiro->setTime(new Time($time));
-                $Peladeiro->setPosicao(new Posicao($posicao));
-                $Peladeiro->nome = $_POST['nomePeladeiro'];
-                $Peladeiro->email = $_POST['emailPeladeiro'];
-                $Peladeiro->telefone = $_POST['telPeladeiro'];
-                $Peladeiro->data_nascimento = $_POST['dataNascimento'];
-                $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url : URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . 'default.jpeg';
+                $verificaEmail = $PeladeiroRepositorio::buscarPeladeiro(['email = "'.$_POST['emailPeladeiro'].'" ']);
+                if(count($verificaEmail)>0){
+                    exit(json_encode(["sucesso" => false,"mensagem" => "Peladeiro já está cadastrado, favor informar um e-mail diferente"]));
+                } else{
+                    
+                    if($_POST['imagemUsuario']){
+                        $imagem = pathinfo($_FILES['imagemUsuario']['name']);
+                        $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
+                        $url = URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . $nomeImagem .'.' . $imagem['extension'];
+                    }
 
-                $Peladeiro->participacao = $_POST['participacao'];
-                $Peladeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
+                    $Peladeiro->setTime(new Time($time));
+                    $Peladeiro->setPosicao(new Posicao($posicao));
+                    $Peladeiro->nome = $_POST['nomePeladeiro'];
+                    $Peladeiro->email = $_POST['emailPeladeiro'];
+                    $Peladeiro->telefone = $_POST['telPeladeiro'];
+                    $Peladeiro->data_nascimento = $_POST['dataNascimento'];
+                    $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url : URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . 'default.jpeg';
 
-                if(!$PeladeiroRepositorio->adicionaPeladeiro($Peladeiro)){
-                    exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao inserir imagem')));
-                 }
-                if(isset($_FILES['imagemUsuario'])){
-                    UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
+                    $Peladeiro->participacao = $_POST['participacao'];
+                    $Peladeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
+
+                    if(!$PeladeiroRepositorio->adicionaPeladeiro($Peladeiro)){
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao inserir imagem')));
+                    }
+                    if(isset($_FILES['imagemUsuario'])){
+                        UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
+                    }
+                    $PeladeiroRepositorio->inserirGrupoPeladeiro($Peladeiro->idPeladeiro, $_SESSION['id_usuario_logado']);
+                    \Doctrine::commit();
+                    exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
                 }
-                $PeladeiroRepositorio->inserirGrupoPeladeiro($Peladeiro->idPeladeiro, $_SESSION['id_usuario_logado']);
-                \Doctrine::commit();
-                exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
                
             } catch (Erro $E) {
               \Doctrine::rollBack();
