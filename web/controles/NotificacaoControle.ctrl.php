@@ -18,7 +18,7 @@ class NotificacaoControle extends ControlaModelos
             case 'lista_notificacao':
                 try{
                     
-                    $ListaNotificacao = NotificacaoRepositorio::buscarNotificacao(['p.fk_criador='.$_SESSION['id_usuario_logado'].' and data_solicitacao  BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW() and visualizada = 0'], true);
+                    $ListaNotificacao = NotificacaoRepositorio::buscarNotificacao(['p.fk_criador='.$_SESSION['id_usuario_logado'].' and p.status <> "encerrada" and data_solicitacao  BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW() and visualizada = 0'], true);
                     $html = [];                   
                     
                     foreach($ListaNotificacao as $notificacao) {
@@ -33,7 +33,7 @@ class NotificacaoControle extends ControlaModelos
             case'conta_notificacao':
                 try{
                     
-                    $ContarNotificacao = NotificacaoRepositorio::contarNotificacao(['p.fk_criador='.$_SESSION['id_usuario_logado'].' and pc.visualizada = 0  and pc.data_solicitacao  BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()']);
+                    $ContarNotificacao = NotificacaoRepositorio::contarNotificacao(['p.fk_criador='.$_SESSION['id_usuario_logado'].' and p.status <> "encerrada" and pc.visualizada = 0  and pc.data_solicitacao  BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()']);
                     $html = [];
                     foreach($ContarNotificacao as $total) {
                        $html[] =  array("total"=>$total->total);   

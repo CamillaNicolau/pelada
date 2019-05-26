@@ -353,9 +353,8 @@ function candidataPelada(idPelada) {
         },
         success: function(retorno) {
             if (retorno.sucesso) {
-                 atualizarListaPelada();
                 alertaFnc("Sucesso", retorno.mensagem,1500, true, "success");
-               
+                atualizarListaPelada();
             } else {
                 alertaFnc("Atenção", retorno.mensagem, 2000, true, "warning");
             }
