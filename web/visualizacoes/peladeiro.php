@@ -85,15 +85,9 @@
             <tbody id="listaPeladeiro"></tbody>  
         </table>
     </div> 
-<<<<<<< .mine
-    <span class="busca-peladeiro col-md-12" style="display: none">
-        <h2 class="box-title"><strong>ENCONTRE O PELADEIRO</strong></h2>
-        <div class="alert alert-info" role="alert">
-=======
     <span class="busca-peladeiro col-md-12" style="display: none">
         <h2 class="box-title py-2 px-4 py-2 px-4 text-dark shadow"><strong>ENCONTRE O PELADEIRO</strong></h2>
         <div class="alert alert-info col-md-12" role="alert">
->>>>>>> .r125
             <strong>Olá,</strong> informe um email para encontrar o peladeiro.
         </div>
         <div class="form-group col-sm-12 col-lg-4 d-flex align-items-end">

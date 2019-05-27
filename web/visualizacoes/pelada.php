@@ -2,6 +2,7 @@
     <div class="box-header">
         <h2 class="box-title py-2 px-4 py-2 px-4 text-dark shadow"><strong>MINHA PELADA</strong></h2>
     </div>
+    <div class="main px-2">
     <div id="pelada-exibir" style="display: none"></div>
     <div id="cadastroPelada" style="display: none">
         <form class="form-horizontal mx-auto d-block col-md-12" action="pelada" method="post" name="form_cadastro_pelada" id="form_cadastro_pelada" >
@@ -122,17 +123,19 @@
             </tbody>     
         </table>
     </div>
-    <span class="busca-pelada" style="display: none">
+    <div class="busca-pelada col-12" style="display: none">
         <h2 class="box-subtitle"><strong>Encontre a sua pelada</strong></h2>
         <div class="alert alert-info" role="alert">
             <strong>Olá!</strong> Aqui você encontra todas as peladas disponivéis de acordo com a cidade informada.
         </div>
-        <input type="search" id="busca" name="busca" placeholder="Informe a cidade">
-        <button type="submit" id="encontra-pelada"><i class="fas fa-search"></i></button>
+        <div class="input-group col-12 col-md-6 p-0 mb-3">
+            <input class="form-control" type="search" id="busca" name="busca" placeholder="Informe a cidade">
+            <button class="btn btn-info col-3 col-md-2 p-0" type="submit" id="encontra-pelada"><i class="fas fa-search"></i></button>
+        </div>
         <div id="pelada"></div>
-        <br>
-         <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button> 
-    </span>
+
+        <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button> 
+    </div>
     <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_adicionar_peladeiro" id="form_adicionar_peladeiro" >
         <span class="adicionar-peladeiro" style="display: none;">
             <h2 class="box-subtitle"><strong>ADICIONE PELADEIRO</strong></h2>
@@ -175,5 +178,6 @@
         <button type="button" class="btn btn-md mx-2 btn-info btn-default px-4" id ="botao-busca-pelada">Encontrar pelada</button>
 
     </div>
+</div>
 </div>
 
