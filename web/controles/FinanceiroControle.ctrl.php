@@ -125,7 +125,7 @@ class FinanceiroControle
                         $html = [];
                         $ListaLancamento = FinanceiroRepositorio::buscarLancamento(['f.fk_peladeiro ='.$_SESSION['id_usuario_logado']]);
                         foreach($ListaLancamento as $lancamento) {
-                            $html[] =  array('id'=>$lancamento->id_lancamento,'nome'=>$lancamento->nome_pelada,'total'=>$lancamento->total_pelada, 'pelada'=>$lancamento->id_pelada) ;
+                            $html[] =  array('id'=>$lancamento->id_lancamento,'nome'=>$lancamento->nome_pelada,'total'=>$lancamento->total_pelada, 'pelada'=>$lancamento->id_pelada,'status'=>$lancamento->status) ;
                         }
                         exit(json_encode(array('sucesso'=>true,'html'=>$html)));
                     }catch(Erro $E){

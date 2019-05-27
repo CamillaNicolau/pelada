@@ -1,7 +1,7 @@
 $(document).ready(function() {  
     
     $('.dinheiro').bind('keypress',mask.money);
-$('.dinheiro').bind('keyup',mask.money);
+    $('.dinheiro').bind('keyup',mask.money);
     $("#botao-cadastrar").bind('click',function(){
         $('#lancamentoPelada').slideDown();
         $(".botoes").hide();
@@ -13,6 +13,7 @@ $('.dinheiro').bind('keyup',mask.money);
     $('#botao-cancelar-lancamento').bind('click',function(){
         $('.busca-peladeiro-pagamento').hide();
         $('#lancamento-exibir').hide();
+        $(".botoes").show()
         atualizarListaLancamento();
     });
     montarPelada();
@@ -68,9 +69,12 @@ function atualizarListaLancamento() {
                     $.each(retorno.html,function(i,v){
                       $('#listaLancamento').append('<tr><td class="col-md-2">'+v.nome+'</td><td class="col-md-2">'+v.total+'</td>'+
                         '<td><button onclick="buscarPeladeiro('+v.id+','+v.pelada+')" title="Peladeiro confirmado" class="btn btn-info btn-xs" id="adiciona-lancamento"><i class="fas fa-user-check"></i></button></td>'+
-                        '<td><button onclick="editarLancamento('+v.id+')" class="btn btn-primary btn-xs "><i class="fa fa-edit"></i></button></td>'+
+                        '<td><button onclick="editarLancamento('+v.id+')" class="btn btn-primary btn-xs editar-pelada-'+v.id+'"><i class="fa fa-edit"></i></button></td>'+
                         '<td><button onclick="removerLancamento('+v.id+')" class="btn btn-danger btn-xs"> <i class="fa fa-trash"></i></ button></td>'+
                         '</tr></tbody>');
+                        if(v.status == 'encerrada'){
+                            $('.editar-pelada-'+v.id).prop('disabled',true);
+                        }
                     });
                 } else{
                     $('#lancamento-exibir').show();

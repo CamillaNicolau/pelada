@@ -8,23 +8,43 @@
 	       	<div class="box-header">
                 <h4 class="subtitle">Use os campos abaixo para cadastrar seus lançamentos.</h4>
             </div>
-        	<div class="form-group">
-                <label for="selectPelada">Pelada*</label>
-                <select class="form-control" id="pelada" name="pelada" required="">
-                    <option value="" selected>Selecione a pelada</option> 
-                </select>
+        	
+            <div class="form-row ">
+                <div class="form-group col-6">
+                    <label for="selectPelada">Pelada*</label>
+                    <select class="form-control" id="pelada" name="pelada" required="">
+                        <option value="" selected>Selecione a pelada</option> 
+                    </select>
+                </div>
+                <div class="form-group col-6">
+                    <label for="texValorTotal" class="control-label">Valor pelada*</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">R$</div>
+                        </div>
+                        <input id="valorTotal" name="valorTotal" class="form-control dinheiro"  required="" type="text">
+                    </div>
+                </div>
             </div>
-            <div class="form-group ">
-                <label for="texValorTotal" class="control-label">Valor pelada*</label>
-                <input id="valorTotal" name="valorTotal" class="form-control dinheiro"  required="" type="text">
-            </div>
-            <div class="form-group">
-                <label for="texValorDiaria" class="control-label">Valor por diárista*</label>
-                <input id="valorDiaria" name="valorDiaria" class="form-control dinheiro"  required="" type="text">
-            </div>
-            <div class="form-group">
-                <label for="texValorMensalista" class="control-label">Valor por mensalista*</label>
-                <input id="valorMensalista" name="valorMensalista" class="form-control dinheiro"  required="" type="text">
+            <div class="form-row ">
+                <div class="form-group col-6">
+                    <label for="texValorDiaria" class="control-label">Valor por diárista*</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">R$</div>
+                        </div>
+                        <input id="valorDiaria" name="valorDiaria" class="form-control dinheiro"  required="" type="text">
+                    </div>
+                </div>
+                <div class="form-group col-6">
+                    <label for="texValorMensalista" class="control-label">Valor por mensalista*</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">R$</div>
+                        </div>
+                        <input id="valorMensalista" name="valorMensalista" class="form-control dinheiro"  required="" type="text">
+                    </div>
+                </div>
             </div>
             <input name="id_lancamento" value="" id="id_lancamento" type="hidden" />
             <input name="acao" value="adicionar" id="acao" type="hidden" />

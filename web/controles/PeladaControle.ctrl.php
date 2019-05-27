@@ -100,12 +100,6 @@ class PeladaControle
                     if($_POST['qtJogadores'] < MIN_JOGADORES){
                       exit(json_encode(array('sucesso'=>false,'mensagem'=>'Quantidade de jogadores invalidos')));
                     }
-
-                    if($_POST['dataPartida'] < date("Y-m-d")){
-                        $status = 'encerrada';
-                    } else{
-                        $status = 'aguardando';
-                    }
                     \Doctrine::beginTransaction();
                     
                     $cidade = $_POST['cidade'];
@@ -121,9 +115,18 @@ class PeladaControle
                 
                     $LocalizacaoRepositorio->atualizarLocalizacao($Localizacao);
                     \Doctrine::commit();
+                    
                     \Doctrine::beginTransaction();
                     $PeladaRepositorio = new PeladaRepositorio();
                     $Pelada = new Pelada($_POST['id_pelada']);
+                    
+                    if($Pelada->status != "encerrada"){
+                        if($_POST['dataPartida'] < date("Y-m-d")){
+                            $status = 'encerrada';
+                        } else{
+                            $status = 'aguardando';
+                        }
+                    }
 
                     $Pelada->localizacao = $Localizacao->idLocalizacao;
                     $Pelada->nome = $_POST['nomePelada'];
@@ -131,9 +134,9 @@ class PeladaControle
                     $Pelada->duracaoPartida = $_POST['tempoJogo'];
                     $Pelada->qtJogadores = $_POST['qtJogadores'];
                     $Pelada->sorteio = $_POST['sorteio'];
-                    $Pelada->dataPartida = $_POST['dataPartida'];
-                    $Pelada->horario = $_POST['horario'];
-                    $Pelada->status = $status;
+                    $Pelada->dataPartida = (isset($_POST['dataPartida']) ? $_POST['dataPartida'] : Tratamentos::converteData($Pelada->dataPartida));
+                    $Pelada->horario = (isset($_POST['horario']) ? $_POST['horario'] : $Pelada->horario);
+                    $Pelada->status = (isset($status) ? $status : $Pelada->status);
                     $Pelada->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
                     $PeladaRepositorio->atualizarPelada($Pelada);
