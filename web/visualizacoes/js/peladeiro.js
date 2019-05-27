@@ -89,6 +89,8 @@ function resetarFormulario(){
         atualizarListaPeladeiro();
     });
     $(".busca-peladeiro").hide();
+    $('#acao').val('adicionar');
+    $('#id_peladeiro').val('');
     $(".botoes").show();
 }
 

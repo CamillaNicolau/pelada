@@ -41,8 +41,11 @@ class Posicao {
                     $this->idPosicao = $ObjDados->id_posicao_peladeiro;
                     $this->nome = $ObjDados->nome;
                 } catch(Exception $ex){
-
+                     echo ('Erro ao instanciar classe Posicao id $idPosicao. '. $ex->getMessage());
                 }
+            break;
+            case is_null($idPosicao):
+              //Nada a fazer
             break;
             default:
                 echo('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idPosicao.' do tipo '.gettype($idPosicao));

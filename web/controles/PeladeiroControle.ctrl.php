@@ -34,7 +34,11 @@ class PeladeiroControle
                 \Doctrine::beginTransaction();
                 #busca os campos time e posição e coloca na variavel
                 $time = $_POST['time'];
-                $posicao =  $_POST['posicao'];
+                if(isset($_POST['posicao']) && $_POST['posicao'] != "" ){
+                    $posicao = $_POST['posicao'];
+                }else {
+                    $posicao = null;
+                }  
 
                 #instancia um objeto $PeladeiroRepositorio da classe PeladeiroRepositorio
                 #instancia um objeto $Peladeiro da classe Peladeiro
@@ -128,8 +132,13 @@ class PeladeiroControle
                 $buscarPeladeiro = PeladeiroRepositorio::buscarPeladeiro(['email = "millacnicolau@gmail.com" and ativo ='.true]);
 
                 $time = $_POST['time'];
-                $posicao =  $_POST['posicao'];
-
+                
+               
+                if(isset($_POST['posicao']) && $_POST['posicao'] != "" ){
+                    $posicao = $_POST['posicao'];
+                }else {
+                    $posicao = null;
+                }                
                 $PeladeiroRepositorio = new PeladeiroRepositorio();
                 $Peladeiro = new Peladeiro($_POST['id_peladeiro']);
                 if($_POST['imagemUsuario']){

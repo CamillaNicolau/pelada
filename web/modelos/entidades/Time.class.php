@@ -50,6 +50,9 @@ class Time{
                     echo('Tentativa de injection na classe '.__CLASS__.', variável $id recebeu o valor '.$idTime.' do tipo '.gettype($idTime));
                 }
             break;
+            case is_null($idTime):
+              //Nada a fazer
+            break;
         }
     }
 
