@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da página de relatorio.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
-class RelatorioControle extends ControlaModelos
+class RelatorioControle
 {
 
     public function tratarAcoes()
@@ -18,8 +18,8 @@ class RelatorioControle extends ControlaModelos
           case 'busca_pelada':
             try{
               
-              $Pelada = PeladaRepositorio::buscarPelada();
-              exit(json_encode($retorno));
+                $Pelada = PeladaRepositorio::buscarPelada();
+                exit(json_encode($retorno));
             } catch (Erro $E){
               
             }

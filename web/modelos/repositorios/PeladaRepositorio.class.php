@@ -1,5 +1,13 @@
 <?php
 
+
+/**
+ * Gerenciar os dados a serem enviados e recebidos do banco
+ *
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019 
+ */
 class PeladaRepositorio extends Pelada {
   
   /**
@@ -40,12 +48,13 @@ class PeladaRepositorio extends Pelada {
                 ->setParameter(':status',$Pelada->status)
                 ->execute()
             ;  
-          $Pelada->idPelada = $QueryBuilder->getConnection()->lastInsertId();
-          return $Pelada->idPelada;
+            $Pelada->idPelada = $QueryBuilder->getConnection()->lastInsertId();
+            return $Pelada->idPelada;
         } catch (Exception $ex) {
             echo("'Erro ao adicionar Pelada" . $ex);
         }   
     }
+    
     /**
      * Salva as informações aramazenadas nos atributos do objeto no banco de dados.
      *
@@ -84,7 +93,6 @@ class PeladaRepositorio extends Pelada {
                 ->setParameter(':id_pelada', $Pelada->idPelada)
                 ->execute()
             ;
-
         } catch (\Exception $j) {
             echo("Um erro ocorreu ao salvar um conteudo da pelada no banco de dados - " . $j->getMessage());
         }
@@ -100,7 +108,6 @@ class PeladaRepositorio extends Pelada {
         if (!$Pelada->idPelada) {
             echo('Tentativa de deletar do banco de dados um registro inexistente.');
         }
-        
         try {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
@@ -112,8 +119,9 @@ class PeladaRepositorio extends Pelada {
         } catch (\Exception $j) {
             echo($j->getMessage());
         }
-       return true;
+        return true;
     }
+    
     /**
      * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
      * 
@@ -154,6 +162,16 @@ class PeladaRepositorio extends Pelada {
             echo ("Erro ao buscar pelada". $j->getMessage());
         }
     }
+    
+    /**
+     * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
+     * 
+     * @param array $condicoes
+     * @param type $order
+     * @param type $inicio
+     * @param type $limite
+     * @return array
+     */
     public static function buscaGeralPelada(array $condicoes = [], $order = null, $inicio = null, $limite = null){
 
         $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
@@ -180,11 +198,10 @@ class PeladaRepositorio extends Pelada {
             if(isset($limite)) {
                 $QueryBuilder->setMaxResults($limite);
             }
-            // var_dump($QueryBuilder->getSQL());
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {
-            echo ("Erro ao buscar localizacao". $j->getMessage());
+            echo ("Erro ao realizar a busca completa da pelada". $j->getMessage());
         }
     }
 
@@ -197,7 +214,6 @@ class PeladaRepositorio extends Pelada {
 
         try {
             foreach ($Pelada->peladeiros as $chave=>$valor) {
-
                 $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
                 $QueryBuilder
                     ->insert('pelada_peladeiro')
@@ -209,18 +225,17 @@ class PeladaRepositorio extends Pelada {
                     ->setParameter(':token', md5($chave))
                     ->execute()
                 ;
-
             }
-         
         } catch (\Exception $e26811) {
-            echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
+            echo('Erro ao adicionar peladeiros na classe '.__CLASS__.': '.$e26811->getMessage());
         }
-               return true;
-
+        return true;
     }
+    
     /**
      * Deleta o registro no banco de dados .
      *
+     * @param array $condicoes
      * @return bool Retorna true ao final da operação com sucesso
      */
     public function deletarPeladeiroPelada(array $condicoes = []) {
@@ -266,6 +281,7 @@ class PeladaRepositorio extends Pelada {
             echo("Um erro ocorreu ao salvar a confirmação da pelada no banco de dados - " . $j->getMessage());
         }
     }
+    
     /**
      * Salva os peladeiros para a pelada.
      *
@@ -289,6 +305,16 @@ class PeladaRepositorio extends Pelada {
         }
         return true;
     }
+    
+    /**
+     * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
+     * 
+     * @param array $condicoes
+     * @param type $order
+     * @param type $inicio
+     * @param type $limite
+     * @return array
+     */
     public static function buscaCandidato(array $condicoes = [], $order = null, $inicio = null, $limite = null){
 
         $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
@@ -313,6 +339,5 @@ class PeladaRepositorio extends Pelada {
         catch (\Exception $j) {
             echo ("Erro ao buscar candidato". $j->getMessage());
         }
-        
     }
 }

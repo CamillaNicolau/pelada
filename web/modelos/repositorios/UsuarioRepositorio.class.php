@@ -13,7 +13,7 @@ class UsuarioRepositorio extends Usuario {
      * Realiza a listagem com os usuários registrados no banco de acordo com os parametros informados.
      *
      * @param array $condicoes Condições para a pesquisa ou um array vazio.
-     * @param string $order Parametro e o tipo de ordenação desejado. Exemplos: "id DESC", "nome ASC".
+     * @param bool $order Parametro e o tipo de ordenação desejado. Exemplos: "id DESC", "nome ASC".
      * @param int $inicio Parametro para determinar o registro inicial da listagem.
      * @param int $limite Quantidade de registros para listagem.
      * @return array Retorna um array com os usuários de acordo com os parametros informados.
@@ -25,8 +25,7 @@ class UsuarioRepositorio extends Usuario {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
               ->select('*')
-              ->from('usuario')
-             
+              ->from('usuario') 
             ;
             if ($where != '') {
                 $QueryBuilder->where($where);
@@ -69,11 +68,9 @@ class UsuarioRepositorio extends Usuario {
                 ->setParameter(':data_nascimento', $Usuario->data_nascimento)
                 ->execute()
             ;
-
             $Usuario->idUsuario = $QueryBuilder->getConnection()->lastInsertId();
-          
-          return $Usuario->idUsuario;
-        } catch (Exception $ex) {
+            return $Usuario->idUsuario;
+        } catch (Exception $j) {
             echo("Erro ao adicionar Usuario" . $j->getMessage());
         }   
     }
@@ -175,6 +172,6 @@ class UsuarioRepositorio extends Usuario {
         } catch (\Exception $j) {
             echo("Um erro ocorreu ao remover usuário no banco de dados - " . $j->getMessage());
         }
-       return true;
+        return true;
     } 
 }

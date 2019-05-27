@@ -4,8 +4,9 @@
  * Classe responsável em receber os dados do array contendo os corringas e valores, aplicar em
  * um template pre formatado com o html e css e aplicar em uma forma válida de e-mail. 
  *
- * @author Camilla Nicolau
- * @copyright 2018
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019
  */
 
 class TemplateEmail

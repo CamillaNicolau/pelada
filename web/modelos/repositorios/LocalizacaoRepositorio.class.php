@@ -1,26 +1,26 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of LocalizacaoRepositorio
+ * Gerenciar os dados a serem enviados e recebidos do banco
  *
- * @author camil
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019 
  */
 class LocalizacaoRepositorio extends Localizacao {
-    
-  public function __construct() {
-       //Nada a fazer
-    }
-    
+
+    /**
+     * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
+     * 
+     * @param array $condicoes
+     * @param type $order
+     * @param type $inicio
+     * @param type $limite
+     * @return array
+     */
     public static function buscarLocalizacao(array $condicoes = [], $order = false, $inicio = null, $limite = null){
         
         $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
-        
         try {
             $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
             $QueryBuilder
@@ -30,7 +30,6 @@ class LocalizacaoRepositorio extends Localizacao {
             if ($where != '') {
                 $QueryBuilder->where($where);
             }
-            
             if (isset($inicio)) {
                 $QueryBuilder->setFirstResult($inicio);
             }
@@ -43,12 +42,15 @@ class LocalizacaoRepositorio extends Localizacao {
             echo ("Erro ao buscar localizacao". $j->getMessage());
         }
     }
-       
+    
+    /**
+     * Adicionar as informações aramazenadas nos atributos do objeto no banco de dados.
+     *
+     * @return boolean
+     */
     public function adicionaLocalizacao(Localizacao $Localizacao) {
-        
-      
         try {
-          $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
+            $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
             $QueryBuilder
               ->insert('localizacao_pelada')
                ->setValue('nome_quadra', ':nome_quadra')
@@ -63,19 +65,21 @@ class LocalizacaoRepositorio extends Localizacao {
                ->setParameter(':fk_cidade', $Localizacao->cidade) 
                ->execute()
             ;  
-         
-          $Localizacao->idLocalizacao = $QueryBuilder->getConnection()->lastInsertId();
-              
-         return $Localizacao->idLocalizacao;
+            $Localizacao->idLocalizacao = $QueryBuilder->getConnection()->lastInsertId();    
+            return $Localizacao->idLocalizacao;
         } catch (Exception $ex) {
             echo('Erro ao adicionar na classe '.__CLASS__.': '.$ex->getMessage());
         }   
     }
-    public function atualizarLocalizacao(Localizacao $Localizacao) {
-        
-      
+    
+    /**
+     * Atualiza os dados do objeto no banco de dados.
+     *
+     * @return bool Retorna true ao final da operação com sucesso
+     */
+    public function atualizarLocalizacao(Localizacao $Localizacao) {     
         try {
-          $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
+            $QueryBuilder =  \Doctrine::getInstance()->createQueryBuilder();   
             $QueryBuilder
               ->update('localizacao_pelada')
                ->set('nome_quadra', ':nome_quadra')
@@ -91,10 +95,8 @@ class LocalizacaoRepositorio extends Localizacao {
                 ->where('id_localizacao_pelada = :id_localizacao_pelada')
                 ->setParameter(':id_localizacao_pelada', $Localizacao->idLocalizacao)
                 ->execute();
-        } catch (Exception $ex) {
-            echo('Erro ao adicionar na classe '.__CLASS__.': '.$ex->getMessage());
-        }   
+        } catch (\Exception $j) {
+            echo("Erro ao atualizar a localização- " . $j->getMessage());
+        } 
     }
-   
-    //put your code here
 }

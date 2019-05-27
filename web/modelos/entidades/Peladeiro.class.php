@@ -248,7 +248,7 @@ class Peladeiro {
     }
 
     /**
-     * Requisita o Peladeiro
+     * Requisita o Usuario
      *
      * @return Peladeiro
      */

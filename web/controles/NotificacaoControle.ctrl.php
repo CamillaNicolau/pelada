@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da página de notificações do sistema.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
-class NotificacaoControle extends ControlaModelos
+class NotificacaoControle
 {
 
     public function tratarAcoes()
@@ -48,14 +48,12 @@ class NotificacaoControle extends ControlaModelos
                     \Doctrine::beginTransaction();
                     $Notificacao = new NotificacaoRepositorio();
                     if($Notificacao->visualizaNotificacao(['id_pelada_candidato='.$_POST['id_notificacao']],$_POST['visualiza'])){
-                         \Doctrine::commit();
+                        \Doctrine::commit();
                         exit(json_encode(array('sucesso'=>true)));
-                       
                     } else{
                         \Doctrine::rollBack();
                         exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao inserir a visualizacao na notificação.")));
                     }
-                    
                 }catch(Erro $E){
                     \Doctrine::rollBack();
                   exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao inserir a visualizacao na notificação.")));

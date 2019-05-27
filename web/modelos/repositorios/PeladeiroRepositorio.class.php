@@ -1,16 +1,19 @@
 <?php
 
 /**
- * Description of PeladeiroRepositorio
+ * Gerenciar os dados a serem enviados e recebidos do banco
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019 
  */
 class PeladeiroRepositorio extends Peladeiro {
+    
     /**
-   * Adicionar as informações aramazenadas nos atributos do objeto no banco de dados.
-   *
-   * @return boolean
-   */
+     * Adicionar as informações aramazenadas nos atributos do objeto no banco de dados.
+     *
+     * @return boolean
+     */
   public function adicionaPeladeiro(Peladeiro $Peladeiro) {
 
         if($Peladeiro->idPeladeiro){
@@ -44,10 +47,10 @@ class PeladeiroRepositorio extends Peladeiro {
                 ->setParameter(':senha', $Peladeiro->senha)
                 ->execute()
             ;  
-          $Peladeiro->idPeladeiro = $QueryBuilder->getConnection()->lastInsertId();
-          return $Peladeiro->idPeladeiro;
+            $Peladeiro->idPeladeiro = $QueryBuilder->getConnection()->lastInsertId();
+            return $Peladeiro->idPeladeiro;
         } catch (Exception $ex) {
-            echo("'Erro ao adicionar Pelada" . $ex);
+            echo("'Erro ao adicionar Peladeiro" . $ex);
         }   
     }
     /**
@@ -85,6 +88,13 @@ class PeladeiroRepositorio extends Peladeiro {
             echo ("Erro ao buscar peladeiro". $j->getMessage());
         }
     }
+    
+    /**
+     * Salva as informações aramazenadas nos atributos do objeto no banco de dados.
+     *
+     * @access public
+     * @return string
+     */
     public function atualizarPeladeiro(Peladeiro $Peladeiro) {
 
         try {
@@ -116,9 +126,10 @@ class PeladeiroRepositorio extends Peladeiro {
                 ->execute()
             ;  
         } catch (Exception $ex) {
-            echo("'Erro ao adicionar Peladeiro" . $ex);
+            echo("'Erro ao atualizar Peladeiro" . $ex);
         }   
     }
+    
     /**
      * Deleta o registro no banco de dados .
      *
@@ -143,6 +154,7 @@ class PeladeiroRepositorio extends Peladeiro {
     /**
      * insere o registro no banco de dados .
      *
+     * @return int Retorna id do parceiro com a operação com sucesso
      */
     public function inserirGrupoPeladeiro($peladeiro,$parceiro) {
         
@@ -159,11 +171,20 @@ class PeladeiroRepositorio extends Peladeiro {
             $idParceiro = $QueryBuilder->getConnection()->lastInsertId();
             return $idParceiro;
         } catch (\Exception $e26811) {
-            echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
+            echo('Erro ao adicionar parceiro na classe '.__CLASS__.': '.$e26811->getMessage());
         }
         return true;
     }
     
+    /**
+     * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
+     * 
+     * @param array $condicoes
+     * @param type $order
+     * @param type $inicio
+     * @param type $limite
+     * @return array
+     */
     public static function buscarGrupoPeladeiro(array $condicoes = [], $order = false, $inicio = null, $limite = null) {
         
         $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
@@ -188,7 +209,7 @@ class PeladeiroRepositorio extends Peladeiro {
             return $QueryBuilder->execute()->fetchAll();
         }
         catch (\Exception $j) {
-            echo ("Erro ao buscar peladeiro". $j->getMessage());
+            echo ("Erro ao buscar parceiro do peladeiro". $j->getMessage());
         }
     }
 }

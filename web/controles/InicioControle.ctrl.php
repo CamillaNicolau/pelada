@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da página inicial interna do sistema.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
 class InicioControle extends ControlaModelos
 {
@@ -53,18 +53,15 @@ class InicioControle extends ControlaModelos
                     \Doctrine::beginTransaction();
                     $confimarPeladeiro = new PeladaRepositorio();
                    
-                     
-                        if($_POST['confirmacao'] == "2"){
-                            $confimarPeladeiro->statusPeladeiroPelada(['id='.$_POST['id_pelada_peladeiro']],$_POST['confirmacao']);
-                            \Doctrine::commit();
-                            exit(json_encode(array('sucesso'=>true,'mensagem'=>"Pelada descartada")));  
-                        } else if($_POST['confirmacao'] == "1"){
-                            $confimarPeladeiro->statusPeladeiroPelada(['id='.$_POST['id_pelada_peladeiro']],$_POST['confirmacao']);
-                            \Doctrine::commit();
-                            exit(json_encode(array('sucesso'=>true,'mensagem'=>"Presença confirmada")));
-                        }
-                        
-                    
+                    if($_POST['confirmacao'] == "2"){
+                        $confimarPeladeiro->statusPeladeiroPelada(['id='.$_POST['id_pelada_peladeiro']],$_POST['confirmacao']);
+                        \Doctrine::commit();
+                        exit(json_encode(array('sucesso'=>true,'mensagem'=>"Pelada descartada")));  
+                    } else if($_POST['confirmacao'] == "1"){
+                        $confimarPeladeiro->statusPeladeiroPelada(['id='.$_POST['id_pelada_peladeiro']],$_POST['confirmacao']);
+                        \Doctrine::commit();
+                        exit(json_encode(array('sucesso'=>true,'mensagem'=>"Presença confirmada")));
+                    }
                 }catch(Erro $E){
                     \Doctrine::rollBack();
                   exit(json_encode(array('sucesso'=>false, "mensagem" => "Desculpe, Ocorreu um erro ao carregar lista de pelada.")));

@@ -3,16 +3,16 @@
 /**
  * Gerencia a exibição da página inicial.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
 class IndexControle extends ControlaModelos
 {
 
     public function tratarAcoes()
     {
-      
+      //Nada a fazer
     }
     public function getHtml()
     {

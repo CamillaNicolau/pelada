@@ -3,9 +3,9 @@
 /**
  * Controla o modelo a ser carregado.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
 class ControlaModelos
 {
@@ -22,20 +22,18 @@ class ControlaModelos
      * @param bool $objeto
      * @return string || objeto
      */
-	public function carregarModelo ($nome_modelo, $objeto = true)
+    public function carregarModelo ($nome_modelo, $objeto = true)
     {
         if ($nome_modelo) {
             $caminho_modelo = PATH_RAIZ . '/modelos/servicos' . $nome_modelo . '.class.php';
             if (file_exists($caminho_modelo)) {
                 require_once $caminho_modelo;
             }
-
-			if (class_exists($nome_modelo) && $objeto) {
+            if (class_exists($nome_modelo) && $objeto) {
                 return new $nome_modelo();
             } else {
                 return $nome_modelo;
             }
         }
-	}
-    
+    }
 }

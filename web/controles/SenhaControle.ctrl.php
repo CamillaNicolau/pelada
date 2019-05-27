@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da página para criação de uma senha para um novo peladeiro.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
-class SenhaControle extends ControlaModelos
+class SenhaControle
 {
     public function tratarAcoes(){
       

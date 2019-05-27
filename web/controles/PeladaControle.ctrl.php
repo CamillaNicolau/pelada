@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da página de peladas.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
-class PeladaControle extends ControlaModelos
+class PeladaControle
 {
 
     public function tratarAcoes()
@@ -445,11 +445,6 @@ class PeladaControle extends ControlaModelos
              * Cabeçalho
              */
             require PATH_RAIZ . '/visualizacoes/incluir/menu.php';
-
-            /*
-             * Carrega o modelo da página
-             */
-            $Modelo = $this->carregarModelo('PeladaModelo');
           
             /*
              * Conteúdo da Index

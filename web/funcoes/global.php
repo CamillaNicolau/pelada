@@ -3,6 +3,10 @@
 /**
  * Função para carregar automaticamente todas as classes.
  * Padrão para as classes [nomeDoArquivo].class.php
+ * 
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019
  */
 
 require PATH_RAIZ . "/util/Tratamentos.class.php";
@@ -32,11 +36,6 @@ require PATH_RAIZ . "/modelos/repositorios/LocalizacaoRepositorio.class.php";
 require PATH_RAIZ . "/modelos/repositorios/FinanceiroRepositorio.class.php";
 require PATH_RAIZ . "/modelos/repositorios/NotificacaoRepositorio.class.php";
 require PATH_RAIZ . "/modelos/servicos/UsuarioModelo.class.php";
-require PATH_RAIZ . "/modelos/servicos/EsqueciMinhaSenhaModelo.class.php";
-require PATH_RAIZ . "/modelos/servicos/HomeModelo.class.php";
-require PATH_RAIZ . "/modelos/servicos/LoginModelo.class.php";
-require PATH_RAIZ . "/modelos/servicos/PeladaModelo.class.php";
-require PATH_RAIZ . "/modelos/servicos/PerfilModelo.class.php";
 require "../bibliotecas/doctrine/vendor/autoload.php";
 require "../bibliotecas/phpmailer/vendor/PHPMailerAutoload.php";
 require "../bibliotecas/emogrifier/vendor/EmogriferAutoload.php";

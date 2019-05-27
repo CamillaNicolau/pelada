@@ -1,11 +1,11 @@
 <?php
 
  /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da página de cadastro de usuario.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
 class UsuarioControle extends ControlaModelos
 {
@@ -75,10 +75,6 @@ class UsuarioControle extends ControlaModelos
     {
         try
         {
-             /*
-             * Carrega o modelo da página
-             */
-            $Modelo = $this->carregarModelo('UsuarioModelo');
 
             /*
              * Cabeçalho

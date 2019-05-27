@@ -1,11 +1,11 @@
 <?php
 
- /**
- * Gerencia a exibição da página inicial.
+/**
+ * Gerencia a exibição da página de login.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
 class LoginControle extends ControlaModelos
 {
@@ -57,10 +57,6 @@ class LoginControle extends ControlaModelos
     {
         try
         {
-             /*
-             * Carrega o modelo da página
-             */
-            $Modelo = $this->carregarModelo('LoginModelo');
 
             /*
              * Cabeçalho

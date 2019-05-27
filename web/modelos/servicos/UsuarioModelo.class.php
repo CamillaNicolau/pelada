@@ -5,7 +5,7 @@
  * 	
  * @author Camilla Nicolau 	
  * @version 1.0 	
- * @copyright 2018 	
+ * @copyright 2019	
  */ 	
 class UsuarioModelo extends Tratamentos 	
 { 	
@@ -30,8 +30,9 @@ class UsuarioModelo extends Tratamentos
             mkdir(PATH_USUARIO . $Usuario->idUsuario, 0777, true); 	
         } 	
         return $Usuario->idUsuario . '/'; 	
-    } 	
-   /** 	
+    }
+    
+    /** 	
      * Carrega o arquivo de imagem e armazena os dados da foto no banco de dados. 	
      * 	
      * @param string $path_imagem Caminho para o arquivo. 	

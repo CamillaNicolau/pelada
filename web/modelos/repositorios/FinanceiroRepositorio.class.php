@@ -1,17 +1,20 @@
 <?php
 
 /**
- * Description of PeladeiroRepositorio
+ * Gerenciar os dados a serem enviados e recebidos do banco
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019 
  */
 class FinanceiroRepositorio extends Financeiro {
+   
     /**
-   * Adicionar as informações aramazenadas nos atributos do objeto no banco de dados.
-   *
-   * @return boolean
-   */
-  public function adicionaLancamento(Financeiro $Financeiro) {
+     * Adicionar as informações aramazenadas nos atributos do objeto no banco de dados.
+     *
+     * @return boolean
+    */
+    public function adicionaLancamento(Financeiro $Financeiro) {
 
         if($Financeiro->idLancamento){
            echo("Método adicionaLancamento() utilizado em objeto que já é instância de usuário válido.");
@@ -34,12 +37,13 @@ class FinanceiroRepositorio extends Financeiro {
                 ->setParameter(':data_criacao', $Financeiro->dataCriacao)
                 ->execute()
             ; 
-          $Financeiro->idLancamento = $QueryBuilder->getConnection()->lastInsertId();
-          return $Financeiro->idLancamento;
+            $Financeiro->idLancamento = $QueryBuilder->getConnection()->lastInsertId();
+            return $Financeiro->idLancamento;
         } catch (Exception $ex) {
             echo("'Erro ao adicionar Lançamentos Financeiros" . $ex);
         }   
     }
+    
     /**
      * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
      * 
@@ -78,6 +82,11 @@ class FinanceiroRepositorio extends Financeiro {
         }
     }
 
+    /**
+     * Atualiza os dados do objeto no banco de dados.
+     *
+     * @return bool Retorna true ao final da operação com sucesso
+     */
     public function atualizarLancamento(Financeiro $Financeiro)
     {
         try {
@@ -98,7 +107,7 @@ class FinanceiroRepositorio extends Financeiro {
                 ->setParameter(':id_lancamento', $Financeiro->idLancamento)
                 ->execute()
             ;
-
+            return true;
         } catch (\Exception $j) {
             echo("Erro ao atualizar os Lançamentos Financeiros- " . $j->getMessage());
         }
@@ -128,7 +137,8 @@ class FinanceiroRepositorio extends Financeiro {
         }
        return true;
     }
-     /**
+    
+    /**
      * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
      * 
      * @param array $condicoes
@@ -166,6 +176,7 @@ class FinanceiroRepositorio extends Financeiro {
             echo ("Erro ao buscar Lançamentos Financeiros". $j->getMessage());
         }
     }
+    
     /**
      * Salva os pagamentos dos peladeiros.
      *
@@ -173,29 +184,34 @@ class FinanceiroRepositorio extends Financeiro {
      */
     public function salvarPeladeiroPagamento($lancamento){
 
-      try {
-        $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
-        $QueryBuilder
-            ->insert('financeiro_peladeiro')
-            ->setValue('fk_peladeiro', ':fk_peladeiro')
-            ->setValue('fk_financeiro', ':fk_financeiro')
-            ->setValue('valor_pago', ':valor_pago')
-            ->setValue('status_pagamento', ':status_pagamento')
-            ->setValue('observacao', ':observacao')
-            ->setParameter(':fk_peladeiro', $lancamento['peladeiro'])
-            ->setParameter(':fk_financeiro', $lancamento['financeiro'])
-            ->setParameter(':valor_pago',$lancamento['valor_pago'])
-            ->setParameter(':status_pagamento', $lancamento['status'])
-            ->setParameter(':observacao', $lancamento['observacao'])
-            ->setParameter(':data_criacao ', date("Y-m-d H:i:s"))
-            ->execute()
-        ;
-        return $QueryBuilder->getSQL();
-      } catch (\Exception $e26811) {
-          echo('Erro ao adicionar na classe '.__CLASS__.': '.$e26811->getMessage());
-      }
+        try {
+            $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
+            $QueryBuilder
+                ->insert('financeiro_peladeiro')
+                ->setValue('fk_peladeiro', ':fk_peladeiro')
+                ->setValue('fk_financeiro', ':fk_financeiro')
+                ->setValue('valor_pago', ':valor_pago')
+                ->setValue('status_pagamento', ':status_pagamento')
+                ->setValue('observacao', ':observacao')
+                ->setParameter(':fk_peladeiro', $lancamento['peladeiro'])
+                ->setParameter(':fk_financeiro', $lancamento['financeiro'])
+                ->setParameter(':valor_pago',$lancamento['valor_pago'])
+                ->setParameter(':status_pagamento', $lancamento['status'])
+                ->setParameter(':observacao', $lancamento['observacao'])
+                ->setParameter(':data_criacao ', date("Y-m-d H:i:s"))
+                ->execute()
+            ;
+            return $QueryBuilder->getSQL();
+        } catch (\Exception $j) {
+            echo("Erro ao inserir peladeiro aos Lançamentos Financeiros- " . $j->getMessage());
+        }
     }
 
+    /**
+     * Atualiza os dados do objeto no banco de dados.
+     *
+     * @return bool Retorna true ao final da operação com sucesso
+     */
     public function atualizarPeladeiroPagamento($lancamento){
       try {
         $QueryBuilder = \Doctrine::getInstance()->createQueryBuilder();
@@ -217,6 +233,15 @@ class FinanceiroRepositorio extends Financeiro {
       }
       return true;
     }
+    
+    /**
+     * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
+     *
+     * @param int $fk_carro_loja
+     * @param array $order
+     * @param array $limit
+     * @return array
+     */
     public static function buscarPeladeiroInfoConfirmado(array $condicoes = []){
       $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
         
@@ -247,6 +272,14 @@ class FinanceiroRepositorio extends Financeiro {
         }
     }
 
+    /**
+     * Realiza a consulta dos registros presentes no banco de dados de acordo com os termos informados para a pesquisa.
+     *
+     * @param int $fk_carro_loja
+     * @param array $order
+     * @param array $limit
+     * @return array
+     */
     public static function buscarPeladeiroLancamento(array $condicoes = []){
       $where = ($condicoes) ? implode(" AND ", $condicoes) : "";
         

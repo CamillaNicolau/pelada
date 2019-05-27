@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da página Esqueci minha senha.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
-class EsqueciMinhaSenhaControle extends ControlaModelos
+class EsqueciMinhaSenhaControle
 {
     public function tratarAcoes(){
       
@@ -62,17 +62,14 @@ class EsqueciMinhaSenhaControle extends ControlaModelos
                     \Doctrine::rollBack();
                     exit(json_encode(array('sucesso'=>false)));
                 }
+            break;
         }
     }
     public function getHtml()
     {
         try
         {
-                /*
-             * Carrega o modelo da página
-             */
-            $Modelo = $this->carregarModelo('EsqueciMinhaSenhaModelo');
-
+           
             /*
              * Cabeçalho
              */

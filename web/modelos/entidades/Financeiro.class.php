@@ -151,7 +151,7 @@ class Financeiro {
     }
   
     /**
-     * Define o time
+     * Define a pelada
      *
      * @param Pelada $Pelada
      * @return void
@@ -161,7 +161,7 @@ class Financeiro {
     }
 
     /**
-     * Requisita o Pelada
+     * Requisita a Pelada
      *
      * @return Pelada
      */
@@ -170,7 +170,7 @@ class Financeiro {
     }
   
     /**
-     * Define o Usuario
+     * Define o Peladeiro
      *
      * @param Usuario Usuario
      * @return void

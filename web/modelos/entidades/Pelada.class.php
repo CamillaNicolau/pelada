@@ -202,7 +202,7 @@ class Pelada{
                 $this->$atributo = (($value || $value === 0 || $value === '0' )?$value:null);
             break;
             case "dataCriacao":
-                echo ("A data de criação é um atributo privado da classe Usuario.");
+                echo ("A data de criação é um atributo privado da classe Pelada.");
             break;
             default:
                 echo ("Atributo '" . $atributo . "' desconhecido, privado ou inválido da classe '" . __CLASS__ . "'.");

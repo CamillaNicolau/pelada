@@ -1,26 +1,27 @@
 <?php
 
 /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da pagina do peladeiro.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
-class PeladeiroControle extends ControlaModelos
+class PeladeiroControle 
 {
-
+    #criando a função para o tratamento de ações a serem executadas no sistema
     public function tratarAcoes()
     {
-      
+      #verifica se existe o Requisição com o name acao na solicitação
         if(isset($_REQUEST['acao']));
         switch ($_REQUEST['acao'])
         {
             case 'adicionar':
             try
-            {            
+            {   # valida se existe uma imagem          
                 if(isset($_FILES['imagemUsuario'])) {
                     $msg_erro = false;
+                    # verifica o tamanho da imagem se for maior que 2MB é informado uma mensagem para o usuário
                     if ($_FILES['imagemUsuario']['size'] > TAMANHO_IMAGEM) {
                         exit(json_encode(["sucesso" => false,"mensagem" => "Imagem muito grande! O tamanho permitido é de " . UsuarioModelo::verificaTamanhoImagem(TAMANHO_IMAGEM) . "<br />"]));
                     }
@@ -31,46 +32,53 @@ class PeladeiroControle extends ControlaModelos
                 }
                 
                 \Doctrine::beginTransaction();
-
+                #busca os campos time e posição e coloca na variavel
                 $time = $_POST['time'];
                 $posicao =  $_POST['posicao'];
 
+                #instancia um objeto $PeladeiroRepositorio da classe PeladeiroRepositorio
+                #instancia um objeto $Peladeiro da classe Peladeiro
                 $PeladeiroRepositorio = new PeladeiroRepositorio();
                 $Peladeiro = new Peladeiro();
                 
+                # verifica se o email do email peladeiro que esta sendo criado ja existe no banco de dados caso exista retorna uma mensagem se nao prossegue com o processo de criação
                 $verificaEmail = $PeladeiroRepositorio::buscarPeladeiro(['email = "'.$_POST['emailPeladeiro'].'" ']);
                 if(count($verificaEmail)>0){
                     exit(json_encode(["sucesso" => false,"mensagem" => "Peladeiro já está cadastrado, favor informar um e-mail diferente"]));
-                } else{
-                    
+                } else {
+                
+                #gerando a url da imagem para salvar no banco de dados     
                     if($_POST['imagemUsuario']){
                         $imagem = pathinfo($_FILES['imagemUsuario']['name']);
                         $nomeImagem = Tratamentos::padraoUrl($imagem['filename']);
                         $url = URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . $nomeImagem .'.' . $imagem['extension'];
                     }
-
+                #Objeto Peladeiro recebe os posts (campos) enviados do formulario e insere em cada atributo.
                     $Peladeiro->setTime(new Time($time));
                     $Peladeiro->setPosicao(new Posicao($posicao));
                     $Peladeiro->nome = $_POST['nomePeladeiro'];
                     $Peladeiro->email = $_POST['emailPeladeiro'];
                     $Peladeiro->telefone = $_POST['telPeladeiro'];
                     $Peladeiro->data_nascimento = $_POST['dataNascimento'];
+                #verifica se a url da imagem nao existir é criada uma url como uma imagem default 
                     $Peladeiro->url_imagem = isset($_FILES['imagemUsuario']['name']) ? $url : URL_USUARIO.'/'. UsuarioModelo::PREFIXO_MINIATURA . 'default.jpeg';
 
                     $Peladeiro->participacao = $_POST['participacao'];
                     $Peladeiro->setUsuario(new Usuario($_SESSION['id_usuario_logado']));
 
+                #verifica se o metodo adionaPeladeiro da classe $PeladeiroRepositorio retorna true  se não retorna uma mensagem  
                     if(!$PeladeiroRepositorio->adicionaPeladeiro($Peladeiro)){
-                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao inserir imagem')));
+                        exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao inserir dados')));
                     }
+                #se existir uma imagem enviada pelo peladeiro ele envia para o metodo de tratamento de imagens redimensionando ela proporcionalmente para ser salva no servidor
                     if(isset($_FILES['imagemUsuario'])){
                         UsuarioModelo::salvaFoto($_FILES['imagemUsuario']);
                     }
+                # Salva o peladeiro inserido na tabela de grupo do peladeiro onde é informado o novo criador e o peladeiro
                     $PeladeiroRepositorio->inserirGrupoPeladeiro($Peladeiro->idPeladeiro, $_SESSION['id_usuario_logado']);
                     \Doctrine::commit();
                     exit(json_encode(array('sucesso'=>true,'mensagem'=>'Dados adicionados com sucessos')));
-                }
-               
+                }   
             } catch (Erro $E) {
               \Doctrine::rollBack();
               exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar pelada')));
@@ -268,11 +276,6 @@ class PeladeiroControle extends ControlaModelos
              */
             require PATH_RAIZ . '/visualizacoes/incluir/menu.php';
 
-            /*
-             * Carrega o modelo da página
-             */
-            $Modelo = $this->carregarModelo('PeladeiroModelo');
-          
             /*
              * Conteúdo da Index
              */

@@ -1,24 +1,27 @@
 <?php
-class LogoutControle extends ControlaModelos
+
+/**
+ * Gerencia a saido do usuario no sistema.
+ *
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019
+ */
+class LogoutControle
 {
     public function tratarAcoes()
     {
-      $token = md5(session_id());
-      if(isset( $_SESSION['id_usuario_logado'])) {
-         session_destroy();
-         header("location: login");
-         exit();
+        $token = md5(session_id());
+        if(isset( $_SESSION['id_usuario_logado'])) {
+            session_destroy();
+            header("location: login");
+            exit();
         }
     }
     public function getHtml()
     {
         try
         {
-            /*
-             * Carrega o modelo da página
-             */
-          //  $Modelo = $this->carregarModelo('LogoutModelo');
-
             /*
              * Cabeçalho
              */
@@ -27,13 +30,11 @@ class LogoutControle extends ControlaModelos
             /*
              * Rodapé
              */
-            require PATH_RAIZ . '/visualizacoes/incluir/rodape.php';
-            
+            require PATH_RAIZ . '/visualizacoes/incluir/rodape.php';   
         }
         catch (Exception $ex)
         {
             echo 'Exceção: ',  $ex->getMessage(), "\n";
-        }
-		
+        }		
     }
 } 

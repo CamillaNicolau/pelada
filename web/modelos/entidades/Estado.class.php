@@ -1,8 +1,7 @@
 <?php
 
 /**
- * Representação dos estados da federação brasileira para o sistema.
- * Possui apenas nome e sigla.
+ * Representação dos estados da federação brasileira para o sistema. Possui apenas nome e sigla.
  *
  * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0

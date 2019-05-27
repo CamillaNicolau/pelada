@@ -4,16 +4,54 @@
  * Classe responsável pelo envio de mensagens por e-mail. Centraliza o sistema de envio de
  * e-mails para facilitar a configuração e manipulação de comunicação do sistema.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019
  */
 
 class Email
 {
+    /**
+     * Nome do destinatário do e-mail.
+     *
+     * @var string
+     */
     private $destinatario;
+    
+     /**
+     * Endereço de e-mail do destinatário.
+     *
+     * @var string
+     */
     private $email_destinatario;
+    
+    /**
+     * Nome do remetente da mensagem.
+     *
+     * @var string
+     */
     private $remetente;
+    
+    /**
+     * Endereço de e-mail do remetente da mensagem.
+     *
+     * @var string
+     */
     private $email_remetente;
+    
+    /**
+     * Assunto da mensagem.
+     *
+     * @var string
+     */
     private $assunto;
+    
+    /**
+     * Conteúdo da mensagem principal, que pode conter código HTML ou texto plano.
+     *
+     * @var string
+     */
+    
     private $mensagem;
     /**
      * Cabeçalho do e-mail que relaciona diversas mensagens sobre o conteúdo enviado.
@@ -56,52 +94,54 @@ class Email
         switch($atributo)
         {
             case "destinatario":
-                if($valor)
+                if($valor){
                     $this->destinatario = $valor;
-                else
+                }else{
                     echo("Nome do destinatário não deve ser vazio");
+                }
             break;
             case "email_destinatario":
-                if($valor)
+                if($valor){
                     $this->email_destinatario = $valor;
-                else
+                }else{
                     echo("Para endereços de e-mail informe um valor válido");
+                }
             break;
             case "remetente":
-                if($valor)
+                if($valor){
                     $this->remetente = $valor;
-                else
+                }else{
                     echo("Valor inválido");
+                }
             break;
             case "email_remetente":
-                if($valor)
-                {
+                if($valor){
                     $this->email_remetente = $valor;
+                }else{
+                    echo("Valor inválido");
                 }
-                else
-                    echo("Valor inválido");
             break;
-            
             case "ativar_html":
-                if($valor)
+                if($valor){
                     $this->ativar_html = $valor;
-                else
+                }else{
                     echo("Valor inválido");
+                }
             break;
-            
             case "assunto":
-                if($valor)
+                if($valor){
                     $this->assunto = $valor;
-                else
+                }else{
                     echo("Valor inválido");
+                }
             break;
             case "mensagem":
-                if($valor)
+                if($valor){
                     $this->mensagem = $valor;
-                else
+                }else{
                     echo("Valor inválido");
+                }
             break;
-        
             default:
                 echo("Atributo '" . $atributo . "' desconhecido, privado ou inválido da classe '" . __CLASS__ . "'.");
             break;
@@ -134,10 +174,11 @@ class Email
     }
    private function validaSMTP()
     {
-        if(SMTP_ATIVAR)
+        if(SMTP_ATIVAR){
             return defined('SMTP_EMAIL') && defined('SMTP_SENHA') && defined('SMTP_HOST') && defined('SMTP_AUTH') && defined('SMTP_SECURE');
-        else
+        }else{
             return false;
+        }
     }
 
      /**
@@ -188,31 +229,13 @@ class Email
             $this->headers .= "Date: " . date("D, d M Y H:i:s O", time()) . "\n";
             $this->headers .= "Content-type: multipart/mixed; charset=UTF-8; boundary=\"$this->boundary\"; \n";
            
-           // $this->headers .= $this->getCabecalhoInfoEnvio();
             $this->headers .= "From: \"" . self::getTextoCodificadoCabecalho(($this->remetente) ? $this->remetente : SIS_NOME) . " \" <" . (($this->email_remetente) ? $this->email_remetente : SIS_EMAIL) . ">\n";
             return mail($this->email_destinatario, self::getTextoCodificadoCabecalho($this->assunto), $this->body, $this->headers);
         
         }
     }
+    
     /**
-     * Gera uma linha do cabeçalho para armazenar informações sobre qual plataforma Vector está enviando esse e-mail.
-     * Esta informação fica ofuscada, mas pode ser lida se alguém fizer um pouco de esforço para descobrir seu formato,
-     * pois não está tão obscuro assim.
-     * O objetivo desse cabeçalho é facilitar a identificação da origem de mensagens enviadas acidentalmente ou de e-mails
-     * de retorno.
-     * Esta informação poderá ser utilizada pela classe Mailing para averiguar se o e-mail destinatário está em listas
-     * negras de envio por já ter dado erro de retorno.
-     *
-     * @return string Linha para ser colocada no cabecalho do e-mail para armazenar informações sobre o ponto de origem do envio.
-     */
-    private function getCabecalhoInfoEnvio()
-    {
-        $dados_envio = base64_encode(json_encode(array('cliente' => CLIENTE_NOME, 'url_raiz' => URL_RAIZ_SITE, 'script' => $_SERVER['PHP_SELF'], 'email_destinatario' => $this->email_destinatario)));
-        $tamanho_string = strlen($dados_envio);
-        $dados_envio_ofuscado = substr($dados_envio, floor($tamanho_string / 2)) . substr($dados_envio, 0, floor($tamanho_string / 2));
-        return "X-Mailer: " . SIS_NOME . "/" . trim(chunk_split($dados_envio_ofuscado, 76, "\n\t")) . "\n";
-    }
-          /**
      * Método utilizado pela classe para converter valores de texto utilizados nos cabeçalhos e que possuem caracteres especiais como acentos,
      * cedilhas, etc. É preciso utilizar esse artifícil no assunto e nos nomes de remetentes, etc.. para que não dê problemas de caracteres visto
      * que o protocolo de e-mail utiliza a tabela ASCII simples.

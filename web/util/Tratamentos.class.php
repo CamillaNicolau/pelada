@@ -3,39 +3,26 @@
 /**
  * Esta classe possui métodos estáticos para tratamento
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
 class Tratamentos
 {
 
     public static function index($valor) 
     {
-
-          if (preg_match('/_/', $valor)) {
-              $valor = str_replace('_', '-', $valor);
-          }
-
-          $trata = explode('-', $valor);
-          $qte = count($trata);
-          for ($i=0; $i < $qte; $i++) { 
-              $trata[$i] = ucfirst($trata[$i]);
-          }
-
-      return implode('', $trata);
+        if (preg_match('/_/', $valor)) {
+            $valor = str_replace('_', '-', $valor);
+        }
+        $trata = explode('-', $valor);
+        $qte = count($trata);
+        for ($i=0; $i < $qte; $i++) { 
+            $trata[$i] = ucfirst($trata[$i]);
+        }
+        return implode('', $trata);
     }
     
-    public static function trataString ($valor, $marcador)
-    {
-        return str_replace(' ', $marcador, strtolower($valor));
-    }
-
-    public static function removeEspacosDuplicados ($valor)
-    {
-    	return trim(preg_replace('/( )+/', ' ', $valor));
-    }
-  
     public static function converteData($valor) {
       $data = str_replace("/", "-", $valor);
       return date('Y-m-d', strtotime($data));
@@ -62,15 +49,5 @@ class Tratamentos
 
         return $senha;
     }
-    public static function validarEmail($emails, $delimiter = ',')
-    {
-        $todos_emails = explode($delimiter, $emails);
-        foreach ($todos_emails as $email)
-        {
-            $r = (bool) preg_match('/^[a-z0-9]+([+]?[a-z0-9\._-]{1,}|[a-z0-9\._-]{0,})+[@][a-z0-9_-]+(\.[a-z0-9]+)*\.[a-z]{2,3}$/', trim($email));
-            if(!$r)
-                return false;
-        }
-        return true;
-    }
+    
 }

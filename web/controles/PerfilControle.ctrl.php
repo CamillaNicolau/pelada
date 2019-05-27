@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Gerencia a exibição da página inicial.
+ * Gerencia a exibição da página de perfil do usuario logado.
  *
- * @author Camilla Nicolau
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
  * @version 1.0
- * @copyright 2018
+ * @copyright 2019
  */
-class PerfilControle extends ControlaModelos
+class PerfilControle
 {
 
     public function tratarAcoes()
@@ -106,8 +106,7 @@ class PerfilControle extends ControlaModelos
                   exit(json_encode(["sucesso" => false, "erro" => true, "mensagem" => 'Erro ao desativar usuário']));
               }
           break;
-        }  
-            
+        }         
     }
     public function getHtml()
     {
@@ -118,11 +117,6 @@ class PerfilControle extends ControlaModelos
              */
             require PATH_RAIZ . '/visualizacoes/incluir/menu.php';
 
-            /*
-             * Carrega o modelo da página
-             */
-            $Modelo = $this->carregarModelo('PerfilModelo');
-          
             /*
              * Conteúdo da Index
              */
@@ -136,8 +130,7 @@ class PerfilControle extends ControlaModelos
         catch (Exception $ex)
         {
             echo 'Exceção: ',  $ex->getMessage(), "\n";
-        }
-		
+        }	
     }
 
 }

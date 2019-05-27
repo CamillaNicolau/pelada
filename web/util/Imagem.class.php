@@ -1,9 +1,14 @@
 <?php
 
-/**
- *
- */
 
+/**
+ * O objeto imagem é utilizado pelo sistema para manipulação da imagem. A classe propõe que qualquer sistema que utilize imagem não acesse o 
+ * arquivo da imagem diretamente, utilizando para isso esta classe.
+ * 
+ * @author Camilla Nicolau <camillacoelhonicolau@gmail>
+ * @version 1.0
+ * @copyright 2019
+ */
 class Imagem
 {
 
@@ -110,6 +115,7 @@ class Imagem
         }
         $this->extensao = image_type_to_extension($this->tipo);
     }
+    
     /**
      * Informa o dado do atributo solicitado ou dispara exceção caso atributo não exista.
      *
@@ -200,7 +206,7 @@ class Imagem
             return false;
         }
     }
-/**
+    /**
      * Salva o arquivo de imagem em disco, utilizando um outro nome ou sobre-escrevendo o arquivo original.
      *
      * @param string $file_name Endereço completo com o nome do novo arquivo a ser salvo. A classe não concatena a extensão do arquivo automaticamente, utilize o atributo extensao.
