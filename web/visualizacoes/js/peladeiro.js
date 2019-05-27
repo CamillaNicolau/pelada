@@ -85,12 +85,13 @@ function atualizarListaPeladeiro() {
 
 function resetarFormulario(){
     $("#form_cadastra_peladeiro")[0].reset();
+    $('#acao').val('adicionar');
+    $('#id_peladeiro').val('');
     $("#cadastroPeladeiro").slideUp(function() {
         atualizarListaPeladeiro();
     });
     $(".busca-peladeiro").hide();
-    $('#acao').val('adicionar');
-    $('#id_peladeiro').val('');
+
     $(".botoes").show();
 }
 

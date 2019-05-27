@@ -33,7 +33,7 @@
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="peladeiro"><i class="fa fa-users"></i> Peladeiro</a></li>
                          <!--  <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="#"><i class="far fa-calendar"></i> Partida</a></li> -->
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3"  href="financeiro"><i class="fas fa-hand-holding-usd"></i> Financeiro</a></li>
-                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="#"><i class="fas fa-file-alt"></i>  Relatório</a></li>
+                          <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="relatorio"><i class="fas fa-file-alt"></i>  Relatório</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="perfil"><i class="fas fa-user"></i>  Meus dados</a></li>
                           <li class="nav-item"><a class="btn btn-default text-left text-light d-block py-1 pl-0 pr-3" href="logout"><i class="fas fa-sign-out-alt"></i>  sair</a></li>
                         </ul>
