@@ -11,7 +11,7 @@
             </div>
             <fieldset >
                 <div class="form-group">
-                   <label for="textNome" class="control-label">Pelada:</label>
+                   <label for="textNome" class="control-label">Pelada*</label>
                    <input id="nomePelada" name="nomePelada" class="form-control" placeholder="Informe o nome da pelada" required="" type="text">
                 </div>
                 <div class="form-group">
@@ -21,25 +21,25 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="textDuracao" class="control-label">Duração da partida:</label>
+                            <label for="textDuracao" class="control-label">Duração da partida*</label>
                             <input id="tempoJogo" name="tempoJogo" class="form-control" required="" type="time">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                          <label for="textQtJogadores" class="control-label">Jogadores</label>
+                          <label for="textQtJogadores" class="control-label">Jogadores*</label>
                           <input type="number" name="qtJogadores" class="form-control" id="qtJogadores" required="" placeholder="">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="inputPData" class="control-label">Data partida</label>
+                            <label for="inputPData" class="control-label">Data partida*</label>
                             <input type="date" name="dataPartida" class="form-control" id="dataPartida" required="" placeholder="">
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                          <label for="inputPData" class="control-label">Horário partida</label>
+                          <label for="inputPData" class="control-label">Horário partida*</label>
                           <input type="time" name="horario" class="form-control" id="horario" required="" placeholder="">
                         </div>
                     </div>
@@ -59,40 +59,40 @@
                 </div>
                 <h2 class="box-subtitle"><strong>INFORMAÇÕES DA QUADRA</strong></h2>
                 <div class="form-group">
-                    <label for="textLocalizacao" class="control-label">Nome da quadra</label>
+                    <label for="textLocalizacao" class="control-label">Nome da quadra*</label>
                     <input id="nomeQuadra" name="nomeQuadra" class="form-control" required="" type="text">
                 </div>
                 <div class="row">
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="textLocalizacao" class="control-label">Logradouro</label>
+                            <label for="textLocalizacao" class="control-label">Logradouro*</label>
                             <input id="rua" name="rua" class="form-control" required="" type="text">
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="textBairro" class="control-label">Bairro</label>
+                            <label for="textBairro" class="control-label">Bairro*</label>
                             <input id="bairro" name="bairro" class="form-control" required="" type="text">
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="textNumeor" class="control-label">Nº</label>
+                            <label for="textNumeor" class="control-label">Nº*</label>
                             <input id="numero" name="numero" class="form-control" required="" type="number">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="selectEstado">Estado</label>
-                            <select class="custom-select" id="estado" name="estado">
+                            <label for="selectEstado">Estado*</label>
+                            <select class="custom-select" id="estado" name="estado" required="">
                                 <option value="" selected>Selecione Estado</option> 
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="selectCidade">Cidade</label>
-                            <select class="custom-select" id="cidade" name="cidade">
+                            <label for="selectCidade">Cidade*</label>
+                            <select class="custom-select" id="cidade" name="cidade" required="">
                             </select>
                         </div>
                     </div>   
@@ -132,8 +132,9 @@
             <input class="form-control" type="search" id="busca" name="busca" placeholder="Informe a cidade">
             <button class="btn btn-info col-3 col-md-2 p-0" type="submit" id="encontra-pelada"><i class="fas fa-search"></i></button>
         </div>
-        <div id="pelada"></div>
-
+        <div class="w-100">
+            <div id="pelada" class="d-flex flex-row align-items-stretch"></div>
+        </div>
         <button id="cancelar-buscar" class="btn btn-danger btn-default">Cancelar</button> 
     </div>
     <form class="form-horizontal mx-auto d-block" action="pelada" method="post" name="form_adicionar_peladeiro" id="form_adicionar_peladeiro" >

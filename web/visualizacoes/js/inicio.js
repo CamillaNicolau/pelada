@@ -21,26 +21,27 @@ function atualizarListaPelada(status_pelada) {
                 if((retorno.html).length > 0){
                     $.each(retorno.html,function(i,v){
                         if(v.id){
-                          $('#listaPelada').append('<span class="col-md-6 col-xl-4">\n\
-                                                        <div class="card card-'+v.id+' h-100">\n\
-                                                            <div class="h5 card-header d-flex justify-content-between">\n\
-                                                                <strong>'+v.nome+'</strong>\n\
-                                                            </div>\n\
-                                                            <div class="card-body">\n\
-                                                                <h5 class="card-title card-title-'+v.id+'"><i class="far fa-calendar-alt mr-2"></i>'+v.data_pelada+'</h5>\n\
-                                                                <h5>\n\
-                                                                    <p class="card-text"><b>Horário: </b>'+v.horario+'<br>'+
-                                                                    '<b>Quadra: </b>'+v.quadra+'<br>\n\
-                                                                    <b>Endereço: </b>'+''+v.rua+' - '+v.numero+', '+v.bairro+' , '+v.cidade+' - '+v.sigla+' <br>'+
-                                                                    '<span class="status-'+v.id+'"></span>\n\
-                                                                    <span class="botoes">\n\
-                                                                        <button type="submit" onclick="confirmarPelada('+v.id_peladeiro_pelada+',1)" class="btn btn-md mx-2 btn-success m-s btn-default confirma-pelada-'+v.id_peladeiro_pelada+'" id="confirma-pelada">Confirmar</button>'+
-                                                                        '<button type="button" onclick="confirmarPelada('+v.id_peladeiro_pelada+',2)" class="btn btn-md mx-2 btn-danger btn-default botao-cancelar-'+v.id_peladeiro_pelada+'" id="botao-cancelar">Desistir</button>\n\
-                                                                    </span>\n\
-                                                                </h5>\n\
-                                                            </div>\n\
-                                                        </div>\n\
-                                                    </span>');
+                          $('#listaPelada').append(
+                                '<span class="col-md-6 col-xl-4">\n\
+                                    <div class="card card-'+v.id+' h-100">\n\
+                                        <div class="h5 card-header d-flex justify-content-between">\n\
+                                            <strong>'+v.nome+'</strong>\n\
+                                        </div>\n\
+                                        <div class="card-body">\n\
+                                            <h5 class="card-title card-title-'+v.id+'"><i class="far fa-calendar-alt mr-2"></i>'+v.data_pelada+'</h5>\n\
+                                            <h5>\n\
+                                                <p class="card-text"><b>Horário: </b>'+v.horario+'<br>'+
+                                                '<b>Quadra: </b>'+v.quadra+'<br>\n\
+                                                <b>Endereço: </b>'+''+v.rua+' - '+v.numero+', '+v.bairro+' , '+v.cidade+' - '+v.sigla+' <br>'+
+                                                '<span class="status-'+v.id+'"></span>\n\
+                                                <span class="botoes">\n\
+                                                    <button type="submit" onclick="confirmarPelada('+v.id_peladeiro_pelada+',1)" class="btn btn-md mx-2 btn-success m-s btn-default confirma-pelada-'+v.id_peladeiro_pelada+'" id="confirma-pelada">Confirmar</button>'+
+                                                    '<button type="button" onclick="confirmarPelada('+v.id_peladeiro_pelada+',2)" class="btn btn-md mx-2 btn-danger btn-default botao-cancelar-'+v.id_peladeiro_pelada+'" id="botao-cancelar">Desistir</button>\n\
+                                                </span>\n\
+                                            </h5>\n\
+                                        </div>\n\
+                                    </div>\n\
+                                </span>');
                             if(v.confirmacao == 2 ){
                                 $('.card-'+v.id).addClass('border-danger')
                                 .find('.card-header').append('<i class=" alert-danger m-0 h4 fas fa-times-circle"></i> ').addClass('text-danger');

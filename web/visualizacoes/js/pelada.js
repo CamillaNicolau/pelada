@@ -211,10 +211,25 @@ function encontrarPelada() {
             $('#pelada').html('');
             if (retorno.sucesso == true) {
                 $.each(retorno.html,function(i,v){
-                  $('#pelada').append('<p><h3><strong>'+v.nome+'</strong>'+
-                    '<br>Dia:'+v.data+'  -  Hora:'+v.horario+
-                    '<p>'+v.rua+','+v.numero+' - '+v.bairro+', '+v.cidade+' - '+v.sigla+'</p> '+
-                    '<button type="submit" onclick="candidataPelada('+v.id+')" class="btn btn-lg btn-success btn-default" id ="botao-solicitacao">Candidatar</button>');
+                  $('#pelada').append(
+                        '<span class="col-md-6 col-xl-4">'+
+                            '<div class="card card-'+v.id+' h-100">'+
+                                '<div class="h5 card-header d-flex justify-content-between">'+
+                                    '<strong>'+v.nome+'</strong>'+
+                                '</div>'+
+                                '<div class="card-body">'+
+                                    '<h5 class="card-title card-title-'+v.id+'"><i class="far fa-calendar-alt mr-2"></i>'+v.data+'</h5>'+
+                                    '<h5>'+
+                                        '<p class="card-text"><b>Horário: </b>'+v.horario+'<br>'+
+                                        '<b>Quadra: </b>'+v.quadra+'<br>'+
+                                        '<b>Endereço: </b>'+''+v.rua+' - '+v.numero+', '+v.bairro+' , '+v.cidade+' - '+v.sigla+' <p>'+
+                                        '<span class="botoes">'+
+                                            '<button type="submit" onclick="candidataPelada('+v.id+')" class="btn btn-md mx-2 btn-success m-s btn-default" id ="botao-solicitacao">Candidatar</button>'+
+                                        '</span>'+
+                                    '</h5>'+
+                                '</div>'+
+                            '</div>'+
+                        '</span>');
                 });
             }else { 
                
