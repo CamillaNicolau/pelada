@@ -85,6 +85,7 @@ function tratarResultadoPeladeiro (retorno) {
     if(retorno.sucesso == true)
     {
         resetarFormulario();
+        atualizarListaPelada();
       alertaFnc("Sucesso", retorno.mensagem,250, true, "success");
     } else {
       alertaFnc("Erro", retorno.mensagem,null, true, "error"); 
@@ -193,7 +194,8 @@ function resetarFormulario(){
     }); 
     $('.busca-pelada').hide();
     $('.adicionar-peladeiro').hide();
-    $(".botoes").show(); 
+    $(".botoes").show();
+    
 }
 
 function encontrarPelada() {

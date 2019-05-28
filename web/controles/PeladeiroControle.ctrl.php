@@ -85,7 +85,7 @@ class PeladeiroControle
                 }   
             } catch (Erro $E) {
               \Doctrine::rollBack();
-              exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar pelada')));
+              exit(json_encode(array('sucesso'=>false,'mensagem'=>'Erro ao cadastrar peladeiro')));
             }
             break;
             case 'buscar_dados_para_edicao':

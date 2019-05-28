@@ -16,8 +16,11 @@
                 </select>
             </div>
         </div>
-        <div class="w-100">
-            <div id="relatorio" class="d-flex flex-row align-items-stretch"></div>
+        <div class="table-responsive col-md-12 tabela-inserir-peladeiro" >
+            <table class="table table-striped" cellspacing="0" cellpadding="0">
+
+                <tbody id="listaRelatorio"></tbody>     
+            </table>
         </div>
     </div>
 </div>
